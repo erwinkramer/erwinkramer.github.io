@@ -1,14 +1,93 @@
-<!DOCTYPE html>
-<html>
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+<!doctype html>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guanchen</title>
+    <meta name="description" content="A classic company or blog layout with a sidebar. Built with Pico CSS.">
+    <link rel="shortcut icon" href="https://picocss.com/favicon.ico">
+    <link rel="canonical" href="https://picocss.com/examples/company/">
 
-    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="kramererwin" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://nl.linkedin.com/in/kramererwin?trk=profile-badge"></a></div>
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="css/pico.min.css">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="custom.css">
+</head>
 
 <body>
-    
-    
-              
+
+    <!-- Hero -->
+    <div class="hero" data-theme="dark">
+        <nav class="container-fluid">
+            <ul>
+                <li><a href="./" class="contrast" onclick="event.preventDefault()"><strong>🏠</strong></a></li>
+            </ul>
+            <ul>
+                <li>
+                    <details role="list" dir="rtl">
+                        <summary aria-haspopup="listbox" role="link" class="contrast">🌙</summary>
+                        <ul role="listbox">
+                            <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                            <li><a href="#" data-theme-switcher="light">Light</a></li>
+                            <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+                        </ul>
+                    </details>
+                </li>
+            </ul>
+        </nav>
+        <header class="container">
+            <hgroup>
+                <h1>Guanchen</h1>
+                <h2>IT-consultancy en -dienstverlening.</h2>
+            </hgroup>
+        </header>
+    </div><!-- ./ Hero -->
+
+    <!-- Main -->
+    <main class="container">
+        <div class="grid">
+
+            <section>
+                <hgroup>
+                    <h2>Eenvoud brengen in een complexe wereld
+                    </h2>
+                    <h3>Cloud computing ☁️</h3>
+                </hgroup>
+                <p>Guanchen begeleidt uw transformatie naar de cloud, geeft advies en help bij de implementatie van de juiste resources en oplossingen om 
+                    uw cloud omgeving veilig, schaalbaar en wendbaar te maken.
+                </p>
+            </section>
+
+            <aside>
+                <p>
+                    <a href="https://www.linkedin.com/in/kramererwin/" target="_blank">🕴️ linkedin/kramererwin</a><br>
+                    <small>Meer weten of chatten? Neem contact op via LinkedIn.</small>
+                </p>
+                <p>
+                    <a href="mailto:info@guanchen.nl">📧 info@guanchen.nl</a><br>
+                    <small>Zakelijke correspondentie via mail.</small>
+                </p>
+                <p>
+                    <a href="https://www.kvk.nl/orderstraat/bedrijf-kiezen/?orig=#!shop?&q=88833801" target="_blank">🏫
+                        KvK-nr.: 88833801</a><br>
+                    <small>Kamer van Koophandel.</small>
+                </p>
+
+            </aside>
+
+        </div>
+    </main><!-- ./ Main -->
+
+    <!-- Footer -->
+    <footer class="container">
+        <small>Copyright © 2023 Guanchen</a></small>
+    </footer><!-- ./ Footer -->
+
+    <!-- Minimal theme switcher -->
+    <script src="js/minimal-theme-switcher.js"></script>
+
 </body>
 
 </html>
