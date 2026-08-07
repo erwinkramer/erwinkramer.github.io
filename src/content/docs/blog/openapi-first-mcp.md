@@ -1,6 +1,7 @@
 ---
 title: OpenAPI-first MCP
 description: A contract-first argument for generating MCP servers from OpenAPI instead of rebuilding integration logic by hand.
+author: Erwin Kramer
 date: 2026-08-07
 ---
 

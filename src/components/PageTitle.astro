@@ -2,25 +2,27 @@
 import DefaultPageTitle from '@astrojs/starlight/components/PageTitle.astro';
 
 const isHomePage = Astro.locals.starlightRoute.id === '';
+const author = Astro.locals.starlightRoute.entry.data.author;
 const date = Astro.locals.starlightRoute.entry.data.date;
 const formattedDate = date?.toLocaleDateString('en', {
 	year: 'numeric',
 	month: 'long',
 	day: 'numeric',
 });
+const metadata = [author && `By ${author}`, formattedDate].filter(Boolean).join(' • ');
 ---
 
 {
 	!isHomePage && (
 		<>
 			<DefaultPageTitle />
-			{formattedDate && <p class="page-date">{formattedDate}</p>}
+			{metadata && <p class="page-meta">{metadata}</p>}
 		</>
 	)
 }
 
 <style>
-	.page-date {
+	.page-meta {
 		margin-block: -0.25rem 0;
 		color: var(--sl-color-gray-3);
 		font-size: var(--sl-text-sm);
