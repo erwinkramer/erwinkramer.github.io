@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@ascorbic/feed-loader": "^2.0.1",
     "@astrojs/starlight": "latest",
     "astro": "latest",
     "astrojs-atom": "^4.0.29",

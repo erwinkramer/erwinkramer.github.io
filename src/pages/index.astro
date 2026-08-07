@@ -9,11 +9,19 @@ const frontmatter = {
   giscus: false,
 } as const;
 
-const blogPosts = (await getCollection('docs'))
-  .filter((entry) => entry.id.startsWith('blog/'))
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+const latestArticles = (await getCollection('articleFeed'))
+  .sort(
+    (a, b) =>
+      (b.data.published?.getTime() ?? b.data.updated?.getTime() ?? 0) -
+      (a.data.published?.getTime() ?? a.data.updated?.getTime() ?? 0),
+  )
+  .slice(0, 3)
+  .map((entry) => ({
+    href: entry.data.url ?? '/articles/',
+    title: entry.data.title ?? 'Untitled article',
+  }));
 
-const latestBlogHref = blogPosts[0] ? `/${blogPosts[0].id}/` : '/blog/';
+const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/articles/', title: 'Articles' }];
 ---
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={false} lang="en">
@@ -24,11 +32,11 @@ const latestBlogHref = blogPosts[0] ? `/${blogPosts[0].id}/` : '/blog/';
     </p>
 
     <figure class="page-art">
-      <img src="/assets/analog-blog-collage.svg" alt="Dark analog collage with columns and notebook pages" />
+      <img src="/assets/analog-article-collage.svg" alt="Dark analog collage with columns and notebook pages" />
     </figure>
 
-    <p class="home-actions">
-      <a class="primary-link" href={latestBlogHref}>Read the blog</a>
+    <p class="home-actions" aria-label="Latest articles">
+      {articleLinks.map((article) => <a class="primary-link" href={article.href}>{article.title}</a>)}
     </p>
   </section>
 

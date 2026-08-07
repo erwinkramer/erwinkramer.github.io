@@ -29,7 +29,7 @@ export default defineConfig({
           attrs: {
             rel: 'alternate',
             type: 'application/atom+xml',
-            title: 'Guanchen Blog',
+            title: 'Guanchen Articles',
             href: '/atom.xml',
           },
         },
@@ -57,8 +57,11 @@ export default defineConfig({
       sidebar: [
         { label: 'Home', link: '/' },
         {
-          label: 'Blog',
-          items: [{ label: 'OpenAPI-first MCP', link: '/blog/openapi-first-mcp/' }],
+          label: 'Articles',
+          items: [
+            { label: 'IT sovereignty and open source', link: '/articles/it-sovereignty-open-source/' },
+            { label: 'OpenAPI-first MCP', link: '/articles/openapi-first-mcp/' },
+          ],
         },
       ],
     }),
