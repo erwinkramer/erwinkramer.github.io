@@ -59,7 +59,7 @@ export default defineConfig({
         {
           label: 'Articles',
           items: [
-            { label: 'IT sovereignty and open source', link: '/articles/it-sovereignty-open-source/' },
+            { label: 'Open source sovereignty', link: '/articles/it-sovereignty-open-source/' },
             { label: 'OpenAPI-first MCP', link: '/articles/openapi-first-mcp/' },
           ],
         },

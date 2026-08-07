@@ -9,17 +9,39 @@ const frontmatter = {
   giscus: false,
 } as const;
 
-const latestArticles = (await getCollection('articleFeed'))
+const localArticles = (await getCollection('docs'))
+  .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
+  .map((entry) => ({
+    href: `/${entry.id}/`,
+    title: entry.data.title,
+    timestamp: entry.data.date?.getTime() ?? 0,
+  }));
+
+const localArticleByTitle = new Map(localArticles.map((article) => [article.title, article]));
+
+const feedArticles = (await getCollection('articleFeed'))
   .sort(
     (a, b) =>
       (b.data.published?.getTime() ?? b.data.updated?.getTime() ?? 0) -
       (a.data.published?.getTime() ?? a.data.updated?.getTime() ?? 0),
   )
   .slice(0, 3)
-  .map((entry) => ({
-    href: entry.data.url ?? '/articles/',
-    title: entry.data.title ?? 'Untitled article',
-  }));
+  .map((entry) => {
+    const title = entry.data.title ?? 'Untitled article';
+    const localArticle = localArticleByTitle.get(title);
+
+    return {
+      href: localArticle?.href ?? entry.data.url ?? '/articles/',
+      title,
+      timestamp: entry.data.published?.getTime() ?? entry.data.updated?.getTime() ?? localArticle?.timestamp ?? 0,
+    };
+  });
+
+const latestArticles = [...localArticles, ...feedArticles]
+  .sort((a, b) => b.timestamp - a.timestamp)
+  .filter((article, index, articles) => articles.findIndex(({ href }) => href === article.href) === index)
+  .slice(0, 3)
+  .map(({ href, title }) => ({ href, title }));
 
 const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/articles/', title: 'Articles' }];
 ---
@@ -35,9 +57,12 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
       <img src="/assets/analog-article-collage.svg" alt="Dark analog collage with columns and notebook pages" />
     </figure>
 
-    <p class="home-actions" aria-label="Latest articles">
-      {articleLinks.map((article) => <a class="primary-link" href={article.href}>{article.title}</a>)}
-    </p>
+    <section class="articles-box" aria-labelledby="articles-heading">
+      <h2 id="articles-heading">Articles</h2>
+      <div class="home-actions">
+        {articleLinks.map((article) => <a class="primary-link" href={article.href}>{article.title}</a>)}
+      </div>
+    </section>
   </section>
 
   <section class="contact-strip" aria-label="Contact and registration details">
@@ -102,6 +127,20 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
 
   .page-art {
     margin: 1.5rem 0 0;
+  }
+
+  .articles-box {
+    width: min(100%, 46rem);
+    margin: 1rem 0 0;
+    padding: 0.875rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .articles-box h2 {
+    margin: 0 0 0.75rem;
+    font-size: var(--sl-text-lg);
   }
 
   .page-art img {
