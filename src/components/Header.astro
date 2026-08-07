@@ -1,0 +1,103 @@
+---
+import config from 'virtual:starlight/user-config';
+
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+---
+
+<div class="header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+  </div>
+  <div class="sl-flex print:hidden right-group">
+    {shouldRenderSearch && <Search />}
+    <div class="sl-flex social-icons">
+      <SocialIcons />
+    </div>
+  </div>
+</div>
+
+<style>
+  @layer starlight.core {
+    .header {
+      display: flex;
+      gap: var(--sl-nav-gap);
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .title-wrapper {
+      overflow: clip;
+      padding: 0.25rem;
+      margin: -0.25rem;
+      min-width: 0;
+    }
+
+    .right-group,
+    .social-icons {
+      align-items: center;
+    }
+
+    .right-group {
+      gap: 0.75rem;
+      min-width: 0;
+      margin-inline-start: auto;
+    }
+
+    .social-icons {
+      gap: 0;
+    }
+
+    .social-icons :global(a) {
+      width: 2.5rem;
+      height: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--sl-color-gray-5);
+      border-radius: 0.5rem;
+      background-color: var(--sl-color-black);
+      color: var(--sl-color-gray-2);
+    }
+
+    .social-icons :global(a:hover) {
+      color: var(--sl-color-white);
+      border-color: var(--sl-color-gray-2);
+    }
+
+    @media (max-width: 49.999rem) {
+      .right-group :global(button[data-open-modal]) {
+        width: 2.5rem;
+        justify-content: center;
+        border: 1px solid var(--sl-color-gray-5);
+        border-radius: 0.5rem;
+        background-color: var(--sl-color-black);
+        color: var(--sl-color-gray-2);
+        font-size: var(--sl-text-base);
+      }
+
+      .right-group :global(button[data-open-modal]:hover) {
+        color: var(--sl-color-white);
+        border-color: var(--sl-color-gray-2);
+      }
+    }
+
+    @media (max-width: 34rem) {
+      .header {
+        --sl-nav-gap: 0.5rem;
+      }
+
+      .title-wrapper {
+        max-width: 8.5rem;
+      }
+
+      .right-group {
+        gap: 0.5rem;
+      }
+    }
+  }
+</style>

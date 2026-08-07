@@ -1,0 +1,13 @@
+<meta name="color-scheme" content="dark" />
+
+<script is:inline>
+	(() => {
+		const root = document.documentElement;
+		const updateScrolled = () => {
+			root.toggleAttribute('data-scrolled', window.scrollY > 0);
+		};
+
+		updateScrolled();
+		window.addEventListener('scroll', updateScrolled, { passive: true });
+	})();
+</script>
