@@ -2,12 +2,41 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightGiscus from 'starlight-giscus';
 
+const site = 'https://guanchen.nl';
+const description =
+  'Guanchen - technology consulting for resilient systems across cloud, APIs, integration, observability, and operations.';
+const structuredData = JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Guanchen',
+    url: site,
+    description,
+    inLanguage: 'en',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Guanchen',
+    url: site,
+    description,
+    email: 'info@guanchen.nl',
+    founder: {
+      '@type': 'Person',
+      name: 'Erwin Kramer',
+      url: 'https://www.linkedin.com/in/kramererwin/',
+      sameAs: ['https://github.com/erwinkramer', 'https://www.linkedin.com/in/kramererwin/'],
+    },
+    knowsAbout: ['Cloud consulting', 'API design', 'Integration architecture', 'Observability', 'Open source'],
+  },
+]);
+
 export default defineConfig({
-  site: 'https://guanchen.nl',
+  site,
   integrations: [
     starlight({
       title: 'Guanchen',
-      description: 'Guanchen - cloud consulting and IT services.',
+      description,
       favicon: '/assets/g-logo.png',
       locales: {
         root: {
@@ -32,6 +61,13 @@ export default defineConfig({
             title: 'Guanchen Articles',
             href: '/atom.xml',
           },
+        },
+        {
+          tag: 'script',
+          attrs: {
+            type: 'application/ld+json',
+          },
+          content: structuredData,
         },
       ],
       plugins: [
