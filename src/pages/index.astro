@@ -80,13 +80,12 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
       </figcaption>
     </figure>
 
-    <p class="eyebrow name-note">
-      Pronounced <em>"GWAN-chay"</em>, after the Guanches, pre-Hispanic islanders of the Canaries.
-    </p>
   </section>
 
   <section class="contact-strip" aria-label="Contact and registration details">
-    <p class="eyebrow">Brought to you by Erwin Kramer.</p>
+    <p class="eyebrow">
+      Guanchen is a sole proprietorship by Erwin Kramer; the name is pronounced <em>"GWAN-chay"</em> and nods to the Guanches, pre-Hispanic island people of the Canaries.
+    </p>
     <div class="contact-grid">
       <span class="contact-line contact-linkedin">
         <span class="contact-icon" aria-hidden="true">🕴️</span>
@@ -126,12 +125,6 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
 
   .intro-copy {
     max-width: 46rem;
-  }
-
-  .home-intro .name-note {
-    max-width: 46rem;
-    margin-block-start: 0.75rem;
-    opacity: 0.78;
   }
 
   .page-art {
@@ -206,6 +199,10 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
   .eyebrow {
     color: var(--sl-color-gray-2);
     font-size: var(--sl-text-sm);
+  }
+
+  .contact-strip .eyebrow {
+    max-width: 36rem;
   }
 
   .contact-strip {
