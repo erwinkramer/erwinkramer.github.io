@@ -52,6 +52,7 @@ export default defineConfig({
         ThemeProvider: './src/components/DarkThemeProvider.astro',
         ThemeSelect: './src/components/EmptyThemeSelect.astro',
         PageTitle: './src/components/PageTitle.astro',
+        MobileMenuFooter: './src/components/EmptyMobileMenuFooter.astro',
       },
       sidebar: [
         { label: 'Home', link: '/' },

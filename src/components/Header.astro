@@ -15,6 +15,11 @@ const shouldRenderSearch =
   </div>
   <div class="sl-flex print:hidden right-group">
     {shouldRenderSearch && <Search />}
+    <a class="feed-link" href="/atom.xml" rel="alternate" type="application/atom+xml" aria-label="Atom feed">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6.18 17.82a2.18 2.18 0 1 1-4.36 0 2.18 2.18 0 0 1 4.36 0ZM2 8.5v3.08c5.75 0 10.42 4.67 10.42 10.42h3.08C15.5 14.55 9.45 8.5 2 8.5Zm0-6.5v3.08c9.34 0 16.92 7.58 16.92 16.92H22C22 10.95 13.05 2 2 2Z" />
+      </svg>
+    </a>
     <div class="sl-flex social-icons">
       <SocialIcons />
     </div>
@@ -53,17 +58,25 @@ const shouldRenderSearch =
       gap: 0;
     }
 
+    .feed-link,
     .social-icons :global(a) {
+      box-sizing: border-box;
+      flex: 0 0 2.5rem;
       width: 2.5rem;
       height: 2.5rem;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      padding: 0;
+      margin: 0;
       border: 1px solid var(--sl-color-gray-5);
       border-radius: 0.5rem;
       background-color: var(--sl-color-black);
       color: var(--sl-color-gray-2);
+      text-decoration: none;
     }
 
+    .feed-link:hover,
     .social-icons :global(a:hover) {
       color: var(--sl-color-white);
       border-color: var(--sl-color-gray-2);
