@@ -144,6 +144,23 @@ body[data-mobile-menu-expanded] .page > header.header {
     --space-theme-glass-blur: 10px;
   }
 
+  @supports (height: 100svh) {
+    body {
+      min-height: 100svh;
+    }
+  }
+
+  @supports (height: 100lvh) {
+    body::before,
+    body::after {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      left: 0;
+      height: 100lvh;
+    }
+  }
+
   body[data-mobile-menu-expanded] .sidebar-pane {
     background-color: rgb(9 9 11 / 0.94);
     backdrop-filter: blur(var(--space-theme-glass-blur));
