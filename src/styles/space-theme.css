@@ -135,6 +135,19 @@ body[data-mobile-menu-expanded] .page > header.header {
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
 
+starlight-menu-button button {
+  border: 1px solid var(--sl-color-gray-4);
+  background-color: var(--sl-color-black);
+  color: var(--sl-color-gray-2);
+}
+
+starlight-menu-button button:hover,
+starlight-menu-button[aria-expanded='true'] button {
+  border-color: var(--sl-color-gray-2);
+  background-color: var(--sl-color-black);
+  color: var(--sl-color-white);
+}
+
 .sidebar-pane {
   box-shadow: inset -1px 0 0 var(--sl-color-hairline);
 }
