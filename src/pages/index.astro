@@ -10,55 +10,13 @@ const frontmatter = {
   giscus: false,
 } as const;
 
-const siteUrl = 'https://guanchen.nl';
-
-type ArticleSummary = {
-  href: string;
-  title: string;
-  timestamp: number;
-};
-
-const articlePath = (href: string) => new URL(href, siteUrl).pathname.replace(/\/+$/, '');
-
-const uniqueByArticlePath = (articles: ArticleSummary[]) => {
-  const seen = new Set<string>();
-
-  return articles.filter((article) => {
-    const key = articlePath(article.href);
-
-    if (seen.has(key)) return false;
-
-    seen.add(key);
-    return true;
-  });
-};
-
-const localArticles: ArticleSummary[] = (await getCollection('docs'))
+const latestArticles = (await getCollection('docs'))
   .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
   .map((entry) => ({
     href: `/${entry.id}/`,
     title: entry.data.title,
-    timestamp: entry.data.date?.getTime() ?? 0,
   }));
-
-const localArticleByPath = new Map(localArticles.map((article) => [articlePath(article.href), article]));
-const localArticleByTitle = new Map(localArticles.map((article) => [article.title, article]));
-
-const feedArticles = (await getCollection('articleFeed'))
-  .map((entry) => {
-    const title = entry.data.title ?? 'Untitled article';
-    const href = entry.data.url ?? '/articles/';
-    const localArticle = localArticleByPath.get(articlePath(href)) ?? localArticleByTitle.get(title);
-
-    return {
-      href: localArticle?.href ?? href,
-      title: localArticle?.title ?? title,
-      timestamp: entry.data.published?.getTime() ?? entry.data.updated?.getTime() ?? localArticle?.timestamp ?? 0,
-    };
-  });
-
-const latestArticles = uniqueByArticlePath([...localArticles, ...feedArticles].sort((a, b) => b.timestamp - a.timestamp))
-  .map(({ href, title }) => ({ href, title }));
 
 const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/articles/', title: 'Articles' }];
 ---
