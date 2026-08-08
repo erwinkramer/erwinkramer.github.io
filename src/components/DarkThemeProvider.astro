@@ -3,11 +3,26 @@
 <script is:inline>
 	(() => {
 		const root = document.documentElement;
+		let isScrolled = false;
+		let frame = 0;
+
 		const updateScrolled = () => {
-			root.toggleAttribute('data-scrolled', window.scrollY > 0);
+			frame = 0;
+
+			const nextScrolled = window.scrollY > 0;
+			if (nextScrolled === isScrolled) return;
+
+			isScrolled = nextScrolled;
+			root.toggleAttribute('data-scrolled', isScrolled);
+		};
+
+		const requestScrolledUpdate = () => {
+			if (frame) return;
+
+			frame = window.requestAnimationFrame(updateScrolled);
 		};
 
 		updateScrolled();
-		window.addEventListener('scroll', updateScrolled, { passive: true });
+		window.addEventListener('scroll', requestScrolledUpdate, { passive: true });
 	})();
 </script>

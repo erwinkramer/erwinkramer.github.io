@@ -37,10 +37,7 @@
 }
 
 html {
-  background: var(--space-theme-background);
-  background-attachment: fixed;
-  background-size: var(--space-theme-background-size);
-  background-color: #09090b;
+  background: var(--sl-color-bg);
   overscroll-behavior-y: none;
 }
 
@@ -59,6 +56,8 @@ body::before {
   pointer-events: none;
   background: var(--space-theme-background);
   background-size: var(--space-theme-background-size);
+  contain: paint;
+  transform: translateZ(0);
 }
 
 body::after {
@@ -72,11 +71,12 @@ body::after {
     repeating-linear-gradient(100deg, rgb(255 255 255 / 0.92) 10%, rgb(255 255 255 / 0.82) 16%, rgb(255 255 255 / 0.72) 22%, rgb(255 255 255 / 0.58) 30%);
   background-position: 50% 50%, 50% 50%;
   background-size: 300%, 200%;
-  filter: opacity(46%) saturate(170%);
   mask-image: radial-gradient(ellipse at 76% 0%, black 32%, transparent 72%);
   -webkit-mask-image: radial-gradient(ellipse at 76% 0%, black 32%, transparent 72%);
   mix-blend-mode: lighten;
-  opacity: 0.24;
+  opacity: 0.11;
+  contain: paint;
+  transform: translateZ(0);
 }
 
 .page {
