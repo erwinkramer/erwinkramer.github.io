@@ -135,10 +135,6 @@ body[data-mobile-menu-expanded] .page > header.header {
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
 
-[data-has-sidebar] .page > header.header {
-  padding-inline-end: calc(var(--sl-menu-button-size) + 1rem);
-}
-
 starlight-menu-button button {
   inset-inline-end: 0.5rem;
   border: 1px solid var(--sl-color-gray-4);
@@ -160,6 +156,10 @@ starlight-menu-button[aria-expanded='true'] button {
 @media (max-width: 49.999rem) {
   :root {
     --space-theme-glass-blur: 10px;
+  }
+
+  [data-has-sidebar] .page > header.header {
+    padding-inline-end: calc(var(--sl-menu-button-size) + 1rem);
   }
 
   body[data-mobile-menu-expanded] .sidebar-pane {
