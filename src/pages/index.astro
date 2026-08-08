@@ -1,6 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { articleNavItems } from '../article-nav.mjs';
 
 const frontmatter = {
   title: 'Home',
@@ -8,20 +8,14 @@ const frontmatter = {
     'Guanchen - technology consulting for resilient systems across cloud, APIs, integration, observability, and operations.',
   template: 'splash',
   giscus: false,
+  prev: false,
+  next: false,
 } as const;
 
-const latestArticles = (await getCollection('docs'))
-  .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
-  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
-  .map((entry) => ({
-    href: `/${entry.id}/`,
-    title: entry.data.title,
-  }));
-
-const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/articles/', title: 'Articles' }];
+const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, title: label }));
 ---
 
-<StarlightPage frontmatter={frontmatter} hasSidebar={false} lang="en">
+<StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
   <section class="home-intro">
     <h2>Technology consulting for resilient systems</h2>
     <p class="intro-copy">
@@ -71,6 +65,10 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
 </StarlightPage>
 
 <style>
+  :global(html[data-has-sidebar]) {
+    --sl-content-width: 67.5rem;
+  }
+
   .home-intro {
     width: 100%;
   }
@@ -289,6 +287,16 @@ const articleLinks = latestArticles.length > 0 ? latestArticles : [{ href: '/art
     .contact-line {
       grid-column: auto;
       grid-row: auto;
+    }
+  }
+
+  @media (min-width: 50rem) {
+    :global(html[data-has-sidebar]) {
+      --sl-content-inline-start: 0rem;
+    }
+
+    :global(html[data-has-sidebar] .sidebar-pane) {
+      display: none;
     }
   }
 

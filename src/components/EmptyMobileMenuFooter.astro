@@ -1,2 +1,65 @@
 ---
+import { Icon } from '@astrojs/starlight/components';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
 ---
+
+<div class="mobile-menu-footer">
+	<a class="mobile-menu-link" href="/atom.xml" rel="alternate" type="application/atom+xml">
+		<Icon name="rss" />
+		<span>Atom feed</span>
+	</a>
+	<div class="mobile-menu-social-icons">
+		<SocialIcons />
+	</div>
+</div>
+
+<style>
+	@layer starlight.core {
+		.mobile-menu-footer {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			align-items: center;
+			padding-block: 0.75rem 1rem;
+			border-top: 1px solid var(--sl-color-hairline);
+		}
+
+		.mobile-menu-link,
+		.mobile-menu-social-icons :global(a) {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			box-sizing: border-box;
+			min-height: var(--space-theme-header-control-size);
+			border: 1px solid var(--space-theme-header-control-border);
+			border-radius: var(--space-theme-header-control-radius);
+			background-color: var(--sl-color-black);
+			color: var(--sl-color-gray-2);
+			text-decoration: none;
+		}
+
+		.mobile-menu-link {
+			gap: 0.45rem;
+			padding-inline: 0.625rem 0.75rem;
+			font-size: var(--sl-text-sm);
+		}
+
+		.mobile-menu-social-icons {
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+		}
+
+		.mobile-menu-social-icons :global(a) {
+			width: var(--space-theme-header-control-size);
+			padding: 0;
+			margin: 0;
+		}
+
+		.mobile-menu-link:hover,
+		.mobile-menu-social-icons :global(a:hover) {
+			border-color: var(--space-theme-header-control-border-hover);
+			color: var(--sl-color-white);
+		}
+	}
+</style>

@@ -24,7 +24,7 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     <a class="control icon-link feed-link" href="/atom.xml" rel="alternate" type="application/atom+xml" aria-label="Atom feed">
       <Icon name="rss" />
     </a>
-    <div class="sl-flex social-icons">
+    <div class="social-icons">
       <SocialIcons />
     </div>
   </div>
@@ -53,8 +53,8 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     }
 
     .right-group {
-      --header-control-border: var(--sl-color-gray-4);
-      --header-control-border-hover: var(--sl-color-gray-2);
+      --header-control-border: var(--space-theme-header-control-border);
+      --header-control-border-hover: var(--space-theme-header-control-border-hover);
       --header-control-font-weight: 400;
 
       gap: 0.75rem;
@@ -72,6 +72,7 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     }
 
     .social-icons {
+      display: inline-flex;
       gap: 0;
     }
 
@@ -88,9 +89,9 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     .social-icons :global(a),
     .right-group :global(button[data-open-modal]) {
       box-sizing: border-box;
-      height: 2.5rem;
+      height: var(--space-theme-header-control-size);
       border: 1px solid var(--header-control-border);
-      border-radius: 0.5rem;
+      border-radius: var(--space-theme-header-control-radius);
     }
 
     .control:hover,
@@ -101,7 +102,7 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
 
     .schedule-link {
       flex: 0 0 auto;
-      min-width: 2.5rem;
+      min-width: var(--space-theme-header-control-size);
       gap: 0.5rem;
       padding-inline-start: 0.75rem;
       padding-inline-end: 0.5rem;
@@ -130,8 +131,8 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
 
     .icon-link,
     .social-icons :global(a) {
-      flex: 0 0 2.5rem;
-      width: 2.5rem;
+      flex: 0 0 var(--space-theme-header-control-size);
+      width: var(--space-theme-header-control-size);
       padding: 0;
       background-color: var(--sl-color-black);
       color: var(--sl-color-gray-2);
@@ -144,8 +145,24 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     }
 
     @media (max-width: 49.999rem) {
+      .right-group {
+        gap: var(--space-theme-header-control-gap);
+      }
+
+      .feed-link,
+      .social-icons {
+        display: none;
+      }
+
+      .schedule-link {
+        gap: 0.375rem;
+        padding-inline-start: 0.625rem;
+        padding-inline-end: 0.45rem;
+        font-size: var(--sl-text-xs);
+      }
+
       .right-group :global(button[data-open-modal]) {
-        width: 2.5rem;
+        width: var(--space-theme-header-control-size);
         justify-content: center;
         padding: 0;
         background-color: var(--sl-color-black);
@@ -156,7 +173,7 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
 
     @media (max-width: 34rem) {
       .header {
-        --sl-nav-gap: 0.5rem;
+        --sl-nav-gap: 0.25rem;
       }
 
       .title-wrapper {
@@ -164,13 +181,13 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
       }
 
       .right-group {
-        gap: 0.5rem;
+        gap: var(--space-theme-header-control-gap);
       }
     }
 
-    @media (max-width: 24rem) {
+    @media (max-width: 22rem) {
       .schedule-link {
-        width: 2.5rem;
+        width: var(--space-theme-header-control-size);
         padding: 0;
       }
 
