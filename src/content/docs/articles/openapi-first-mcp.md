@@ -48,6 +48,8 @@ Boring is good here. Boring means fewer hand-written adapters quietly drifting a
 
 OpenAPI-first does not mean every endpoint should blindly become a public MCP tool. That would be a different mistake.
 
+Jeremiah Lowin makes that warning from an interesting position in [Stop Converting Your REST APIs to MCP](https://jlowin.dev/blog/stop-converting-rest-apis-to-mcp). Lowin built [FastMCP](https://gofastmcp.com/), one of the main frameworks for building MCP servers, and its OpenAPI integration includes `FastMCP.from_openapi()` for generating MCP servers from OpenAPI specs. That makes the warning more useful, and a little surprising: it is not coming from someone rejecting the shortcut from the outside. It is coming from someone who helped make the shortcut good, then argued that it should be used for bootstrapping and prototyping rather than shipped as an uncurated production interface.
+
 Some endpoints are too low-level. Some exist only for internal orchestration. Some are dangerous without an explicit confirmation step. Some need pagination helpers. Some return shapes that are technically correct but unpleasant for an agent to work with. Some belong together as a higher-level workflow.
 
 The right approach is to start from the contract, then curate.
