@@ -63,6 +63,15 @@ export default defineConfig({
           },
         },
         {
+          tag: 'link',
+          attrs: {
+            rel: 'preload',
+            as: 'image',
+            href: '/assets/lets-talk-button-bg.svg',
+            type: 'image/svg+xml',
+          },
+        },
+        {
           tag: 'script',
           attrs: {
             type: 'application/ld+json',

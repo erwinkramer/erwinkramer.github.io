@@ -135,7 +135,12 @@ body[data-mobile-menu-expanded] .page > header.header {
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
 
+[data-has-sidebar] .page > header.header {
+  padding-inline-end: calc(var(--sl-menu-button-size) + 1rem);
+}
+
 starlight-menu-button button {
+  inset-inline-end: 0.5rem;
   border: 1px solid var(--sl-color-gray-4);
   background-color: var(--sl-color-black);
   color: var(--sl-color-gray-2);
