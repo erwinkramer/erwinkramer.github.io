@@ -17,10 +17,10 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
   <section class="home-intro">
-    <h2>Technology consulting for resilient systems</h2>
+    <h2>Adaptive systems consulting</h2>
     <p class="intro-copy">
-      Guanchen helps organizations design secure, adaptable technology foundations across cloud, APIs,
-      integration, observability, and operations.
+      Guanchen helps organizations build foundations that evolve without losing integrity. Architecture
+      is not more machinery; it is clearer agreement between people, software, and uncertainty.
     </p>
 
     <figure class="page-art">
@@ -41,7 +41,7 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
     </p>
     <div class="contact-grid">
       <span class="contact-line contact-linkedin">
-        <span class="contact-icon" aria-hidden="true">🕴️</span>
+        <span class="contact-icon" aria-hidden="true">💼</span>
         <a href="https://www.linkedin.com/in/kramererwin/" target="_blank" rel="noreferrer">linkedin/kramererwin</a>
       </span>
       <span class="contact-line contact-github">
@@ -70,7 +70,9 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
   }
 
   .home-intro {
-    width: 100%;
+    width: min(100%, 46rem);
+    margin-inline: auto;
+    text-align: center;
   }
 
   .home-intro :is(h2, h3) {
@@ -82,12 +84,13 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
 
   .intro-copy {
     max-width: 46rem;
+    margin-inline: auto;
   }
 
   .page-art {
     position: relative;
     overflow: hidden;
-    width: min(100%, 46rem);
+    width: 100%;
     max-width: 100%;
     margin: 1.5rem 0 0;
     border: 1px solid var(--sl-color-hairline);
@@ -131,11 +134,13 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
     flex-wrap: wrap;
     gap: 0.75rem;
     align-items: center;
+    justify-content: center;
   }
 
   .articles-overlay a {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     min-height: 2.35rem;
     padding: 0.45rem 0.75rem;
     border: 1px solid rgb(255 255 255 / 0.24);
@@ -144,6 +149,7 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
     color: var(--sl-color-white);
     backdrop-filter: blur(8px);
     font-weight: 600;
+    text-align: center;
     text-decoration: none;
   }
 
@@ -163,7 +169,8 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
   }
 
   .contact-strip {
-    width: 100%;
+    width: min(100%, 46rem);
+    margin-inline: auto;
     margin-block-start: 1.75rem;
     padding-block-start: 0.875rem;
     border-top: 1px solid var(--sl-color-hairline);
