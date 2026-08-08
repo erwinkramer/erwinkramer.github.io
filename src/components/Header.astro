@@ -1,12 +1,14 @@
 ---
 import config from 'virtual:starlight/user-config';
 
+import { Icon } from '@astrojs/starlight/components';
 import Search from 'virtual:starlight/components/Search';
 import SiteTitle from 'virtual:starlight/components/SiteTitle';
 import SocialIcons from 'virtual:starlight/components/SocialIcons';
 
 const shouldRenderSearch =
   config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
 ---
 
 <div class="header">
@@ -14,11 +16,13 @@ const shouldRenderSearch =
     <SiteTitle />
   </div>
   <div class="sl-flex print:hidden right-group">
+    <a class="control schedule-link" href={scheduleUrl} target="_blank" rel="noreferrer" aria-label="Book a Google Meet appointment">
+      <Icon name="notes" class="schedule-icon" />
+      <span>Let's Talk</span>
+    </a>
     {shouldRenderSearch && <Search />}
-    <a class="feed-link" href="/atom.xml" rel="alternate" type="application/atom+xml" aria-label="Atom feed">
-      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M6.18 17.82a2.18 2.18 0 1 1-4.36 0 2.18 2.18 0 0 1 4.36 0ZM2 8.5v3.08c5.75 0 10.42 4.67 10.42 10.42h3.08C15.5 14.55 9.45 8.5 2 8.5Zm0-6.5v3.08c9.34 0 16.92 7.58 16.92 16.92H22C22 10.95 13.05 2 2 2Z" />
-      </svg>
+    <a class="control icon-link feed-link" href="/atom.xml" rel="alternate" type="application/atom+xml" aria-label="Atom feed">
+      <Icon name="rss" />
     </a>
     <div class="sl-flex social-icons">
       <SocialIcons />
@@ -49,53 +53,102 @@ const shouldRenderSearch =
     }
 
     .right-group {
+      --header-control-border: var(--sl-color-gray-4);
+      --header-control-border-hover: var(--sl-color-gray-2);
+
       gap: 0.75rem;
       min-width: 0;
       margin-inline-start: auto;
+    }
+
+    .right-group :global(button[data-open-modal]) {
+      border-color: var(--header-control-border);
+    }
+
+    .right-group :global(button[data-open-modal]:hover) {
+      border-color: var(--header-control-border-hover);
     }
 
     .social-icons {
       gap: 0;
     }
 
-    .feed-link,
+    .control,
     .social-icons :global(a) {
-      box-sizing: border-box;
-      flex: 0 0 2.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0;
       margin: 0;
-      border: 1px solid var(--sl-color-gray-5);
-      border-radius: 0.5rem;
-      background-color: var(--sl-color-black);
-      color: var(--sl-color-gray-2);
       text-decoration: none;
     }
 
-    .feed-link:hover,
-    .social-icons :global(a:hover) {
+    .control,
+    .social-icons :global(a),
+    .right-group :global(button[data-open-modal]) {
+      box-sizing: border-box;
+      height: 2.5rem;
+      border: 1px solid var(--header-control-border);
+      border-radius: 0.5rem;
+    }
+
+    .control:hover,
+    .social-icons :global(a:hover),
+    .right-group :global(button[data-open-modal]:hover) {
+      border-color: var(--header-control-border-hover);
+    }
+
+    .schedule-link {
+      flex: 0 0 auto;
+      min-width: 2.5rem;
+      gap: 0.5rem;
+      padding-inline-start: 0.75rem;
+      padding-inline-end: 0.5rem;
+      background-color: var(--sl-color-black);
+      background-image: linear-gradient(90deg, rgb(5 5 9 / 0.1), rgb(5 5 9 / 0.34)), url('/assets/lets-talk-button-bg.svg');
+      background-position: center;
+      background-size: cover;
       color: var(--sl-color-white);
-      border-color: var(--sl-color-gray-2);
+      font: inherit;
+      font-size: var(--sl-text-sm);
+      font-weight: 600;
+      line-height: 1;
+      text-decoration: none;
+      text-shadow: 0 1px 8px rgb(0 0 0 / 0.52);
+      white-space: nowrap;
+    }
+
+    .schedule-link:hover {
+      background-position: 52% 50%;
+      color: var(--sl-color-white);
+    }
+
+    .schedule-link :global(.schedule-icon) {
+      flex: 0 0 auto;
+    }
+
+    .icon-link,
+    .social-icons :global(a) {
+      flex: 0 0 2.5rem;
+      width: 2.5rem;
+      padding: 0;
+      background-color: var(--sl-color-black);
+      color: var(--sl-color-gray-2);
+    }
+
+    .icon-link:hover,
+    .social-icons :global(a:hover),
+    .right-group :global(button[data-open-modal]:hover) {
+      color: var(--sl-color-white);
     }
 
     @media (max-width: 49.999rem) {
       .right-group :global(button[data-open-modal]) {
         width: 2.5rem;
         justify-content: center;
-        border: 1px solid var(--sl-color-gray-5);
-        border-radius: 0.5rem;
+        padding: 0;
         background-color: var(--sl-color-black);
         color: var(--sl-color-gray-2);
         font-size: var(--sl-text-base);
-      }
-
-      .right-group :global(button[data-open-modal]:hover) {
-        color: var(--sl-color-white);
-        border-color: var(--sl-color-gray-2);
       }
     }
 
@@ -110,6 +163,23 @@ const shouldRenderSearch =
 
       .right-group {
         gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 24rem) {
+      .schedule-link {
+        width: 2.5rem;
+        padding: 0;
+      }
+
+      .schedule-link span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
       }
     }
   }
