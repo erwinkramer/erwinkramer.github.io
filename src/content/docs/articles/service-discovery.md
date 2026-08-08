@@ -6,7 +6,7 @@ date: 2026-08-07
 ---
 
 <figure class="page-art">
-	<img src="/assets/api-portal-discovery-collage.svg" alt="Dark analog catalog map with diamonds, tags, circular index nodes, and discovery signals" />
+	<img src="/assets/api-portal-discovery-collage.svg" alt="Dark analog catalog map with diamonds, tags, circular index nodes, and discovery signals" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
 </figure>
 
 Portals used to be simple places to publish documentation. Put the reference pages online. Add a getting started guide. Give developers a key. Maybe include a few examples and a support link.

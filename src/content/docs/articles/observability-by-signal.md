@@ -6,7 +6,7 @@ date: 2026-08-07
 ---
 
 <figure class="page-art">
-	<img src="/assets/observability-signal-collage.svg" alt="Dark analog collage with log strips, signal traces, metrics panels, and a collector lens" />
+	<img src="/assets/observability-signal-collage.svg" alt="Dark analog collage with log strips, signal traces, metrics panels, and a collector lens" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
 </figure>
 
 Logging used to be simple. A system wrote lines of text somewhere, and when something went wrong, a person searched those lines and tried to reconstruct what happened.

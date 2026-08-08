@@ -34,6 +34,7 @@
     radial-gradient(2px 2px at 160px 120px, rgb(255 255 255 / 0.12), transparent),
     linear-gradient(180deg, #09090b, #09090b 38rem, #18181b 92rem);
   --space-theme-background-size: auto, 200px 200px, 200px 200px, 200px 200px, 200px 200px, 200px 200px, 200px 200px, auto;
+  --space-theme-glass-blur: 12px;
 }
 
 html {
@@ -43,6 +44,7 @@ html {
 
 body {
   position: relative;
+  isolation: isolate;
   min-height: 100vh;
   background: transparent;
   overscroll-behavior-y: none;
@@ -93,13 +95,12 @@ body::after {
   border-bottom: 1px solid var(--sl-color-hairline);
   transition:
     background-color 160ms ease,
-    box-shadow 160ms ease,
-    backdrop-filter 160ms ease;
+    box-shadow 160ms ease;
 }
 
 :root[data-scrolled] .page > header.header {
   background-color: rgb(9 9 11 / 0.72);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--space-theme-glass-blur));
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
 
@@ -109,8 +110,7 @@ mobile-starlight-toc nav {
   transition:
     background-color 160ms ease,
     border-color 160ms ease,
-    box-shadow 160ms ease,
-    backdrop-filter 160ms ease;
+    box-shadow 160ms ease;
 }
 
 mobile-starlight-toc summary {
@@ -121,7 +121,7 @@ mobile-starlight-toc summary {
 :root[data-scrolled] mobile-starlight-toc nav {
   background-color: rgb(9 9 11 / 0.72);
   border-top-color: var(--sl-color-hairline);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--space-theme-glass-blur));
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
 
@@ -131,7 +131,7 @@ mobile-starlight-toc summary {
 
 body[data-mobile-menu-expanded] .page > header.header {
   background-color: rgb(9 9 11 / 0.88);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--space-theme-glass-blur));
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
 
@@ -140,9 +140,13 @@ body[data-mobile-menu-expanded] .page > header.header {
 }
 
 @media (max-width: 49.999rem) {
+  :root {
+    --space-theme-glass-blur: 10px;
+  }
+
   body[data-mobile-menu-expanded] .sidebar-pane {
     background-color: rgb(9 9 11 / 0.94);
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(var(--space-theme-glass-blur));
   }
 }
 

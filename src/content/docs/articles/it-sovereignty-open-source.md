@@ -6,7 +6,7 @@ date: 2026-08-07
 ---
 
 <figure class="page-art">
-	<img src="/assets/open-source-sovereignty-collage.svg" alt="Dark analog collage with a shield, keyhole, ledger panels, and open source branching lines" />
+	<img src="/assets/open-source-sovereignty-collage.svg" alt="Dark analog collage with a shield, keyhole, ledger panels, and open source branching lines" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
 </figure>
 
 IT sovereignty used to sound like a concern for governments, banks, and regulated industries. That was always too narrow. In the current world climate, sovereignty is becoming a basic design requirement for any organization that depends on software to operate.

@@ -6,7 +6,7 @@ date: 2026-08-07
 ---
 
 <figure class="page-art">
-	<img src="/assets/queueing-flow-collage.svg" alt="Dark analog collage with waiting lines, message cards, clocks, and branching queue lanes" />
+	<img src="/assets/queueing-flow-collage.svg" alt="Dark analog collage with waiting lines, message cards, clocks, and branching queue lanes" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
 </figure>
 
 Queues are one of the oldest ideas in technology, and one of the easiest to underestimate.
