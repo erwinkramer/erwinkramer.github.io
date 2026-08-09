@@ -13,7 +13,7 @@ const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
   @layer starlight.core {
     .site-title {
       align-items: center;
-      gap: var(--sl-nav-gap);
+      gap: 0.625rem;
       min-width: 0;
       color: var(--sl-color-text-accent);
       font-size: var(--sl-text-h4);
@@ -36,6 +36,12 @@ const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
 
     span {
       overflow: hidden;
+    }
+
+    @media (max-width: 34rem) {
+      .site-title {
+        gap: 0.55rem;
+      }
     }
   }
 </style>
