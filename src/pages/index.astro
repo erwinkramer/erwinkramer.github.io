@@ -205,7 +205,6 @@ const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
     min-width: 0;
     width: 100%;
     padding: clamp(1rem, 3vw, 1.6rem);
-    contain: layout paint style;
     isolation: isolate;
     overflow: hidden;
     border-color: rgb(255 255 255 / 0.18);
@@ -466,6 +465,7 @@ const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
     color: rgb(250 250 250 / 0.78);
     font-size: var(--sl-text-base);
     line-height: 1.55;
+    transform: translateZ(0);
   }
 
   @keyframes signalSweep {
