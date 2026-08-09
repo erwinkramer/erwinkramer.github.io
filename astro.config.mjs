@@ -38,7 +38,7 @@ export default defineConfig({
     starlight({
       title: 'Guanchen',
       description,
-      favicon: '/assets/square-mark-favicon.svg?v=oracle-core-full-box',
+      favicon: '/assets/icon-32.png?v=source-icon-bordered',
       locales: {
         root: {
           label: 'English',
@@ -61,6 +61,32 @@ export default defineConfig({
             type: 'application/atom+xml',
             title: 'Guanchen Articles',
             href: '/atom.xml',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            href: '/assets/icon-32.png?v=source-icon-bordered',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            href: '/assets/icon-16.png?v=source-icon-bordered',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'apple-touch-icon',
+            sizes: '256x256',
+            href: '/assets/icon-256.png?v=source-icon-bordered',
           },
         },
         {
@@ -95,6 +121,7 @@ export default defineConfig({
       ],
       components: {
         Header: './src/components/Header.astro',
+        SiteTitle: './src/components/SiteTitle.astro',
         ThemeProvider: './src/components/DarkThemeProvider.astro',
         ThemeSelect: './src/components/EmptyThemeSelect.astro',
         PageTitle: './src/components/PageTitle.astro',

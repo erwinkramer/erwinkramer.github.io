@@ -1,0 +1,41 @@
+---
+import iconDataUri from '../assets/icon-128.png?inline';
+
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+  <img class="site-mark" src={iconDataUri} alt="" width="128" height="128" loading="eager" decoding="sync" fetchpriority="high" />
+  <span translate="no">{siteTitle}</span>
+</a>
+
+<style>
+  @layer starlight.core {
+    .site-title {
+      align-items: center;
+      gap: var(--sl-nav-gap);
+      min-width: 0;
+      color: var(--sl-color-text-accent);
+      font-size: var(--sl-text-h4);
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-title:hover {
+      color: var(--sl-color-text-accent);
+    }
+
+    .site-mark {
+      flex: 0 0 auto;
+      width: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+      height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+      object-fit: cover;
+      filter: drop-shadow(0 0 12px rgb(161 132 82 / 0.14));
+    }
+
+    span {
+      overflow: hidden;
+    }
+  }
+</style>

@@ -238,6 +238,20 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     }
 
     @media (max-width: 22rem) {
+      .title-wrapper {
+        max-width: 2.5rem;
+      }
+
+      .title-wrapper :global(.site-title span) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
       .schedule-link {
         width: var(--space-theme-header-control-size);
         padding: 0;
