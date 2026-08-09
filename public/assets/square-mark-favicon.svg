@@ -1,41 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
-  <title id="title">Guanchen square mark favicon</title>
-  <desc id="desc">A minimal solid esoteric logo with an ochre diamond, one teal band, and a central ivory node.</desc>
+  <title id="title">Guanchen oracle core favicon</title>
+  <desc id="desc">A bold dark oracle-core logo with nested ochre and teal diamonds.</desc>
   <defs>
     <style>
-      .mark {
-        fill: #c88a1f;
+      .base {
+        fill: #0b1010;
       }
 
-      .stripe {
+      .rim {
+        fill: none;
+        stroke: #c88a1f;
+        stroke-linejoin: miter;
+      }
+
+      .core {
         fill: #168f9f;
       }
 
-      .node {
+      .center {
         fill: #f4eadb;
       }
 
       @media (prefers-color-scheme: light) {
-        .mark {
-          fill: #7a4d00;
+        .base {
+          fill: #101918;
         }
 
-        .stripe {
+        .rim {
+          stroke: #7a4d00;
+        }
+
+        .core {
           fill: #005e68;
-        }
-
-        .node {
-          fill: #f4eadb;
         }
       }
     </style>
-    <clipPath id="diamondClip">
-      <path d="M32 4 60 32 32 60 4 32Z" />
-    </clipPath>
   </defs>
-  <path class="mark" d="M32 4 60 32 32 60 4 32Z" />
-  <g clip-path="url(#diamondClip)">
-    <path class="stripe" d="M8 3 61 56 54 63 1 10Z" />
-  </g>
-  <path class="node" d="M32 23.5 40.5 32 32 40.5 23.5 32Z" />
+  <path class="base" d="M32 0 64 32 32 64 0 32Z" />
+  <path class="rim" d="M32 8 56 32 32 56 8 32Z" stroke-width="5.8" />
+  <path class="core" d="M32 16 48 32 32 48 16 32Z" />
+  <circle class="center" cx="32" cy="32" r="6" />
 </svg>

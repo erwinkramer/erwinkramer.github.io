@@ -38,7 +38,7 @@ export default defineConfig({
     starlight({
       title: 'Guanchen',
       description,
-      favicon: '/assets/square-mark-favicon.svg?v=ivory-node-sigil',
+      favicon: '/assets/square-mark-favicon.svg?v=oracle-core-full-box',
       locales: {
         root: {
           label: 'English',
