@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Guanchen pillars favicon</title>
+  <desc id="desc">A minimal dark publication-style favicon with two pale pillars and a barely rounded frame.</desc>
+  <defs>
+    <clipPath id="frame">
+      <rect width="64" height="64" rx="2.4" />
+    </clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#060609" />
+      <stop offset="0.56" stop-color="#151417" />
+      <stop offset="1" stop-color="#06060a" />
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#fafafa" stop-opacity="0.86" />
+      <stop offset="0.42" stop-color="#fdd57f" stop-opacity="0.34" />
+      <stop offset="1" stop-color="#ff4fd8" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <g clip-path="url(#frame)">
+    <rect width="64" height="64" fill="url(#bg)" />
+    <circle cx="49" cy="13" r="13" fill="url(#sun)" />
+    <path d="M0 46c10-4 18-5 29-3 10 2 20-1 35-6v27H0Z" fill="#090a0d" opacity="0.9" />
+    <path d="M10 61h44" stroke="#fafafa" stroke-opacity="0.22" stroke-width="6" />
+    <path d="M11 31h42" stroke="#ffc857" stroke-opacity="0.34" stroke-width="6" stroke-linecap="square" />
+    <rect x="17" y="31" width="10" height="30" fill="#f8f1e8" fill-opacity="0.2" stroke="#fafafa" stroke-opacity="0.34" stroke-width="1.2" />
+    <rect x="37" y="22" width="10" height="39" fill="#f8f1e8" fill-opacity="0.18" stroke="#fafafa" stroke-opacity="0.31" stroke-width="1.2" />
+    <path d="M31 0h10L19 64H9Z" fill="#2be7ff" opacity="0.11" />
+    <rect width="64" height="64" rx="2.4" fill="none" stroke="#fafafa" stroke-opacity="0.14" />
+  </g>
+</svg>
