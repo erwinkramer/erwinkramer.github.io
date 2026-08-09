@@ -23,10 +23,52 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
       is not more machinery; it is clearer agreement between people, software, and uncertainty.
     </p>
 
+    <section class="signal-oracle" aria-labelledby="signal-heading">
+      <div class="signal-stage" aria-hidden="true">
+        <span class="signal-rune rune-one"></span>
+        <span class="signal-rune rune-two"></span>
+        <span class="signal-rune rune-three"></span>
+        <span class="signal-thread thread-one"></span>
+        <span class="signal-thread thread-two"></span>
+        <span class="signal-thread thread-three"></span>
+        <span class="signal-ring ring-one"></span>
+        <span class="signal-ring ring-two"></span>
+        <span class="signal-ring ring-three"></span>
+        <span class="signal-core"></span>
+      </div>
+      <div class="signal-copy">
+        <p class="eyebrow">Systems work for uncertain terrain</p>
+        <h2 id="signal-heading">A moving map for the hidden forces in your platform</h2>
+        <p>
+          APIs, queues, cloud foundations, observability, and operations all leave traces. Guanchen turns
+          those traces into decisions teams can trust, then helps make the next change smaller.
+        </p>
+      </div>
+    </section>
+
+    <section class="engagement-panel" aria-labelledby="engagement-heading">
+      <p class="eyebrow">Engagements are intentionally practical</p>
+      <h2 id="engagement-heading">From uneasy signals to reliable movement</h2>
+      <div class="engagement-grid">
+        <article>
+          <h3>Clarify the shape</h3>
+          <p>Map the current pressure across teams, interfaces, runtime behavior, and delivery flow.</p>
+        </article>
+        <article>
+          <h3>Reduce the drag</h3>
+          <p>Turn noisy architecture debates into a smaller set of standards, tradeoffs, and next steps.</p>
+        </article>
+        <article>
+          <h3>Strengthen the system</h3>
+          <p>Design foundations that hold up when ownership, traffic, dependencies, and incidents change.</p>
+        </article>
+      </div>
+    </section>
+
     <figure class="page-art">
       <img class="article-art-image" src="/assets/analog-article-collage.svg" alt="Dark analog collage with columns and notebook pages" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
       <figcaption class="articles-overlay" aria-labelledby="articles-heading">
-        <h2 id="articles-heading">Articles</h2>
+        <h2 id="articles-heading">Publications</h2>
         <div class="article-links">
           {articleLinks.map((article) => <a class="article-link" href={article.href}>{article.title}</a>)}
         </div>
@@ -66,11 +108,12 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
 
 <style>
   :global(html[data-has-sidebar]) {
-    --sl-content-width: 67.5rem;
+    --sl-content-width: 74rem;
+    --home-panel-width: 74rem;
   }
 
   .home-intro {
-    width: min(100%, 46rem);
+    width: min(100%, var(--home-panel-width));
     margin-inline: auto;
     text-align: center;
   }
@@ -85,6 +128,356 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
   .intro-copy {
     max-width: 46rem;
     margin-inline: auto;
+  }
+
+  .signal-oracle {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(17rem, 0.82fr);
+    gap: clamp(1.25rem, 4vw, 3.75rem);
+    align-items: center;
+    width: 100%;
+    margin: clamp(1.75rem, 5vw, 3.5rem) auto 0;
+    padding: clamp(1rem, 3vw, 1.6rem);
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 0.5rem;
+    background:
+      radial-gradient(ellipse at 18% 22%, rgb(122 201 185 / 0.22), transparent 42%),
+      radial-gradient(ellipse at 84% 16%, rgb(253 213 127 / 0.18), transparent 34%),
+      linear-gradient(135deg, rgb(19 23 25 / 0.92), rgb(7 8 10 / 0.9) 58%, rgb(17 18 15 / 0.9));
+    box-shadow:
+      0 26px 70px rgb(0 0 0 / 0.42),
+      inset 0 1px 0 rgb(255 255 255 / 0.12);
+  }
+
+  .signal-oracle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(0deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 3.75rem 3.75rem;
+    mask-image: radial-gradient(ellipse at 36% 52%, black 18%, transparent 72%);
+    -webkit-mask-image: radial-gradient(ellipse at 36% 52%, black 18%, transparent 72%);
+    pointer-events: none;
+  }
+
+  .signal-oracle::after {
+    content: '';
+    position: absolute;
+    inset: -35% -10%;
+    background: conic-gradient(from 90deg, transparent, rgb(255 255 255 / 0.12), transparent 24%, transparent 100%);
+    opacity: 0.48;
+    animation: signalSweep 12s linear infinite;
+    pointer-events: none;
+  }
+
+  .signal-stage,
+  .signal-copy {
+    position: relative;
+    z-index: 1;
+  }
+
+  .signal-stage {
+    min-height: clamp(18rem, 40vw, 30rem);
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: 0.45rem;
+    background:
+      radial-gradient(circle at center, rgb(255 255 255 / 0.08), transparent 28%),
+      repeating-radial-gradient(circle at center, transparent 0 2.35rem, rgb(255 255 255 / 0.055) 2.4rem 2.45rem),
+      linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 42%);
+    box-shadow: inset 0 0 48px rgb(0 0 0 / 0.45);
+  }
+
+  .signal-stage::before,
+  .signal-stage::after {
+    content: '';
+    position: absolute;
+    inset: 9%;
+    border: 1px solid rgb(255 255 255 / 0.22);
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    opacity: 0.42;
+    animation: signalTurn 18s linear infinite;
+  }
+
+  .signal-stage::after {
+    inset: 20%;
+    border-color: rgb(122 201 185 / 0.48);
+    opacity: 0.54;
+    animation-duration: 24s;
+    animation-direction: reverse;
+  }
+
+  .signal-rune,
+  .signal-thread,
+  .signal-ring,
+  .signal-core {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+  }
+
+  .signal-rune {
+    width: clamp(3rem, 7vw, 5.6rem);
+    aspect-ratio: 1;
+    border: 1px solid rgb(255 255 255 / 0.26);
+    transform: rotate(45deg);
+    animation: runeDrift 8s ease-in-out infinite alternate;
+  }
+
+  .signal-rune::before,
+  .signal-rune::after {
+    content: '';
+    position: absolute;
+    inset: 18%;
+    border: 1px solid currentColor;
+    color: rgb(255 255 255 / 0.26);
+  }
+
+  .signal-rune::after {
+    inset: 42% -28%;
+    border-inline: 0;
+  }
+
+  .rune-one {
+    top: 14%;
+    left: 16%;
+    color: rgb(122 201 185 / 0.78);
+  }
+
+  .rune-two {
+    right: 14%;
+    bottom: 18%;
+    color: rgb(253 213 127 / 0.68);
+    animation-delay: -2s;
+  }
+
+  .rune-three {
+    top: 53%;
+    left: 44%;
+    width: clamp(2rem, 5vw, 4rem);
+    color: rgb(231 238 224 / 0.55);
+    animation-delay: -4s;
+  }
+
+  .signal-thread {
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(122 201 185 / 0.72), rgb(253 213 127 / 0.72), transparent);
+    transform-origin: 50% 50%;
+    animation: threadPulse 7s ease-in-out infinite;
+  }
+
+  .thread-one {
+    top: 33%;
+    transform: rotate(11deg);
+  }
+
+  .thread-two {
+    top: 58%;
+    transform: rotate(-17deg);
+    animation-delay: -2.4s;
+  }
+
+  .thread-three {
+    top: 74%;
+    transform: rotate(4deg);
+    animation-delay: -4.6s;
+  }
+
+  .signal-ring {
+    inset: 50% auto auto 50%;
+    width: clamp(8rem, 22vw, 18rem);
+    aspect-ratio: 1;
+    border: 1px solid rgb(255 255 255 / 0.24);
+    border-radius: 50%;
+    translate: -50% -50%;
+    animation: ringBreathe 9s ease-in-out infinite;
+  }
+
+  .ring-two {
+    width: clamp(12rem, 30vw, 24rem);
+    border-style: dashed;
+    border-color: rgb(122 201 185 / 0.34);
+    animation-delay: -3s;
+  }
+
+  .ring-three {
+    width: clamp(16rem, 38vw, 31rem);
+    border-color: rgb(253 213 127 / 0.22);
+    animation-delay: -6s;
+  }
+
+  .signal-core {
+    top: 50%;
+    left: 50%;
+    width: clamp(4.5rem, 11vw, 8rem);
+    aspect-ratio: 1;
+    border: 1px solid rgb(255 255 255 / 0.5);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, rgb(255 255 255 / 0.72) 0 2px, transparent 3px),
+      conic-gradient(from 0deg, rgb(122 201 185 / 0.08), rgb(253 213 127 / 0.28), rgb(255 255 255 / 0.08), rgb(122 201 185 / 0.08));
+    box-shadow:
+      0 0 38px rgb(122 201 185 / 0.28),
+      inset 0 0 24px rgb(255 255 255 / 0.12);
+    translate: -50% -50%;
+    animation: coreTurn 10s linear infinite;
+  }
+
+  .signal-core::before,
+  .signal-core::after {
+    content: '';
+    position: absolute;
+    inset: 18%;
+    border: 1px solid rgb(255 255 255 / 0.34);
+    transform: rotate(45deg);
+  }
+
+  .signal-core::after {
+    inset: 36%;
+    border-radius: 50%;
+    transform: none;
+  }
+
+  .signal-copy {
+    max-width: 23rem;
+    text-align: left;
+  }
+
+  .signal-copy .eyebrow {
+    margin-block-end: 0.65rem;
+    color: rgb(253 213 127 / 0.78);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .signal-copy h2 {
+    margin-block: 0 0.85rem;
+    font-size: clamp(1.55rem, 3.2vw, 2.9rem);
+    line-height: 1.08;
+  }
+
+  .signal-copy p:last-child {
+    margin-block: 0;
+    color: rgb(250 250 250 / 0.78);
+    font-size: var(--sl-text-base);
+  }
+
+  .engagement-panel {
+    width: 100%;
+    margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
+    text-align: left;
+  }
+
+  .engagement-panel > .eyebrow {
+    margin-block-end: 0.35rem;
+    color: var(--sl-color-gray-2);
+    text-align: center;
+  }
+
+  .engagement-panel > h2 {
+    max-width: 39rem;
+    margin: 0 auto 1rem;
+    font-size: clamp(1.35rem, 2vw, 1.85rem);
+    text-align: center;
+  }
+
+  .engagement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .engagement-grid article {
+    min-height: 10.5rem;
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid rgb(255 255 255 / 0.13);
+    border-radius: 0.5rem;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.025));
+  }
+
+  .engagement-grid h3 {
+    margin-block: 0 0.45rem;
+    font-size: var(--sl-text-lg);
+  }
+
+  .engagement-grid p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    line-height: 1.55;
+  }
+
+  @keyframes signalSweep {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @keyframes signalTurn {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @keyframes runeDrift {
+    from {
+      translate: -0.35rem 0.25rem;
+    }
+
+    to {
+      translate: 0.35rem -0.25rem;
+    }
+  }
+
+  @keyframes threadPulse {
+    0%,
+    100% {
+      opacity: 0.22;
+      scale: 0.86 1;
+    }
+
+    50% {
+      opacity: 0.88;
+      scale: 1 1;
+    }
+  }
+
+  @keyframes ringBreathe {
+    0%,
+    100% {
+      opacity: 0.28;
+      scale: 0.96;
+    }
+
+    50% {
+      opacity: 0.68;
+      scale: 1.04;
+    }
+  }
+
+  @keyframes coreTurn {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .signal-oracle::after,
+    .signal-stage::before,
+    .signal-stage::after,
+    .signal-rune,
+    .signal-thread,
+    .signal-ring,
+    .signal-core {
+      animation: none;
+    }
   }
 
   .page-art {
@@ -253,6 +646,37 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
     .intro-copy,
     .page-art {
       width: 100%;
+    }
+
+    .signal-oracle {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 100%;
+      margin-inline: 0;
+      padding: 0.75rem;
+      transform: none;
+    }
+
+    .signal-stage {
+      min-height: clamp(16rem, 78vw, 24rem);
+    }
+
+    .signal-copy {
+      max-width: none;
+      padding: 0.25rem 0.25rem 0.35rem;
+      text-align: center;
+    }
+
+    .signal-copy h2 {
+      font-size: clamp(1.45rem, 8vw, 2.15rem);
+    }
+
+    .engagement-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .engagement-grid article {
+      min-height: auto;
     }
 
     .articles-overlay {
