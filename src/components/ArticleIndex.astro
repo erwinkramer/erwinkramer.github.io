@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { articleNavItems } from '../article-nav.mjs';
+
+type ArticleEntry = {
+  id: string;
+  data: {
+    title: string;
+    description?: string;
+    date?: Date;
+  };
+};
+
+const articleRank = new Map(
+  articleNavItems.map((item, index) => [item.link.replace(/^\//, '').replace(/\/$/, ''), index]),
+);
+const intro = Astro.locals.starlightRoute.entry.data.description;
+const articles = ((await getCollection('docs')) as ArticleEntry[])
+  .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
+  .sort((a, b) => {
+    const dateDifference = (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
+
+    if (dateDifference !== 0) return dateDifference;
+
+    return (articleRank.get(a.id) ?? Number.MAX_SAFE_INTEGER) - (articleRank.get(b.id) ?? Number.MAX_SAFE_INTEGER);
+  });
+---
+
+{intro && <p class="articles-intro">{intro}</p>}
+
+<section class="article-index" aria-labelledby="all-articles-heading">
+  <h2 id="all-articles-heading">All articles</h2>
+  <CardGrid>
+    {articles.map((article) => (
+      <LinkCard
+        href={`/${article.id}/`}
+        title={article.data.title}
+        description={article.data.description}
+      />
+    ))}
+  </CardGrid>
+</section>
+
+<style>
+  .articles-intro {
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-lg);
+    line-height: 1.55;
+  }
+
+  .article-index {
+    margin-block-start: 1.75rem;
+  }
+
+  .article-index h2 {
+    margin-block: 0 1rem;
+  }
+</style>
