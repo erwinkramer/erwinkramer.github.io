@@ -485,17 +485,37 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
     overflow: hidden;
     width: 100%;
     max-width: 100%;
-    margin: 1.5rem 0 0;
-    border: 1px solid var(--sl-color-hairline);
+    margin: clamp(2rem, 5vw, 3rem) 0 0;
+    border: 1px solid rgb(255 255 255 / 0.2);
     border-radius: 0.5rem;
-    background: rgb(255 255 255 / 0.03);
+    background:
+      radial-gradient(ellipse at 16% 16%, rgb(122 201 185 / 0.22), transparent 38%),
+      rgb(255 255 255 / 0.03);
+    box-shadow:
+      0 24px 70px rgb(0 0 0 / 0.42),
+      inset 0 1px 0 rgb(255 255 255 / 0.12);
+  }
+
+  .page-art::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgb(122 201 185 / 0.12), transparent 34%),
+      radial-gradient(ellipse at 88% 84%, rgb(253 213 127 / 0.14), transparent 36%);
+    opacity: 0.86;
+    pointer-events: none;
   }
 
   .page-art::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgb(6 6 9 / 0.04) 34%, rgb(6 7 10 / 0.68) 100%);
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgb(6 7 10 / 0.88) 0%, rgb(6 7 10 / 0.62) 44%, rgb(6 7 10 / 0.18) 100%),
+      linear-gradient(180deg, rgb(6 6 9 / 0.04) 30%, rgb(6 7 10 / 0.82) 100%);
     pointer-events: none;
   }
 
@@ -506,50 +526,88 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
     object-fit: cover;
     border: 0;
     border-radius: 0;
-    opacity: 0.86;
-    filter: saturate(0.92) contrast(0.96) brightness(0.92);
+    opacity: 0.8;
+    filter: saturate(0.95) contrast(1.04) brightness(0.88);
   }
 
   .articles-overlay {
     position: absolute;
-    inset: auto 0 0;
-    z-index: 1;
-    padding: 1rem;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1.45fr);
+    gap: clamp(1rem, 2.8vw, 1.75rem);
+    align-items: end;
+    padding: clamp(1rem, 3vw, 1.6rem);
+    text-align: left;
   }
 
   .articles-overlay h2 {
-    margin: 0 0 0.75rem;
-    font-size: var(--sl-text-lg);
+    position: relative;
+    margin: 0;
+    padding-block-start: 0.85rem;
+    font-size: clamp(1.75rem, 4vw, 3.1rem);
+    line-height: 0.95;
+    text-shadow: 0 14px 36px rgb(0 0 0 / 0.5);
+  }
+
+  .articles-overlay h2::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 4.5rem;
+    height: 2px;
+    background: linear-gradient(90deg, rgb(253 213 127 / 0.95), rgb(122 201 185 / 0.72));
+    box-shadow: 0 0 18px rgb(253 213 127 / 0.38);
   }
 
   .article-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    align-items: stretch;
   }
 
   .articles-overlay a {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 2.35rem;
-    padding: 0.45rem 0.75rem;
-    border: 1px solid rgb(255 255 255 / 0.24);
+    justify-content: flex-start;
+    min-height: 3rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid rgb(255 255 255 / 0.28);
     border-radius: 0.5rem;
-    background: rgb(8 9 12 / 0.34);
+    background: linear-gradient(135deg, rgb(34 36 40 / 0.88), rgb(8 9 12 / 0.78));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      0 10px 24px rgb(0 0 0 / 0.2);
     color: var(--sl-color-white);
-    backdrop-filter: blur(8px);
     font-weight: 600;
-    text-align: center;
+    line-height: 1.2;
+    text-align: left;
     text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .articles-overlay a::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 0.42rem;
+    aspect-ratio: 1;
+    margin-inline-end: 0.5rem;
+    border-radius: 50%;
+    background: rgb(253 213 127 / 0.9);
+    box-shadow: 0 0 14px rgb(253 213 127 / 0.45);
   }
 
   .articles-overlay a:hover {
-    border-color: rgb(255 255 255 / 0.46);
-    background: rgb(255 255 255 / 0.12);
+    border-color: rgb(253 213 127 / 0.62);
+    background: linear-gradient(135deg, rgb(42 44 48 / 0.92), rgb(8 9 12 / 0.84));
     color: var(--sl-color-white);
+    transform: translateY(-1px);
   }
 
   .eyebrow {
@@ -683,13 +741,16 @@ const articleLinks = articleNavItems.map(({ label, link }) => ({ href: link, tit
       inset: 0;
       display: flex;
       flex-direction: column;
+      align-items: stretch;
       justify-content: flex-end;
       padding: 0.75rem;
+      text-align: left;
     }
 
     .articles-overlay h2 {
-      margin-block-end: 0.5rem;
-      font-size: var(--sl-text-base);
+      align-self: flex-start;
+      margin-block-end: 0.55rem;
+      font-size: clamp(1.25rem, 6vw, 1.55rem);
     }
 
     .home-intro .page-art .article-art-image {
