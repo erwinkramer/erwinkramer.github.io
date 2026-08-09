@@ -150,23 +150,6 @@ const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
   </section>
 </StarlightPage>
 
-<script>
-  const resizeRoot = document.documentElement;
-  let resizeTimer = 0;
-
-  window.addEventListener(
-    'resize',
-    () => {
-      resizeRoot.setAttribute('data-resizing', '');
-      window.clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(() => {
-        resizeRoot.removeAttribute('data-resizing');
-      }, 180);
-    },
-    { passive: true },
-  );
-</script>
-
 <style>
   :global(html[data-has-sidebar]) {
     --sl-content-width: 74rem;
@@ -503,19 +486,6 @@ const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
     .signal-core {
       animation: none;
     }
-  }
-
-  :global(html[data-resizing]) .signal-stage::before,
-  :global(html[data-resizing]) .signal-stage::after,
-  :global(html[data-resizing]) .signal-rune,
-  :global(html[data-resizing]) .signal-thread,
-  :global(html[data-resizing]) .signal-ring,
-  :global(html[data-resizing]) .signal-core {
-    animation-play-state: paused;
-  }
-
-  :global(html[data-resizing] body::after) {
-    opacity: 0.03;
   }
 
   .engagement-panel {
