@@ -104,7 +104,7 @@ const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
     <section class="latest-publications" aria-labelledby="articles-heading">
       <p class="articles-kicker">Recently updated</p>
       <h2 id="articles-heading"><a class="articles-heading-link" href="/articles/">Articles</a></h2>
-      <p class="articles-summary">The three newest Guanchen articles, ordered by update date.</p>
+      <p class="articles-summary">The most recently updated Guanchen articles, sorted by date.</p>
       <CardGrid>
         {latestArticles.map((article) => (
           <LinkCard
