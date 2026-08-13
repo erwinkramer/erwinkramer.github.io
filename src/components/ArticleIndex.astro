@@ -15,6 +15,11 @@ type ArticleEntry = {
 const articleRank = new Map(
   articleNavItems.map((item, index) => [item.link.replace(/^\//, '').replace(/\/$/, ''), index]),
 );
+const updateDateFormatter = new Intl.DateTimeFormat('en', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
 const intro = Astro.locals.starlightRoute.entry.data.description;
 const articles = ((await getCollection('docs')) as ArticleEntry[])
   .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
@@ -31,12 +36,13 @@ const articles = ((await getCollection('docs')) as ArticleEntry[])
 
 <section class="article-index" aria-labelledby="all-articles-heading">
   <h2 id="all-articles-heading">All articles</h2>
+  <p class="article-index-summary">All Guanchen articles, sorted by date.</p>
   <CardGrid>
     {articles.map((article) => (
       <LinkCard
         href={`/${article.id}/`}
         title={article.data.title}
-        description={article.data.description}
+        description={`<small class="publication-date">Updated ${updateDateFormatter.format(article.data.date)}</small> - ${article.data.description ?? 'Read the Guanchen article.'}`}
       />
     ))}
   </CardGrid>
@@ -54,6 +60,19 @@ const articles = ((await getCollection('docs')) as ArticleEntry[])
   }
 
   .article-index h2 {
+    margin-block: 0 0.5rem;
+  }
+
+  .article-index-summary {
     margin-block: 0 1rem;
+    color: var(--sl-color-gray-2);
+  }
+
+  .article-index :global(.publication-date) {
+    color: rgb(250 250 250 / 0.68);
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 </style>
