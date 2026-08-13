@@ -214,12 +214,6 @@ main > .content-panel + .content-panel {
   border-top: 0;
 }
 
-@media (max-width: 49.999rem) {
-  iframe.giscus-frame {
-    min-height: 28rem !important;
-  }
-}
-
 @media (min-width: 72rem) {
   .right-sidebar {
     top: var(--sl-nav-height);
