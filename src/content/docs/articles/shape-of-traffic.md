@@ -5,9 +5,7 @@ author: Erwin Kramer
 date: 2026-08-07
 ---
 
-<figure class="page-art">
-	<img src="/assets/traffic-flow-collage.svg" alt="Dark analog traffic map with radar rings, flow lanes, distributed nodes, and signal traces" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
-</figure>
+![Dark analog traffic map with radar rings, flow lanes, distributed nodes, and signal traces](/assets/traffic-flow-collage.svg)
 
 Every digital system has traffic. People sign in. Devices report state. APIs receive requests. Tools call services. Events arrive. Payments move. Search queries, messages, files, images, telemetry, and decisions all flow toward systems that are expected to understand what to do next.
 

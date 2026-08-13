@@ -242,11 +242,11 @@ main > .content-panel:first-of-type h1 {
   color: var(--sl-color-white);
 }
 
-.sl-markdown-content .page-art {
+.sl-markdown-content > p:has(> img[src$='-collage.svg']:only-child) {
   margin: 1.25rem 0 2rem;
 }
 
-.sl-markdown-content .page-art img {
+.sl-markdown-content > p:has(> img[src$='-collage.svg']:only-child) img {
   display: block;
   width: 100%;
   aspect-ratio: 30 / 13;

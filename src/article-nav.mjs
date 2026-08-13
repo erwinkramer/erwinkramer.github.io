@@ -1,4 +1,5 @@
 export const articleNavItems = [
+  { label: 'API portal products', link: '/articles/api-portal-products/' },
   { label: 'Service discovery', link: '/articles/service-discovery/' },
   { label: 'Observability by signal', link: '/articles/observability-by-signal/' },
   { label: 'Federated API security', link: '/articles/federated-api-security/' },

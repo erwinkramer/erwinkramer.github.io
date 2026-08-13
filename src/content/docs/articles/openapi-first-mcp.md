@@ -5,9 +5,7 @@ author: Erwin Kramer
 date: 2026-08-07
 ---
 
-<figure class="page-art">
-	<img src="/assets/contact-ledger-collage.svg" alt="Dark analog ledger collage with columns and signal lines" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
-</figure>
+![Dark analog ledger collage with columns and signal lines](/assets/contact-ledger-collage.svg)
 
 OpenAPI is not paperwork. It is one of the clearest machine-readable contracts most teams already have: operations, parameters, schemas, auth expectations, response shapes, and error boundaries in one place.
 

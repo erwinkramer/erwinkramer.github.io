@@ -5,9 +5,7 @@ author: Erwin Kramer
 date: 2026-08-07
 ---
 
-<figure class="page-art">
-	<img src="/assets/bank-api-decoupling-collage.svg" alt="Dark analog collage with bank columns, separated ledger cards, bridges, and signal lines" width="1200" height="520" loading="eager" decoding="async" fetchpriority="high" />
-</figure>
+![Dark analog collage with bank columns, separated ledger cards, bridges, and signal lines](/assets/bank-api-decoupling-collage.svg)
 
 Technology keeps promising connection. Everything talks to everything else. Products integrate, platforms expand, data moves faster, and organizations are asked to become more digital every year.
 
