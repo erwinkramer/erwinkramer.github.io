@@ -21,7 +21,7 @@ This keeps the architecture understandable for management and operable for teams
 
 ## What the portal must do
 
-Two rules shape the choice. First, the complete working stack must be free: a free UI does not count if the required gateway, control plane, plugin, hosting tier, identity feature, or export path is paid. Second, the practical operation must remain sovereign: the organization should be able to self-host, keep source and definitions under its own control, and continue operating without a US-hosted control plane.
+Two rules shape the choice. First, the complete working stack must be free: a free UI does not count if the required gateway, control plane, plugin, hosting tier, identity feature, or export path is paid. Second, the practical operation must remain sovereign: the organization should be able to self-host, keep source and definitions under its own control, and continue operating without a mandatory external control plane.
 
 The portal also has product-specific requirements. APIs must be grouped into something users understand, such as a product, category, catalog, or domain. Access must be enforced server-side, so a protected API and its OpenAPI or AsyncAPI definition are not merely hidden in the browser but unavailable to unauthorized users. Audience rules must be based on real identity information, such as email domain, identity-provider group, organization, team, or role. Multiple versions of one API should stay visibly connected, preferably through a version selector or previous/next context, instead of appearing as unrelated cards.
 
@@ -61,4 +61,4 @@ Modern hosted-docs products such as **Fern**, **Mintlify**, and **Bump.sh** were
 
 Renderer-only and static-generated-docs tools were omitted as candidates. **Docusaurus OpenAPI Docs**, **Redoc**, **RapiDoc**, **Swagger UI**, and **Stoplight Elements** can produce useful API reference pages, but they do not solve the portal problem on their own. They do not provide built-in server-side sign-in, audience-specific catalog visibility, protected raw definitions, or partner onboarding. They can be implementation details behind a protected route; they are not the portal choice.
 
-The best API portal is not the largest platform. It is the front door that makes the API landscape legible, keeps protected knowledge behind the right boundary, and leaves the organization free to evolve the machinery behind it.
+The best API portal is not the largest platform or the longest list of pages. It is the front door that makes the API landscape legible, keeps protected knowledge behind the right boundary, and leaves the organization free to evolve the machinery behind it.
