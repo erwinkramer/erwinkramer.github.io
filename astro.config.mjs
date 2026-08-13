@@ -115,7 +115,7 @@ export default defineConfig({
           mapping: 'pathname',
           reactions: true,
           inputPosition: 'bottom',
-          theme: 'preferred_color_scheme',
+          theme: 'transparent_dark',
           lazy: true,
         }),
       ],
