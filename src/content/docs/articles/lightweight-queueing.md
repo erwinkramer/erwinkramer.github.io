@@ -59,7 +59,7 @@ Database changefeeds and live queries also answer a different question. MongoDB 
 
 Enterprise brokers and integration suites should be treated carefully. IBM MQ, Red Hat AMQ, TIBCO Enterprise Message Service, Solace, Anypoint MQ, and similar products may be right in regulated or large enterprise environments. But they bring platform gravity: operations, governance, licensing, specialized skills, and central control. RabbitMQ sits nearby: it is a real open-source broker, but the VMware/Broadcom commercial offering carries much of the enterprise lifecycle and support story. These tools can be useful, but they are not lightweight defaults.
 
-Workflow engines are also not queues. Temporal, Camunda, Airflow, Argo Workflows, Step Functions, Inngest, Restate, and similar tools can coordinate long-running processes, retries, human steps, schedules, or durable execution. That is valuable when the work is a workflow. It is unnecessary when the system only needs a queue.
+Workflow engines are also not queues. They coordinate long-running processes, retries, human steps, schedules, or durable execution. [Workflows that Remember](/articles/workflows-that-remember/) goes deeper on that boundary and on choosing a sovereign workflow engine when the work really has durable process memory. Here, the point stays broader: workflow engines are valuable when the work is a workflow, and unnecessary when the system only needs a queue.
 
 ## The choosing test
 
