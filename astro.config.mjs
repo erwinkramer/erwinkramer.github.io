@@ -38,7 +38,7 @@ export default defineConfig({
     starlight({
       title: 'Guanchen',
       description,
-      favicon: '/assets/icon-32.png?v=source-icon-bordered',
+      favicon: '/assets/icon-128.png',
       locales: {
         root: {
           label: 'English',
@@ -68,17 +68,8 @@ export default defineConfig({
           attrs: {
             rel: 'icon',
             type: 'image/png',
-            sizes: '32x32',
-            href: '/assets/icon-32.png?v=source-icon-bordered',
-          },
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'icon',
-            type: 'image/png',
-            sizes: '16x16',
-            href: '/assets/icon-16.png?v=source-icon-bordered',
+            sizes: '128x128',
+            href: '/assets/icon-128.png',
           },
         },
         {
