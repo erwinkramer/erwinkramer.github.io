@@ -68,6 +68,15 @@ export default defineConfig({
           attrs: {
             rel: 'icon',
             type: 'image/png',
+            sizes: '32x32',
+            href: '/assets/icon-32.png',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            type: 'image/png',
             sizes: '128x128',
             href: '/assets/icon-128.png',
           },
