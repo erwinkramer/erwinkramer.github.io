@@ -23,7 +23,7 @@ Good API security separates concerns. The API should know what kind of access it
 
 That is another form of decoupling. The API can focus on the service it provides. The identity layer can focus on trust. The authorization layer can focus on permissions. Partners can keep their own identity model while still calling another organization's API securely.
 
-This connects naturally to [Decoupled by Design](/articles/decoupled-api-design/): clear boundaries are not only useful for business behavior. They are essential for trust.
+This connects naturally to [Decoupled by Design](/articles/decoupled-by-design/): clear boundaries are not only useful for business behavior. They are essential for trust.
 
 ## Federation is a trust agreement
 

@@ -19,7 +19,7 @@ That is a small standard with a large effect.
 
 ## Decoupling needs recognizable facts
 
-[Decoupled by Design](/articles/decoupled-api-design/) argues that good systems connect clearly without collapsing into dependence. Eventing raises the same issue in a quieter form. A synchronous API can reveal coupling immediately: the caller knows the endpoint, the request shape, the response shape, and the failure path. An event-driven system can hide coupling for a long time.
+[Decoupled by Design](/articles/decoupled-by-design/) argues that good systems connect clearly without collapsing into dependence. Eventing raises the same issue in a quieter form. A synchronous API can reveal coupling immediately: the caller knows the endpoint, the request shape, the response shape, and the failure path. An event-driven system can hide coupling for a long time.
 
 That hidden coupling is dangerous. If every producer invents its own headers, timestamp fields, type names, source names, correlation behavior, and payload conventions, consumers become dependent on local folklore. The system may look decoupled because messages are asynchronous, but the real agreement is scattered across code, dashboards, broker topics, wiki pages, and old incidents.
 

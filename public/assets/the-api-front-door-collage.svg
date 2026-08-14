@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
-  <title id="title">API portal products collage</title>
+  <title id="title">The API front door collage</title>
   <desc id="desc">A dark analog collage with a portal frame, catalog cards, protected API definitions, version rails, and neon discovery signals.</desc>
   <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#060609"/><stop offset="0.5" stop-color="#141416"/><stop offset="1" stop-color="#06070a"/></linearGradient><radialGradient id="portalGlow" cx="54%" cy="22%" r="62%"><stop offset="0" stop-color="#fff" stop-opacity="0.2"/><stop offset="0.34" stop-color="#2be7ff" stop-opacity="0.08"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.87" numOctaves="3"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0.16"/></feComponentTransfer></filter></defs>
   <rect width="1200" height="520" fill="url(#bg)"/><rect width="1200" height="520" fill="url(#portalGlow)"/>

@@ -57,7 +57,7 @@ That makes portals easier to replace, federate, or extend. One team can build a 
 
 ## Discovery is sovereignty
 
-This connects directly to [Open Source Sovereignty](/articles/it-sovereignty-open-source/). Sovereignty is not only about where systems run. It is also about whether an organization can understand and move its own technology estate.
+This connects directly to [Open Source Sovereignty](/articles/open-source-sovereignty/). Sovereignty is not only about where systems run. It is also about whether an organization can understand and move its own technology estate.
 
 If service knowledge only lives inside one vendor portal, one hosted catalog, or one private database, the organization loses leverage. Discovery becomes dependent on the tool. Migration becomes harder. Governance becomes harder. Even basic questions become harder: what do we expose, who owns it, which contracts are current, which workflows matter, and which systems depend on them?
 

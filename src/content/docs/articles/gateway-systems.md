@@ -11,7 +11,7 @@ A gateway is not only an API gateway. It is any deliberate boundary where traffi
 
 That makes gateways older and broader than API management. A load balancer is a gateway. A reverse proxy is a gateway. A Kubernetes ingress controller is a gateway. A service mesh edge, identity-aware proxy, webhook receiver, AI model router, protocol bridge, egress proxy, or managed file-transfer front door can also be a gateway in the useful sense of the word.
 
-As argued in [The Shape of Traffic](/articles/shape-of-traffic/), traffic is behavior made visible. A gateway is one of the places where that behavior becomes legible: who is calling, what is under pressure, where trust is decided, and where the system is too dependent on one narrow path.
+As argued in [The Shape of Traffic](/articles/the-shape-of-traffic/), traffic is behavior made visible. A gateway is one of the places where that behavior becomes legible: who is calling, what is under pressure, where trust is decided, and where the system is too dependent on one narrow path.
 
 ## The shape to aim for
 
@@ -21,7 +21,7 @@ The target is a gateway stack the organization can run on its own terms: free or
 
 The gateway should provide a central way of ingress when the organization needs one. It should handle TLS offloading or passthrough deliberately, manage certificates, route by host, path, method, protocol, tenant, region, identity, or service, and apply broad controls such as caching, compression, rate limiting, retries, timeouts, request size limits, logging, metrics, tracing headers, and basic threat protection.
 
-But it should not become the place where all business meaning goes to live. That follows the same restraint described in [Decoupled by Design](/articles/decoupled-api-design/): good boundaries give systems room to move independently. Gateways should protect and shape traffic without becoming the hidden implementation of every product and team behind them.
+But it should not become the place where all business meaning goes to live. That follows the same restraint described in [Decoupled by Design](/articles/decoupled-by-design/): good boundaries give systems room to move independently. Gateways should protect and shape traffic without becoming the hidden implementation of every product and team behind them.
 
 ## Kubernetes changed the language
 
@@ -57,7 +57,7 @@ Full API management suites answer an even wider question. Akana, Amazon API Gate
 
 Those products can be valuable when the problem really is API product management. But they belong to an older shape of system: one where API traffic is treated as a centrally managed product estate. That is related to the new gateway world, and in some ways an ancestor of it, but it is not the same problem. The newer gateway problem spans APIs, events, agents, devices, regions, internal services, partner links, Kubernetes clusters, and local platforms.
 
-That repeats the lesson from [API Portal Products](/articles/api-portal-products/): a focused need should not automatically become a platform purchase. A portal can explain what exists. A registry can store definitions and schemas. A gateway can enforce runtime policy. A service can own business behavior. Observability can collect signals across all of it. Bundles are acceptable only when those responsibilities remain clear.
+That repeats the lesson from [The API Front Door](/articles/the-api-front-door/): a focused need should not automatically become a platform purchase. A portal can explain what exists. A registry can store definitions and schemas. A gateway can enforce runtime policy. A service can own business behavior. Observability can collect signals across all of it. Bundles are acceptable only when those responsibilities remain clear.
 
 ## The choosing test
 

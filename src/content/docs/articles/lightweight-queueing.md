@@ -9,7 +9,7 @@ date: 2026-08-13
 
 A queue does not have to be a platform before it becomes useful. Sometimes it is just a durable record that says: this work exists, it has been accepted, and it still needs to move forward.
 
-That is the philosophy behind [Queueing Matters](/articles/quiet-power-of-queues/). Queues give systems room to breathe. They separate acceptance from completion, make pressure visible, and let one part of a system keep moving while another part catches up.
+That is the philosophy behind [Queueing Matters](/articles/queueing-matters/). Queues give systems room to breathe. They separate acceptance from completion, make pressure visible, and let one part of a system keep moving while another part catches up.
 
 The mistake is turning every delay into a broker decision. A message broker can be exactly right, but the first question should be smaller: where should the promise of the work live?
 

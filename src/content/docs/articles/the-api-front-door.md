@@ -1,11 +1,11 @@
 ---
-title: API Portal Products
-description: How to choose an API portal that keeps discovery useful, definitions protected, and gateway choices separate.
+title: The API Front Door
+description: Choosing an API portal that keeps discovery useful, definitions protected, and gateway choices separate.
 author: Erwin Kramer
 date: 2026-08-13
 ---
 
-![Dark analog collage with a portal frame, catalog cards, protected API definitions, and version rails](/assets/api-portal-products-collage.svg)
+![Dark analog collage with a portal frame, catalog cards, protected API definitions, and version rails](/assets/the-api-front-door-collage.svg)
 
 An API portal is not just a documentation website. It is the place where an organization shows how its APIs are meant to be discovered, trusted, governed, and reused. As argued in [Service Discovery](/articles/service-discovery/), a portal is really a front door to a relationship: it tells people what exists, what is stable, how to get access, and what kind of commitment the provider is making. When that portal is good, API knowledge becomes visible without becoming uncontrolled. Partners find the right product, teams understand ownership, and the organization keeps a clear boundary between public explanation and protected system detail.
 
@@ -37,7 +37,7 @@ Definitions remain private. OpenAPI and AsyncAPI files live in Git, private obje
 
 Raw definitions are served through authorization routes. A renderer receives a URL such as `/api-definitions/{apiId}/{version}`, but that route checks the same audience rule before returning the file. This is the critical difference between a portal and a documentation site: an unauthorized user should not be able to fetch the definition directly after guessing a URL.
 
-The gateway stays outside the portal choice. That follows the same architectural restraint described in [Decoupled API Design](/articles/decoupled-api-design/): avoid turning a useful interface decision into platform coupling. Credential requests can link to an existing IAM process, service desk flow, GitOps workflow, or API ownership process. The portal should explain and guide access, not require a specific gateway product to exist.
+The gateway stays outside the portal choice. That follows the same architectural restraint described in [Decoupled by Design](/articles/decoupled-by-design/): avoid turning a useful interface decision into platform coupling. Credential requests can link to an existing IAM process, service desk flow, GitOps workflow, or API ownership process. The portal should explain and guide access, not require a specific gateway product to exist.
 
 This is deliberately modest. It creates a polished front door while keeping the sensitive material, the definitions and the audience rules, on the server side. It also makes the system easy to explain later: catalog metadata, private definitions, identity claims, authorization routes, and a renderer.
 

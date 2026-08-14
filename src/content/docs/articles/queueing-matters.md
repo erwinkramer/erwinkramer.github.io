@@ -31,7 +31,7 @@ The shape changed, but the principle stayed the same: organize pressure so the s
 
 ## Queues make decoupling practical
 
-This connects directly to [Decoupled by Design](/articles/decoupled-api-design/). Decoupling is not only about separating code or teams. It is about giving parts of a system enough independence that they do not collapse into one another.
+This connects directly to [Decoupled by Design](/articles/decoupled-by-design/). Decoupling is not only about separating code or teams. It is about giving parts of a system enough independence that they do not collapse into one another.
 
 Queues are one of the most practical ways to create that independence.
 
