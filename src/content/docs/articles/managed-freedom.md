@@ -86,11 +86,11 @@ The same breadth is also the risk. The identity question is where the tradeoff b
 
 It is a Finnish managed open-source data platform for services such as PostgreSQL, Kafka, OpenSearch, Valkey, Grafana, and related tools. Its PostgreSQL service advertises PostgreSQL 17 and 18, and its posture is explicitly multi-cloud.
 
-That makes Aiven a real fit when data operations are important enough to deserve a specialist. It can sit beside Exoscale or UpCloud instead of replacing them. The infrastructure provider runs Kubernetes and object storage. Aiven runs the data layer. The boundary is contractual, networked, and architectural.
+That makes Aiven a real fit when data operations are important enough to deserve a specialist. It can sit beside Exoscale as a separate data provider, or run closer to the infrastructure on clouds Aiven supports, such as UpCloud. The infrastructure provider runs Kubernetes and object storage. Aiven runs the data layer. The boundary is contractual, networked, and architectural.
 
 [Keycloak](https://www.keycloak.org/) is the identity example in the same pattern. It can be self-hosted or run as a managed service through providers such as [Cloud-IAM](https://www.cloud-iam.com/), supports OIDC and OAuth, and keeps the trust boundary visible. That gives applications, users, and Kubernetes a shared identity layer without making the infrastructure provider's identity system the center of the product. Azure has already shown how quickly that can become the product.
 
-This shape is less tidy for billing and procurement. It adds network paths, support boundaries, data processing agreements, and incident coordination. But for critical data or identity, that extra boundary can be worth it. Compose providers when the data layer or identity layer is strategically important enough to deserve a specialist.
+This shape is less tidy for billing and procurement. It adds network paths, support boundaries, data processing agreements, and incident coordination. The burden is lighter when the cloud foundation also gives a clean way to deploy and pay for specialist software close to the workloads, so networking does not become its own project. [Keycloak managed by Glasskube](https://www.exoscale.com/marketplace/listing/glasskube-keycloak/) is a good example of that direction: automated deployment of open-source identity software on Kubernetes through the Exoscale marketplace. Compose providers when the data layer or identity layer is strategically important enough to deserve a specialist, but prefer compositions where the operational edges stay boring.
 
 ## The Decision
 
