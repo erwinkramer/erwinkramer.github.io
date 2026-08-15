@@ -15,11 +15,11 @@ The sovereignty requirement matters here. As argued in [Open Source Sovereignty]
 
 ## The shape to aim for
 
-The direction is focused workflow orchestration rather than an automation estate. This is not a search for the smallest durable-execution primitive. A library that checkpoints code can be useful, but it is not enough for this question by itself. The target is an operable workflow engine, with enough runtime and operating surface to run it responsibly.
+The direction is focused workflow orchestration rather than an automation estate. The article is looking for the narrow place where a process needs identity, waiting, recovery, and history of its own, without turning the workflow engine into the center of the whole integration landscape.
+
+This is also not a search for the smallest durable-execution primitive. A library that checkpoints code can be useful, but it is not enough for this question by itself. The target is an operable engine rather than a hidden runtime trick.
 
 The engine should solve workflows, not integration as a whole. It does not need to be the API gateway, message broker, schema registry, ETL suite, RPA platform, service catalog, and business rules engine. When a product tries to absorb all of that, the workflow requirement becomes a platform procurement. That is usually where the sovereignty argument is lost.
-
-The preferred stack is free, open-source, and self-hostable where the runtime matters. A managed offering may be useful later, but it should not be the only way to get the features that make the engine operable. The engine should also be code-first. Ordinary code is ideal when developers own the process logic. Readable YAML or another textual definition can work when it is stable, reviewable, and versioned in Git. A visual editor is acceptable only if it round-trips cleanly to readable source. If the canvas is the real source of truth, it is the wrong default here.
 
 ## When a workflow is actually needed
 
