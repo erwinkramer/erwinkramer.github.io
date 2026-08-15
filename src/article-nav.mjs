@@ -11,5 +11,6 @@ export const articleNavItems = [
   { label: 'The Shape of Traffic', link: '/articles/the-shape-of-traffic/' },
   { label: 'Decoupled by Design', link: '/articles/decoupled-by-design/' },
   { label: 'Open Source Sovereignty', link: '/articles/open-source-sovereignty/' },
+  { label: 'Managed Freedom', link: '/articles/managed-freedom/' },
   { label: 'OpenAPI-first MCP', link: '/articles/openapi-first-mcp/' },
 ];
