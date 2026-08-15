@@ -100,7 +100,7 @@ It is broad enough to carry the everyday platform, but restrained enough to leav
 
 UpCloud is the quieter alternative. It fits teams that want a smaller cloud surface and are comfortable assembling more of the surrounding platform themselves. That can be a strength when simplicity matters more than breadth, but it should be chosen for that restraint, not as a full replacement for a broader cloud foundation.
 
-Specialists still matter when they strengthen the boundary. Aiven belongs in the picture when the data layer deserves its own operator. Keycloak belongs in the picture when identity should stay independent. More than one provider is not a failure when every provider has a clear role.
+Specialists still matter when they strengthen the boundary. Aiven belongs in the picture when the data layer deserves its own operator. A managed Keycloak provider such as Cloud-IAM belongs in the picture when identity should stay independent. More than one provider is not a failure when every provider has a clear role.
 
 The important thing is not whether the provider can host the workload. Many can. The important thing is whether the workload still belongs to the organization after the cloud has made it easier to run.
 
