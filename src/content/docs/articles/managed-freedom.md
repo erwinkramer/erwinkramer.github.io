@@ -15,7 +15,7 @@ That is managed freedom.
 
 The goal is not to avoid managed services. The goal is to use them without letting the cloud provider become the operating model. A cloud can start by running servers and end up shaping identity, deployment, policy, observability, data flow, and security. The application still runs, but changing direction becomes hard because too many decisions now live inside one environment.
 
-## The Shape
+## The shape
 
 The infrastructure layer may be managed: Kubernetes control planes, object storage, PostgreSQL, load balancers, private networking, backups, and basic compute. Those are infrastructure problems. They are exactly the kind of problems a good provider should make less distracting.
 
@@ -30,13 +30,13 @@ The second shape is valid when the boundaries are explicit. A specialist provide
 
 This is the cloud version of the argument in [Open Source Sovereignty](/articles/open-source-sovereignty/): the goal is not retreat, but agency.
 
-## Provider Types
+## Provider types
 
 The [European Alternatives cloud computing platforms list](https://european-alternatives.eu/category/cloud-computing-platforms) is a useful starting point because it separates general cloud providers from VPS-only hosts and PaaS products.
 
 Several of them can run serious systems. The question is not whether they can host workloads. The question is what kind of architecture they encourage.
 
-## General Infrastructure Clouds
+## General infrastructure clouds
 
 Start with the providers that look most like general infrastructure clouds: managed Kubernetes, object storage, databases, networking, and enough API surface to build with standard tools. [Exoscale](https://www.exoscale.com/) and [OVHcloud](https://www.ovhcloud.com/) both fit that part of the map, but they lean differently.
 
@@ -48,7 +48,7 @@ That combination matters. It means the provider can manage infrastructure while 
 
 The tradeoff is not that OVHcloud blocks external identity or OpenTelemetry. It does not. Workloads on managed Kubernetes can emit OpenTelemetry, and Public Cloud Databases expose Prometheus metrics. The narrower issue is managed-service logs: OVHcloud's documented forwarding path for database logs goes through Logs Data Platform. That can still be consumed or bridged into a separate telemetry stack, but LDP becomes a provider-owned step in the signal path. If the architecture wants the OpenTelemetry Collector to be the first boundary for service signals, this tradeoff has to be weighed against the rest of OVHcloud's breadth.
 
-## Restrained Infrastructure
+## Restrained infrastructure
 
 [UpCloud](https://upcloud.com/) belongs in a smaller, more restrained category.
 
@@ -60,7 +60,7 @@ The tradeoff is polish around the edges. UpCloud leaves more of the platform sha
 
 That still makes UpCloud a good fit when the desired cloud surface is smaller and calmer. Its own managed PostgreSQL can be enough for many systems, especially when the goal is a straightforward relational store close to the rest of the infrastructure. A specialist data provider only enters the picture when the data layer needs depth beyond that: more advanced managed PostgreSQL requirements, Kafka, OpenSearch-heavy workloads, or a deliberately multi-cloud data strategy. UpCloud should not be judged by whether it has every managed product. It should be judged by whether the team is comfortable assembling more of the platform boundary itself.
 
-## Integrated Clouds
+## Integrated clouds
 
 [Scaleway](https://www.scaleway.com/) has a more integrated developer experience.
 
@@ -70,7 +70,7 @@ PaaS-shaped platforms such as **Clever Cloud** and **Upsun** sit nearby, but the
 
 The risk is convenience. If Cockpit becomes the center of operations, the OpenTelemetry Collector becomes secondary. If the provider's integrated path becomes the easiest path for every concern, the architecture starts to bend around the provider. Scaleway is a good fit when speed and integrated experience matter more than maximal independence of the telemetry boundary.
 
-## Enterprise Ecosystems
+## Enterprise ecosystems
 
 [STACKIT](https://www.stackit.de/en/) needs a different reading before it can be judged fairly.
 
@@ -80,7 +80,7 @@ It is German, backed by Schwarz Group, and presents itself more like a sovereign
 
 The same breadth is also the risk. The identity question is where the tradeoff becomes visible. STACKIT Kubernetes Engine supports SSO through STACKIT IdP, and workload identity can federate Kubernetes service accounts to STACKIT APIs. That is useful for enterprise governance, but it makes STACKIT's own identity layer part of Kubernetes access and cloud API access. If the requirement is an independent identity boundary, such as Keycloak using OIDC, STACKIT is weaker than Exoscale or OVHcloud here. STACKIT can make the cloud feel like the natural place for every adjacent decision: identity, policy, observability, runtime choices, data services, and security controls. The danger is not one bad product. The danger is that the architecture slowly settles into one enterprise control plane. STACKIT needs especially clear rules about what is infrastructure and what would start to define the system.
 
-## Specialist Data and Identity
+## Specialist data and identity
 
 [Aiven](https://aiven.io/) is a strong example of the specialist data-layer shape introduced earlier.
 
@@ -92,7 +92,7 @@ That makes Aiven a real fit when data operations are important enough to deserve
 
 This shape is less tidy for billing and procurement. It adds network paths, support boundaries, data processing agreements, and incident coordination. The burden is lighter when the cloud foundation also gives a clean way to deploy and pay for specialist software close to the workloads, so networking does not become its own project. [Keycloak managed by Glasskube](https://www.exoscale.com/marketplace/listing/glasskube-keycloak/) is a good example of that direction: automated deployment of open-source identity software on Kubernetes through the Exoscale marketplace. Compose providers when the data layer or identity layer is strategically important enough to deserve a specialist, but prefer compositions where the operational edges stay boring.
 
-## The Decision
+## The decision
 
 After this lens, Exoscale is the strongest first choice for a single European cloud foundation.
 
