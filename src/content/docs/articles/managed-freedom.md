@@ -47,7 +47,7 @@ Start with the providers that look most like general infrastructure clouds: mana
 
 **Exoscale** is the cleaner default foundation. It has the core primitives: managed Kubernetes, S3-compatible object storage, managed PostgreSQL, networking, DNS, and load balancing. Its PostgreSQL API lists PostgreSQL 17 and 18 as supported major versions for service creation and upgrade checks. Its Kubernetes service supports external OIDC providers, including setups based on Dex or Keycloak, so identity does not have to become an Exoscale account boundary.
 
-Its database service supports Prometheus, Rsyslog, and OpenSearch integrations. Those are not native OTLP outputs, but they are neutral enough to bridge into an OpenTelemetry Collector-owned pipeline. Managed Kubernetes Pro can also send control-plane audit records to a webhook endpoint. That is the healthy version of managed dependency: the provider takes work away while the important boundaries stay visible.
+Its database service is powered by Aiven and supports Prometheus, Rsyslog, and OpenSearch integrations. Those are not native OTLP outputs, but they are neutral enough to bridge into an OpenTelemetry Collector-owned pipeline. Managed Kubernetes Pro can also send control-plane audit records to a webhook endpoint. That is the healthy version of managed dependency: the provider takes work away while the important boundaries stay visible.
 
 **OVHcloud** has a broader enterprise shape. It is European, mature, and real at scale. It has managed Kubernetes, S3-compatible object storage, managed PostgreSQL, OpenStack roots, PostgreSQL 17 and 18 support, and documented OIDC configuration for managed Kubernetes. It is a strong answer when scale, procurement maturity, OpenStack familiarity, and enterprise presence matter most.
 
@@ -95,7 +95,7 @@ STACKIT needs especially clear rules about what counts as infrastructure and wha
 
 [Aiven](https://aiven.io/) is a strong example of the specialist data-layer shape introduced earlier.
 
-It is a Finnish managed open-source data platform for PostgreSQL, Kafka, OpenSearch, Valkey, Grafana, and related tools. Its PostgreSQL service advertises PostgreSQL 17 and 18, and its posture is explicitly multi-cloud. Aiven fits when data operations are important enough to deserve a specialist beside an infrastructure foundation such as Exoscale or UpCloud.
+It is a Finnish managed open-source data platform for PostgreSQL, Kafka, OpenSearch, Valkey, Grafana, and related tools. Its PostgreSQL service advertises PostgreSQL 17 and 18, and its posture is explicitly multi-cloud. That makes Aiven useful in two shapes: integrated into another cloud, as with Exoscale, or running beside another cloud, such as UpCloud.
 
 [Keycloak](https://www.keycloak.org/) is the identity example in the same pattern. It can be self-hosted or run as a managed service through providers such as [Cloud-IAM](https://www.cloud-iam.com/), supports OIDC and OAuth, and keeps the trust boundary visible. That gives applications, users, and Kubernetes a shared identity layer without making the infrastructure provider's identity system the center of the product. Azure has already shown how quickly that can become the product.
 
