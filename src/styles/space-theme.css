@@ -176,6 +176,33 @@ starlight-menu-button[aria-expanded='true'] button {
   color: var(--sl-color-white);
 }
 
+.site-title {
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  color: var(--sl-color-text-accent);
+  font-size: var(--sl-text-h4);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-title:hover {
+  color: var(--sl-color-text-accent);
+}
+
+.site-title img {
+  flex: 0 0 auto;
+  width: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+  height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+  object-fit: cover;
+  filter: drop-shadow(0 0 12px rgb(161 132 82 / 0.14));
+}
+
+.site-title span {
+  overflow: hidden;
+}
+
 .sidebar-pane {
   box-shadow: inset -1px 0 0 var(--sl-color-hairline);
 }
@@ -203,6 +230,10 @@ starlight-menu-button[aria-expanded='true'] button {
 @media (max-width: 34rem) {
   :root {
     --space-theme-header-control-gap: 0.2rem;
+  }
+
+  .site-title {
+    gap: 0.55rem;
   }
 }
 
