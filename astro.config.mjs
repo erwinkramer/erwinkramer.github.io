@@ -124,7 +124,11 @@ export default defineConfig({
           mapping: 'pathname',
           reactions: true,
           inputPosition: 'bottom',
-          theme: 'transparent_dark',
+          theme: {
+            light: 'transparent_dark',
+            dark: 'transparent_dark',
+            auto: 'transparent_dark',
+          },
           lazy: true,
         }),
       ],

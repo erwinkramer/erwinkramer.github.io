@@ -250,6 +250,14 @@ main > .content-panel:first-of-type h1 {
   opacity: 0.9;
 }
 
+.publication-date {
+  color: rgb(250 250 250 / 0.68);
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
 ::selection {
   background-color: color-mix(in srgb, #6bc1fe, transparent 50%);
 }

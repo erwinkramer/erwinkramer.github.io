@@ -1,35 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
-import { articleNavItems } from '../article-nav.mjs';
+import { articleDateFormatter, getArticles } from '../articles';
 
-type ArticleEntry = {
-  id: string;
-  data: {
-    title: string;
-    description?: string;
-    date?: Date;
-  };
-};
-
-const articleRank = new Map(
-  articleNavItems.map((item, index) => [item.link.replace(/^\//, '').replace(/\/$/, ''), index]),
-);
-const updateDateFormatter = new Intl.DateTimeFormat('en', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-});
 const intro = Astro.locals.starlightRoute.entry.data.description;
-const articles = ((await getCollection('docs')) as ArticleEntry[])
-  .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
-  .sort((a, b) => {
-    const dateDifference = (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
-
-    if (dateDifference !== 0) return dateDifference;
-
-    return (articleRank.get(a.id) ?? Number.MAX_SAFE_INTEGER) - (articleRank.get(b.id) ?? Number.MAX_SAFE_INTEGER);
-  });
+const articles = await getArticles();
 ---
 
 {intro && <p class="articles-intro">{intro}</p>}
@@ -42,7 +16,7 @@ const articles = ((await getCollection('docs')) as ArticleEntry[])
       <LinkCard
         href={`/${article.id}/`}
         title={article.data.title}
-        description={`<small class="publication-date">Updated ${updateDateFormatter.format(article.data.date)}</small> - ${article.data.description ?? 'Read the Guanchen article.'}`}
+        description={`<small class="publication-date">Updated ${articleDateFormatter.format(article.data.date)}</small> - ${article.data.description ?? 'Read the Guanchen article.'}`}
       />
     ))}
   </CardGrid>
@@ -66,13 +40,5 @@ const articles = ((await getCollection('docs')) as ArticleEntry[])
   .article-index-summary {
     margin-block: 0 1rem;
     color: var(--sl-color-gray-2);
-  }
-
-  .article-index :global(.publication-date) {
-    color: rgb(250 250 250 / 0.68);
-    font-size: 0.78em;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
   }
 </style>

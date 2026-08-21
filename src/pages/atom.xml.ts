@@ -1,21 +1,10 @@
 import atom from 'astrojs-atom';
-import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
-
-type ArticleEntry = {
-  id: string;
-  data: {
-    title: string;
-    description?: string;
-    date?: Date;
-  };
-};
+import { getArticles } from '../articles';
 
 export async function GET(context: APIContext) {
   const site = context.site ?? new URL('https://guanchen.nl');
-  const posts = ((await getCollection('docs')) as ArticleEntry[])
-    .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
-    .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+  const posts = await getArticles();
 
   const feedUrl = new URL('/atom.xml', site).toString();
   const articlesUrl = new URL('/articles/', site).toString();

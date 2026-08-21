@@ -1,17 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { CardGrid, LinkButton, LinkCard } from '@astrojs/starlight/components';
-import { articleNavItems } from '../article-nav.mjs';
-
-type ArticleEntry = {
-  id: string;
-  data: {
-    title: string;
-    description?: string;
-    date?: Date;
-  };
-};
+import { articleDateFormatter, getArticles } from '../articles';
 
 const frontmatter = {
   title: 'Home',
@@ -23,28 +13,12 @@ const frontmatter = {
   next: false,
 } as const;
 
-const articleRank = new Map(
-  articleNavItems.map((item, index) => [item.link.replace(/^\//, '').replace(/\/$/, ''), index]),
-);
-const updateDateFormatter = new Intl.DateTimeFormat('en', {
-  day: 'numeric',
-  month: 'short',
-  year: 'numeric',
-});
-const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
-  .filter((entry) => entry.id.startsWith('articles/') && entry.data.date)
-  .sort((a, b) => {
-    const dateDifference = (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0);
-
-    if (dateDifference !== 0) return dateDifference;
-
-    return (articleRank.get(a.id) ?? Number.MAX_SAFE_INTEGER) - (articleRank.get(b.id) ?? Number.MAX_SAFE_INTEGER);
-  })
+const latestArticles = (await getArticles())
   .slice(0, 3)
   .map((entry) => ({
     href: `/${entry.id}/`,
     title: entry.data.title,
-    updatedLabel: `Updated ${updateDateFormatter.format(entry.data.date)}`,
+    updatedLabel: `Updated ${articleDateFormatter.format(entry.data.date)}`,
     description: entry.data.description ?? 'Read the latest Guanchen article.',
   }));
 ---
@@ -614,14 +588,6 @@ const latestArticles = ((await getCollection('docs')) as ArticleEntry[])
 
   .latest-publications :global(.sl-link-card .description) {
     overflow-wrap: anywhere;
-  }
-
-  .latest-publications :global(.publication-date) {
-    color: rgb(250 250 250 / 0.68);
-    font-size: 0.78em;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
   }
 
   .articles-actions {
