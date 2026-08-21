@@ -3,6 +3,12 @@ import starlight from '@astrojs/starlight';
 import starlightGiscus from 'starlight-giscus';
 import { siteInfo, siteStructuredData } from './src/site.ts';
 
+// Custom theme workaround for thin Giscus borders on scaled Windows displays:
+// https://github.com/dragomano/starlight-giscus/discussions/10
+const giscusTheme = process.env.NODE_ENV === 'development'
+  ? 'transparent_dark'
+  : new URL('/giscus/transparent-dark.css?v=20260821', siteInfo.url).toString();
+
 export default defineConfig({
   site: siteInfo.url,
   integrations: [
@@ -96,9 +102,9 @@ export default defineConfig({
           reactions: true,
           inputPosition: 'bottom',
           theme: {
-            light: 'transparent_dark',
-            dark: 'transparent_dark',
-            auto: 'transparent_dark',
+            light: giscusTheme,
+            dark: giscusTheme,
+            auto: giscusTheme,
           },
           lazy: true,
         }),
