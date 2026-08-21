@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Systems That Listen</title>
+  <desc id="desc">A dark analog listening loop with a central signal lens, five system panels, and soft feedback waves.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050609"/><stop offset="0.5" stop-color="#111418"/><stop offset="1" stop-color="#07070b"/></linearGradient>
+    <radialGradient id="glow" cx="50%" cy="46%" r="58%"><stop offset="0" stop-color="#69f0c7" stop-opacity="0.14"/><stop offset="0.42" stop-color="#55d7ff" stop-opacity="0.07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0.13"/></feComponentTransfer></filter>
+  </defs>
+
+  <rect width="1200" height="520" fill="url(#bg)"/>
+  <rect width="1200" height="520" fill="url(#glow)"/>
+  <g style="mix-blend-mode:screen" opacity="0.74">
+    <path d="M-42 404 254 280l144 70L76 520Z" fill="#69f0c7" opacity="0.12"/>
+    <path d="M642 0h158L482 520H354Z" fill="#ffd166" opacity="0.09"/>
+    <path d="M862 72 1228 198l-112 116-344-156Z" fill="#ff6f91" opacity="0.1"/>
+  </g>
+  <path d="M0 356c122-58 260-76 406-34 142 40 276 22 414-34 164-66 282-50 380 24v208H0Z" fill="#090a0c" opacity="0.86"/>
+
+  <g opacity="0.28" stroke="#fff" stroke-opacity="0.1" stroke-width="1">
+    <path d="M112 72h976M112 260h976M112 448h976"/>
+    <path d="M188 62v396M428 62v396M668 62v396M908 62v396"/>
+  </g>
+  <g opacity="0.42" style="mix-blend-mode:screen" fill="none" stroke-linecap="round">
+    <path d="M104 414C244 186 418 116 614 154c216 44 348 8 490-78" stroke="#55d7ff" stroke-opacity="0.08" stroke-width="52"/>
+    <path d="M168 94c154 82 276 112 418 62 154-54 284-20 416 96" stroke="#ffd166" stroke-opacity="0.07" stroke-width="38"/>
+  </g>
+  <g opacity="0.46" fill="none" stroke-linecap="round">
+    <path d="M72 418h206c48 0 72-30 118-30h188" stroke="#69f0c7" stroke-opacity="0.18" stroke-width="4"/>
+    <path d="M876 98h92c42 0 66 30 106 30h72" stroke="#ff6f91" stroke-opacity="0.18" stroke-width="4"/>
+    <path d="M74 102c70 28 138 34 204 18" stroke="#ffd166" stroke-opacity="0.16" stroke-width="3"/>
+    <path d="M914 430c66-24 138-28 216-10" stroke="#55d7ff" stroke-opacity="0.16" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(600 260)">
+    <ellipse rx="162" ry="92" fill="#05070a" fill-opacity="0.6" stroke="#fff" stroke-opacity="0.12" stroke-width="2"/>
+    <ellipse rx="118" ry="58" fill="none" stroke="#69f0c7" stroke-opacity="0.2" stroke-width="3" stroke-dasharray="8 12"/>
+    <ellipse rx="218" ry="128" fill="none" stroke="#55d7ff" stroke-opacity="0.11" stroke-width="3"/>
+    <ellipse rx="274" ry="164" fill="none" stroke="#ffd166" stroke-opacity="0.08" stroke-width="3" stroke-dasharray="2 16"/>
+    <path d="M-74 0c18-30 42-46 74-46s56 16 74 46c-18 30-42 46-74 46s-56-16-74-46Z" fill="#10161a" fill-opacity="0.82" stroke="#69f0c7" stroke-opacity="0.32" stroke-width="3"/>
+    <circle r="18" fill="#69f0c7" fill-opacity="0.16" stroke="#69f0c7" stroke-opacity="0.38" stroke-width="3"/>
+    <path d="M-118 0h36m164 0h36M0-82v28M0 54v28" stroke="#fff" stroke-opacity="0.16" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-44 0c10-18 22-26 38-26 16 0 28 8 38 26-10 18-22 26-38 26-16 0-28-8-38-26Z" fill="none" stroke="#55d7ff" stroke-opacity="0.24" stroke-width="3"/>
+  </g>
+
+  <g fill="#10161a" fill-opacity="0.94" stroke-linejoin="round">
+    <rect x="480" y="88" width="240" height="68" rx="10" stroke="#ffd166" stroke-opacity="0.4" stroke-width="3"/>
+    <rect x="812" y="206" width="220" height="70" rx="10" stroke="#69f0c7" stroke-opacity="0.36" stroke-width="3"/>
+    <rect x="704" y="358" width="226" height="70" rx="10" stroke="#55d7ff" stroke-opacity="0.36" stroke-width="3"/>
+    <rect x="270" y="358" width="226" height="70" rx="10" stroke="#ff6f91" stroke-opacity="0.34" stroke-width="3"/>
+    <rect x="168" y="206" width="220" height="70" rx="10" stroke="#fff" stroke-opacity="0.18" stroke-width="3"/>
+  </g>
+
+  <g stroke="#fff" stroke-opacity="0.2" stroke-width="4" stroke-linecap="round">
+    <path d="M522 114h118M522 136h72"/>
+    <path d="M852 232h112M852 254h78"/>
+    <path d="M746 384h118M746 406h78"/>
+    <path d="M312 384h118M312 406h72"/>
+    <path d="M210 232h114M210 254h78"/>
+  </g>
+  <g fill-opacity="0.44">
+    <circle cx="672" cy="122" r="10" fill="#ffd166"/>
+    <circle cx="984" cy="241" r="10" fill="#69f0c7"/>
+    <circle cx="884" cy="393" r="10" fill="#55d7ff"/>
+    <circle cx="450" cy="393" r="10" fill="#ff6f91"/>
+    <circle cx="340" cy="241" r="10" fill="#69f0c7"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M680 150C760 156 824 176 872 210" stroke="#ffd166" stroke-opacity="0.32" stroke-width="5" stroke-dasharray="1 14"/>
+    <path d="M948 276c4 46-16 78-66 104" stroke="#69f0c7" stroke-opacity="0.32" stroke-width="5" stroke-dasharray="1 14"/>
+    <path d="M710 406c-76 28-148 28-224 0" stroke="#55d7ff" stroke-opacity="0.28" stroke-width="5" stroke-dasharray="1 14"/>
+    <path d="M348 358c-58-30-82-62-76-100" stroke="#ff6f91" stroke-opacity="0.28" stroke-width="5" stroke-dasharray="1 14"/>
+    <path d="M300 206c40-44 104-70 190-78" stroke="#69f0c7" stroke-opacity="0.3" stroke-width="5" stroke-dasharray="1 14"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round">
+    <path d="M454 260c44-58 94-86 146-86s102 28 146 86" stroke="#69f0c7" stroke-opacity="0.18" stroke-width="4"/>
+    <path d="M410 260c60-88 124-132 190-132s130 44 190 132" stroke="#55d7ff" stroke-opacity="0.13" stroke-width="4"/>
+    <path d="M366 260c76-120 154-180 234-180s158 60 234 180" stroke="#ffd166" stroke-opacity="0.09" stroke-width="4"/>
+    <path d="M454 260c44 58 94 86 146 86s102-28 146-86" stroke="#69f0c7" stroke-opacity="0.15" stroke-width="4"/>
+    <path d="M410 260c60 88 124 132 190 132s130-44 190-132" stroke="#55d7ff" stroke-opacity="0.11" stroke-width="4"/>
+  </g>
+
+  <g opacity="0.64" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="2" stroke-linecap="round">
+    <path d="M398 164c52 40 108 58 170 54"/>
+    <path d="M718 218c52-2 100-18 146-48"/>
+    <path d="M724 312c42 28 84 42 128 42"/>
+    <path d="M348 314c48 30 100 42 156 38"/>
+  </g>
+
+  <g opacity="0.46" fill="#fff">
+    <circle cx="90" cy="82" r="1.5"/><circle cx="242" cy="54" r="1.7"/><circle cx="1038" cy="84" r="1.7"/><circle cx="1058" cy="432" r="1.5"/><circle cx="542" cy="458" r="1.8"/>
+  </g>
+  <rect width="1200" height="520" fill="#000" opacity="0.08"/>
+  <rect width="1200" height="520" filter="url(#grain)"/>
+  <rect x="24" y="24" width="1152" height="472" rx="14" fill="none" stroke="#fff" stroke-opacity="0.11"/>
+</svg>

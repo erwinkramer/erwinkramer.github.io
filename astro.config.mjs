@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import mermaid from 'astro-mermaid';
 import starlight from '@astrojs/starlight';
 import starlightGiscus from 'starlight-giscus';
 import { siteInfo, siteStructuredData } from './src/site.ts';
@@ -12,6 +13,15 @@ const giscusTheme = process.env.NODE_ENV === 'development'
 export default defineConfig({
   site: siteInfo.url,
   integrations: [
+    mermaid({
+      theme: 'dark',
+      enableLog: false,
+      mermaidConfig: {
+        flowchart: {
+          curve: 'basis',
+        },
+      },
+    }),
     starlight({
       title: siteInfo.name,
       description: siteInfo.description,

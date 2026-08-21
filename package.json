@@ -13,7 +13,9 @@
   "dependencies": {
     "@astrojs/starlight": "0.41.7",
     "astro": "7.2.4",
+    "astro-mermaid": "2.1.0",
     "astrojs-atom": "4.0.29",
+    "mermaid": "11.17.0",
     "starlight-giscus": "1.1.0"
   }
 }
