@@ -7,7 +7,7 @@ import { siteInfo, siteStructuredData } from './src/site.ts';
 // https://github.com/dragomano/starlight-giscus/discussions/10
 const giscusTheme = process.env.NODE_ENV === 'development'
   ? 'transparent_dark'
-  : new URL('/giscus/transparent-dark.css?v=20260821-7', siteInfo.url).toString();
+  : new URL('/giscus/transparent-dark.css?v=20260821-8', siteInfo.url).toString();
 
 export default defineConfig({
   site: siteInfo.url,
