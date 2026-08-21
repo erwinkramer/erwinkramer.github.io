@@ -2,14 +2,10 @@
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import { articleDateFormatter, getArticles } from '../articles';
 
-const intro = Astro.locals.starlightRoute.entry.data.description;
 const articles = await getArticles();
 ---
 
-{intro && <p class="articles-intro">{intro}</p>}
-
-<section class="article-index" aria-labelledby="all-articles-heading">
-  <h2 id="all-articles-heading">All articles</h2>
+<section class="article-index" aria-label="All articles">
   <p class="article-index-summary">All Guanchen articles, sorted by date.</p>
   <CardGrid>
     {articles.map((article) => (
@@ -23,18 +19,8 @@ const articles = await getArticles();
 </section>
 
 <style>
-  .articles-intro {
-    color: var(--sl-color-gray-2);
-    font-size: var(--sl-text-lg);
-    line-height: 1.55;
-  }
-
   .article-index {
     margin-block-start: 1.75rem;
-  }
-
-  .article-index h2 {
-    margin-block: 0 0.5rem;
   }
 
   .article-index-summary {
