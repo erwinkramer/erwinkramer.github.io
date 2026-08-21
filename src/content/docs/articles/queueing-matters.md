@@ -1,8 +1,9 @@
 ---
 title: Queueing Matters
 description: How queues shaped technology, why they matter for decoupling, and where queueing is headed next.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 90
 ---
 
 ![Dark analog collage with waiting lines, message cards, clocks, and branching queue lanes](/assets/queueing-flow-collage.svg)

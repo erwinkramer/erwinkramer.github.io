@@ -1,8 +1,9 @@
 ---
 title: Workflows that Remember
 description: Choosing a sovereign workflow engine for the rare processes that truly need durable memory, visible recovery, and code-first control.
-author: Erwin Kramer
 date: 2026-08-14
+sidebar:
+  order: 60
 ---
 
 ![Dark analog workflow map with durable state, code rails, timers, callbacks, and restart controls](/assets/workflows-that-remember-collage.svg)

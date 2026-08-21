@@ -1,8 +1,9 @@
 ---
 title: Observability by Signal
 description: How logging evolved from text files into OpenTelemetry, and why portable signals are the future of understanding systems.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 40
 ---
 
 ![Dark analog collage with log strips, signal traces, metrics panels, and a collector lens](/assets/observability-signal-collage.svg)

@@ -1,8 +1,9 @@
 ---
 title: Open Source Sovereignty
 description: Why organizations need control over their software, data, and operating model in an unstable world.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 120
 ---
 
 ![Dark analog collage with a shield, keyhole, ledger panels, and open source branching lines](/assets/open-source-sovereignty-collage.svg)

@@ -1,9 +1,10 @@
 ---
 import DefaultPageTitle from '@astrojs/starlight/components/PageTitle.astro';
+import { siteInfo } from '../site';
 
 const isHomePage = Astro.locals.starlightRoute.id === '';
-const author = Astro.locals.starlightRoute.entry.data.author;
 const date = Astro.locals.starlightRoute.entry.data.date;
+const author = Astro.locals.starlightRoute.entry.data.author ?? (date ? siteInfo.author.name : undefined);
 const formattedDate = date?.toLocaleDateString('en', {
 	year: 'numeric',
 	month: 'long',

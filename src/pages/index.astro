@@ -2,11 +2,11 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { CardGrid, LinkButton, LinkCard } from '@astrojs/starlight/components';
 import { articleDateFormatter, getArticles } from '../articles';
+import { siteInfo } from '../site';
 
 const frontmatter = {
   title: 'Home',
-  description:
-    'Guanchen - technology consulting for resilient systems across cloud, APIs, integration, observability, and operations.',
+  description: siteInfo.description,
   template: 'splash',
   giscus: false,
   prev: false,
@@ -97,28 +97,29 @@ const latestArticles = (await getArticles())
 
   <section class="contact-strip" aria-label="Contact and registration details">
     <p class="eyebrow">
-      Guanchen is a sole proprietorship by Erwin Kramer; the name is pronounced <em>"GWAN-chay"</em> and nods to the Guanches, pre-Hispanic island people of the Canaries.
+      {siteInfo.name} is a {siteInfo.business.legalForm} by {siteInfo.author.name}; the name is pronounced{' '}
+      <em>"{siteInfo.business.pronunciation}"</em> and nods to {siteInfo.business.nameOrigin}.
     </p>
     <div class="contact-grid">
       <span class="contact-line">
         <span class="contact-icon" aria-hidden="true">💼</span>
-        <a href="https://www.linkedin.com/in/kramererwin/" target="_blank" rel="noreferrer">linkedin/kramererwin</a>
+        <a href={siteInfo.author.linkedinUrl} target="_blank" rel="noreferrer">{siteInfo.author.linkedinLabel}</a>
       </span>
       <span class="contact-line">
         <span class="contact-icon" aria-hidden="true">🚀</span>
-        <a href="https://github.com/erwinkramer#-hi-there" target="_blank" rel="noreferrer">github/erwinkramer</a>
+        <a href={siteInfo.author.githubContactUrl} target="_blank" rel="noreferrer">{siteInfo.author.githubLabel}</a>
       </span>
       <span class="contact-line">
         <span class="contact-icon" aria-hidden="true">📧</span>
-        <a href="mailto:info@guanchen.nl">info@guanchen.nl</a>
+        <a href={`mailto:${siteInfo.author.email}`}>{siteInfo.author.email}</a>
       </span>
       <span class="contact-line">
         <span class="contact-icon" aria-hidden="true">🏫</span>
-        <a href="https://www.kvk.nl/bestellen/#/88833801000054661021/" target="_blank" rel="noreferrer">KvK 88833801</a>
+        <a href={siteInfo.business.kvkUrl} target="_blank" rel="noreferrer">{siteInfo.business.kvkLabel}</a>
       </span>
       <span class="contact-line">
         <span class="contact-icon" aria-hidden="true">🧾</span>
-        <span>VAT NL003007917B65</span>
+        <span>{siteInfo.business.vat}</span>
       </span>
     </div>
   </section>

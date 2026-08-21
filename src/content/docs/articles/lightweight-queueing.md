@@ -1,8 +1,9 @@
 ---
 title: Lightweight Queueing
 description: How to choose queueing that keeps work durable, visible, and close to the system before reaching for a broker or managed messaging platform.
-author: Erwin Kramer
 date: 2026-08-13
+sidebar:
+  order: 70
 ---
 
 ![Dark analog queueing map with Postgres records, message cards, worker lanes, and delayed handoff signals](/assets/lightweight-queueing-collage.svg)

@@ -1,8 +1,9 @@
 ---
 title: Federated API Security
 description: Why secure APIs need identity, trust, and authorization that can move across organizational boundaries.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 50
 ---
 
 ![Dark analog collage with identity cards, shield, federation lines, and API gateway panels](/assets/federated-api-security-collage.svg)

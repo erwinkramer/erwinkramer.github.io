@@ -1,8 +1,9 @@
 ---
 title: Decoupled by Design
 description: What the Bank API reference project suggests about independence, trust, and the future of technology design.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 110
 ---
 
 ![Dark analog collage with bank columns, separated ledger cards, bridges, and signal lines](/assets/bank-api-decoupling-collage.svg)

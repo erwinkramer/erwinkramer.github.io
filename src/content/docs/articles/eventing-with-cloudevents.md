@@ -1,8 +1,9 @@
 ---
 title: Eventing with CloudEvents
 description: Why CloudEvents gives event-driven systems a shared shape across brokers, services, clouds, integrations, and teams.
-author: Erwin Kramer
 date: 2026-08-13
+sidebar:
+  order: 80
 ---
 
 ![Dark analog eventing map with CloudEvents envelope cards, routing lines, brokers, services, and schema fragments](/assets/cloudevents-eventing-collage.svg)

@@ -1,8 +1,9 @@
 ---
 title: The API Front Door
 description: Choosing an API portal that keeps discovery useful, definitions protected, and gateway choices separate.
-author: Erwin Kramer
 date: 2026-08-13
+sidebar:
+  order: 20
 ---
 
 ![Dark analog collage with a portal frame, catalog cards, protected API definitions, and version rails](/assets/the-api-front-door-collage.svg)

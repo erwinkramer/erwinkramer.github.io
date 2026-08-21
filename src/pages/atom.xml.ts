@@ -1,27 +1,28 @@
 import atom from 'astrojs-atom';
 import type { APIContext } from 'astro';
 import { getArticles } from '../articles';
+import { siteInfo } from '../site';
 
 export async function GET(context: APIContext) {
-  const site = context.site ?? new URL('https://guanchen.nl');
+  const siteUrl = context.site ?? new URL(siteInfo.url);
   const posts = await getArticles();
 
-  const feedUrl = new URL('/atom.xml', site).toString();
-  const articlesUrl = new URL('/articles/', site).toString();
+  const feedUrl = new URL(siteInfo.feed.path, siteUrl).toString();
+  const articlesUrl = new URL(siteInfo.feed.articlesPath, siteUrl).toString();
   const updated = posts[0]?.data.date ?? new Date();
 
   return atom({
-    title: 'Guanchen Articles',
-    subtitle: 'Short articles from Guanchen.',
+    title: siteInfo.feed.title,
+    subtitle: siteInfo.feed.subtitle,
     id: feedUrl,
     updated: updated.toISOString(),
     link: [
       { href: feedUrl, rel: 'self', type: 'application/atom+xml' },
       { href: articlesUrl },
     ],
-    author: [{ name: 'Erwin Kramer', uri: new URL('/', site).toString() }],
+    author: [{ name: siteInfo.author.name, uri: new URL('/', siteUrl).toString() }],
     entry: posts.map((post) => {
-      const postUrl = new URL(`/${post.id}/`, site).toString();
+      const postUrl = new URL(`/${post.id}/`, siteUrl).toString();
       const date = post.data.date ?? updated;
 
       return {

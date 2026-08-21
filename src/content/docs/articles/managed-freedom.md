@@ -1,8 +1,9 @@
 ---
 title: Managed Freedom
 description: How to choose a European cloud foundation that manages infrastructure without taking over the architecture.
-author: Erwin Kramer
 date: 2026-08-15
+sidebar:
+  order: 130
 ---
 
 ![Open analog collage with loose European cloud paths, floating infrastructure modules, identity tokens, database ledgers, and portable telemetry routes](/assets/european-cloud-choice-collage.svg)

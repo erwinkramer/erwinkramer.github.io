@@ -1,8 +1,9 @@
 ---
 title: The Shape of Traffic
 description: Why the way traffic flows into systems says so much about control, resilience, and the future of technology.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 100
 ---
 
 ![Dark analog traffic map with radar rings, flow lanes, distributed nodes, and signal traces](/assets/traffic-flow-collage.svg)

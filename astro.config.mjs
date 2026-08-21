@@ -1,43 +1,14 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightGiscus from 'starlight-giscus';
-import { articleNavItems } from './src/article-nav.mjs';
-
-const site = 'https://guanchen.nl';
-const description =
-  'Guanchen - technology consulting for resilient systems across cloud, APIs, integration, observability, and operations.';
-const structuredData = JSON.stringify([
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Guanchen',
-    url: site,
-    description,
-    inLanguage: 'en',
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Guanchen',
-    url: site,
-    description,
-    email: 'info@guanchen.nl',
-    founder: {
-      '@type': 'Person',
-      name: 'Erwin Kramer',
-      url: 'https://www.linkedin.com/in/kramererwin/',
-      sameAs: ['https://github.com/erwinkramer', 'https://www.linkedin.com/in/kramererwin/'],
-    },
-    knowsAbout: ['Cloud consulting', 'API design', 'Integration architecture', 'Observability', 'Open source'],
-  },
-]);
+import { siteInfo, siteStructuredData } from './src/site.ts';
 
 export default defineConfig({
-  site,
+  site: siteInfo.url,
   integrations: [
     starlight({
-      title: 'Guanchen',
-      description,
+      title: siteInfo.name,
+      description: siteInfo.description,
       favicon: '/assets/icon-128.png',
       locales: {
         root: {
@@ -49,7 +20,7 @@ export default defineConfig({
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/erwinkramer',
+          href: siteInfo.author.githubUrl,
         },
       ],
       customCss: ['./src/styles/space-theme.css'],
@@ -59,8 +30,8 @@ export default defineConfig({
           attrs: {
             rel: 'alternate',
             type: 'application/atom+xml',
-            title: 'Guanchen Articles',
-            href: '/atom.xml',
+            title: siteInfo.feed.title,
+            href: siteInfo.feed.path,
           },
         },
         {
@@ -112,7 +83,7 @@ export default defineConfig({
           attrs: {
             type: 'application/ld+json',
           },
-          content: structuredData,
+          content: JSON.stringify(siteStructuredData),
         },
       ],
       plugins: [
@@ -144,7 +115,7 @@ export default defineConfig({
         { label: 'Home', link: '/' },
         {
           label: 'Articles',
-          items: articleNavItems,
+          items: [{ autogenerate: { directory: 'articles' } }],
         },
       ],
     }),

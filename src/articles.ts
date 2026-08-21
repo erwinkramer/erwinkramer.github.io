@@ -1,12 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { articleNavItems } from './article-nav.mjs';
 
 type ArticleEntry = CollectionEntry<'docs'>;
 export type DatedArticle = ArticleEntry & { data: ArticleEntry['data'] & { date: Date } };
-
-const articleRank = new Map(
-  articleNavItems.map((item, index) => [item.link.replace(/^\//, '').replace(/\/$/, ''), index]),
-);
 
 export const articleDateFormatter = new Intl.DateTimeFormat('en', {
   day: 'numeric',
@@ -14,7 +9,7 @@ export const articleDateFormatter = new Intl.DateTimeFormat('en', {
   year: 'numeric',
 });
 
-const rankArticle = (article: DatedArticle) => articleRank.get(article.id) ?? Number.MAX_SAFE_INTEGER;
+const getArticleOrder = (article: DatedArticle) => article.data.sidebar?.order ?? Number.MAX_SAFE_INTEGER;
 
 const isDatedArticle = (entry: ArticleEntry): entry is DatedArticle =>
   entry.id.startsWith('articles/') && entry.data.date instanceof Date;
@@ -22,7 +17,7 @@ const isDatedArticle = (entry: ArticleEntry): entry is DatedArticle =>
 const compareArticlesByDate = (left: DatedArticle, right: DatedArticle) => {
   const dateDifference = right.data.date.getTime() - left.data.date.getTime();
 
-  return dateDifference || rankArticle(left) - rankArticle(right);
+  return dateDifference || getArticleOrder(left) - getArticleOrder(right) || left.id.localeCompare(right.id);
 };
 
 export async function getArticles() {

@@ -1,8 +1,9 @@
 ---
 title: Gateway Systems
 description: How to think about gateways as traffic boundaries, not only API management products, and where Kubernetes Gateway API changes the model.
-author: Erwin Kramer
 date: 2026-08-13
+sidebar:
+  order: 10
 ---
 
 ![Dark analog gateway map with ingress lanes, policy rings, route cards, and distributed traffic signals](/assets/gateway-systems-collage.svg)

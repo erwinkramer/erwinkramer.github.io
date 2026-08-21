@@ -1,8 +1,9 @@
 ---
 title: Service Discovery
 description: Why portals still matter, and why open discovery formats like APIs.json may define their next phase.
-author: Erwin Kramer
 date: 2026-08-07
+sidebar:
+  order: 30
 ---
 
 ![Dark analog catalog map with diamonds, tags, circular index nodes, and discovery signals](/assets/api-portal-discovery-collage.svg)
