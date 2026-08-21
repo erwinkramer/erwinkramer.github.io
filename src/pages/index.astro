@@ -25,10 +25,10 @@ const latestArticles = (await getArticles())
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
   <section class="home-intro">
-    <h2>Adaptive systems consulting</h2>
+    <h2>Architecture for systems with a wider horizon</h2>
     <p class="intro-copy">
-      Guanchen helps organizations build foundations that evolve without losing integrity. Architecture
-      is not more machinery; it is clearer agreement between people, software, and uncertainty.
+      Guanchen helps organizations read the signals around their platforms, find the gravity in complex
+      change, and build foundations that keep moving without losing integrity.
     </p>
 
     <section class="signal-cards" aria-labelledby="signal-heading">
@@ -46,31 +46,32 @@ const latestArticles = (await getArticles())
           <span class="signal-core"></span>
         </div>
         <div class="signal-copy">
-          <p class="signal-eyebrow">Systems work for uncertain terrain</p>
-          <h2 id="signal-heading">A moving map for the hidden forces in your platform</h2>
+          <p class="signal-eyebrow">Systems work for a larger sky</p>
+          <h2 id="signal-heading">Turn scattered signals into a navigable future</h2>
           <p class="signal-description">
-            APIs, queues, cloud foundations, observability, and operations all leave traces. Guanchen turns
-            those traces into decisions teams can trust, then helps make the next change smaller.
+            APIs, queues, cloud foundations, observability, and operations all leave traces. Guanchen helps
+            turn those traces into direction, so teams can move through uncertainty with clearer boundaries
+            and fewer blind spots.
           </p>
         </div>
       </article>
     </section>
 
     <section class="engagement-panel" aria-labelledby="engagement-heading">
-      <p class="eyebrow">Engagements are intentionally practical</p>
-      <h2 id="engagement-heading">From uneasy signals to reliable movement</h2>
+      <p class="eyebrow">Visionary, but grounded in working systems</p>
+      <h2 id="engagement-heading">From signal, to trajectory, to operating rhythm</h2>
       <div class="engagement-grid">
         <article>
-          <h3>Clarify the shape</h3>
-          <p>Map the current pressure across teams, interfaces, runtime behavior, and delivery flow.</p>
+          <h3>Read the field</h3>
+          <p>Map the pressure across teams, interfaces, runtime behavior, and delivery flow.</p>
         </article>
         <article>
-          <h3>Reduce the drag</h3>
-          <p>Turn noisy architecture debates into a smaller set of standards, tradeoffs, and next steps.</p>
+          <h3>Choose the trajectory</h3>
+          <p>Turn noisy architecture debates into clearer standards, tradeoffs, and next steps.</p>
         </article>
         <article>
-          <h3>Strengthen the system</h3>
-          <p>Design foundations that hold up when ownership, traffic, dependencies, and incidents change.</p>
+          <h3>Keep the orbit stable</h3>
+          <p>Design foundations that hold when ownership, traffic, dependencies, and incidents change.</p>
         </article>
       </div>
     </section>
@@ -151,6 +152,19 @@ const latestArticles = (await getArticles())
     margin-inline: auto;
   }
 
+  .home-intro > h2 {
+    max-width: 58rem;
+    margin: 0 auto 1rem;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(115deg, #fff 0 32%, #69f0c7 48%, #ffd166 68%, rgb(255 255 255 / 0.64));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 3.2rem;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
   .signal-cards {
     width: 100%;
     margin: clamp(1.75rem, 5vw, 3.5rem) auto 0;
@@ -174,6 +188,8 @@ const latestArticles = (await getArticles())
       radial-gradient(ellipse at 18% 22%, rgb(122 201 185 / 0.22), transparent 42%),
       radial-gradient(ellipse at 84% 16%, rgb(253 213 127 / 0.18), transparent 34%),
       linear-gradient(135deg, rgb(19 23 25 / 0.92), rgb(7 8 10 / 0.9) 58%, rgb(17 18 15 / 0.9));
+    mask-image: linear-gradient(180deg, transparent 0, rgb(0 0 0 / 0.38) 3rem, black clamp(6rem, 14vh, 10rem), black 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, rgb(0 0 0 / 0.38) 3rem, black clamp(6rem, 14vh, 10rem), black 100%);
     box-shadow:
       0 26px 70px rgb(0 0 0 / 0.42),
       inset 0 1px 0 rgb(255 255 255 / 0.1);
@@ -668,6 +684,10 @@ const latestArticles = (await getArticles())
     .signal-cards,
     .latest-publications {
       width: 100%;
+    }
+
+    .home-intro > h2 {
+      font-size: 2.35rem;
     }
 
     .signal-card {
