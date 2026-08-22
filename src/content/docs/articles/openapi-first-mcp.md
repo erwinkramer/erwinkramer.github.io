@@ -10,27 +10,17 @@ sidebar:
 
 OpenAPI is not paperwork. It is one of the clearest machine-readable contracts most teams already have: operations, parameters, schemas, auth expectations, response shapes, and error boundaries in one place.
 
-That makes it an excellent foundation for MCP servers.
-
-The mistake is treating MCP as a reason to start over. If an API already has a good OpenAPI description, the responsible path is to use that contract as the source of truth and build the MCP surface from it. Not as a lazy wrapper. Not as a thin novelty layer. As a deliberate translation from a stable HTTP contract into tools an agent can discover, call, validate, and reason about.
+That makes it an excellent foundation for MCP servers. The mistake is treating MCP as a reason to start over. If an API already has a good OpenAPI description, the responsible path is to translate that stable HTTP contract into tools an agent can discover, call, validate, and reason about.
 
 ## Contracts first, adapters second
 
-Most production APIs already carry a lot of hard-won design work. The OpenAPI document captures endpoint shape, parameter names, request bodies, response schemas, authentication, error cases, and sometimes examples. That information is not incidental. It is the map of the system.
+Most production APIs already carry a lot of hard-won design work. The OpenAPI document captures endpoint shape, parameter names, request bodies, response schemas, authentication, error cases, and sometimes examples. Ignoring that map asks developers to rewrite the same integration knowledge by hand, usually in a new format, with new naming decisions, new validation logic, and new ways to drift from reality.
 
-When building an MCP server for an existing API, ignoring that map is wasteful. It asks developers to rewrite the same integration knowledge by hand, usually in a new format, with new naming decisions, new validation logic, and new ways to drift from reality. Every manual adapter becomes a second contract. Every second contract eventually disagrees with the first.
-
-An OpenAPI-first MCP server keeps the contract count low. The API contract remains the center. The MCP server becomes a generated and curated interface over it.
-
-That distinction matters. Generated does not mean thoughtless. It means the baseline is repeatable, reviewable, and synchronized with the API. Human judgment then goes where it is valuable: deciding which operations are useful to agents, how tools should be named, what descriptions should say, and where safety constraints belong.
+An OpenAPI-first MCP server keeps the contract count low. The API contract remains the center. The MCP server becomes a generated and curated interface over it. Generated does not mean thoughtless. It means the baseline is repeatable, reviewable, and synchronized with the API. Human judgment then goes where it is valuable: deciding which operations are useful to agents, how tools should be named, and where safety constraints belong.
 
 ## What OpenAPI gives an MCP server
 
-OpenAPI is especially useful because MCP tools need exactly the kind of information OpenAPI already describes.
-
-An OpenAPI operation can become a candidate tool. Its `operationId` can seed a stable tool name. Its summary and description can become the first draft of tool documentation. Its request body and parameter schemas can become the input schema. Its response schema can inform result typing, examples, and downstream validation.
-
-That gives a generator enough structure to produce useful MCP scaffolding:
+OpenAPI operations already describe the ingredients MCP tools need:
 
 1. Tool names based on stable operation identifiers.
 2. Input schemas derived from path, query, header, and body parameters.
@@ -39,58 +29,48 @@ That gives a generator enough structure to produce useful MCP scaffolding:
 5. Typed responses or normalized result envelopes.
 6. Documentation that stays close to the API contract.
 
-This is exactly where OpenAPI shines. It gives you enough structure to generate tool definitions, validate input before a request leaves the server, keep schemas aligned with the real API, and preserve the boring details that production systems depend on.
-
-Boring is good here. Boring means fewer hand-written adapters quietly drifting away from the API they claim to represent.
+Boring is good here. It means fewer handwritten adapters quietly drifting away from the API they claim to represent.
 
 ## Curation still matters
 
 OpenAPI-first does not mean every endpoint should blindly become a public MCP tool. That would be a different mistake.
 
-Jeremiah Lowin makes that warning from an interesting position in [Stop Converting Your REST APIs to MCP](https://jlowin.dev/blog/stop-converting-rest-apis-to-mcp). Lowin built [FastMCP](https://gofastmcp.com/), one of the main frameworks for building MCP servers, and its OpenAPI integration includes `FastMCP.from_openapi()` for generating MCP servers from OpenAPI specs. That makes the warning more useful, and a little surprising: it is not coming from someone rejecting the shortcut from the outside. It is coming from someone who helped make the shortcut good, then argued that it should be used for bootstrapping and prototyping rather than shipped as an uncurated production interface.
+Jeremiah Lowin makes that warning from an interesting position in [Stop Converting Your REST APIs to MCP](https://jlowin.dev/blog/stop-converting-rest-apis-to-mcp). Lowin built [FastMCP](https://gofastmcp.com/), whose OpenAPI integration includes `FastMCP.from_openapi()`. His point is not that generation is useless. It is that generation should be treated as a starting point, not shipped as an uncurated production interface.
 
-Some endpoints are too low-level. Some exist only for internal orchestration. Some are dangerous without an explicit confirmation step. Some need pagination helpers. Some return shapes that are technically correct but unpleasant for an agent to work with. Some belong together as a higher-level workflow.
+Some endpoints are too low-level. Some are dangerous without an explicit confirmation step. Some need pagination helpers. Some return shapes that are technically correct but awkward for agents. Some belong together as a higher-level workflow.
 
 The right approach is to start from the contract, then curate.
 
-For example, [erwinkramer/bank-api](https://github.com/erwinkramer/bank-api) is a design reference project for bootstrapping a compliant, modern API. It is exactly the kind of sample where this approach makes sense: start with the OpenAPI description, derive the MCP tool surface from it, and then curate the result. A banking API might expose endpoints like `GET /banks`, `POST /banks`, `GET /banks/{id}`, `PUT /banks/{id}`, and `DELETE /banks/{id}`. A generator can scaffold the obvious tools from those operations. A developer can then decide that destructive operations need stronger descriptions, confirmation requirements, or may not be exposed at all. The MCP layer becomes intentionally shaped, but it is still grounded in the contract.
+For example, [erwinkramer/bank-api](https://github.com/erwinkramer/bank-api) is exactly the kind of sample where this approach makes sense. A generator can scaffold tools from operations like `GET /banks`, `POST /banks`, `GET /banks/{id}`, `PUT /banks/{id}`, and `DELETE /banks/{id}`. A developer can then hide destructive operations, require confirmation, improve names, or compose lower-level endpoints into a safer workflow. The MCP layer becomes intentionally shaped, but still grounded in the contract.
 
 That is the sweet spot: generated where precision matters, curated where experience matters.
+
+## The overlay-shaped middle
+
+There is a useful parallel in the [OpenAPI Overlay Specification](https://spec.openapis.org/overlay/latest.html). An overlay is a separate document that augments an OpenAPI description without forcing those changes into the original source. It can target parts of the description, update them, remove them, copy them, or attach metadata for another tool to consume.
+
+MCP generation needs a similar middle layer, with one important difference: the target should not just be another OpenAPI document. It should be an MCP projection that emits [MCP Description](https://mcpdesc.org/), or `mcpdesc`, a portable, machine-readable description of what an MCP server offers.
+
+OpenAPI says what the HTTP service can do. The MCP projection says what an agent should be allowed and helped to do with it. It can select operations, hide internal endpoints, rename tools, rewrite descriptions, attach confirmation requirements, mark scopes, define pagination helpers, normalize responses, and use [Arazzo](https://spec.openapis.org/arazzo/latest.html) to describe combinations of low-level operations as higher-level workflows.
+
+That projection might be expressed as an OpenAPI overlay with MCP-specific metadata, or as a dedicated mapping file that reads OpenAPI with selectors and emits MCP artifacts. Either way, it should be versioned and reviewed. The same OpenAPI contract plus the same projection should produce the same MCP surface.
+
+Then `mcpdesc` becomes the downstream contract for AI tooling. It describes tools, resources, prompts, transports, security, and server metadata in a static document that agents, clients, catalogs, linters, and conformance checks can consume.
 
 ## The workflow I want
 
 The better workflow is straightforward:
 
 1. Treat OpenAPI as the contract.
-2. Generate or scaffold MCP tools from that contract.
-3. Select the operations that deserve to be exposed.
-4. Improve names and descriptions for agent use.
-5. Add policy: authentication, authorization, confirmation, rate limits, and safety checks.
-6. Normalize awkward responses where needed.
+2. Add an MCP projection layer, using OpenAPI overlays or a dedicated mapping file where that fits the toolchain.
+3. Generate candidate MCP tools from operations and schemas.
+4. Curate names, descriptions, exposed operations, policies, and response shapes.
+5. Emit `mcpdesc` for the curated MCP server.
+6. Use `mcpdesc` to help AI tooling discover the server, choose tools, form calls, and validate behavior.
 7. Keep the generated surface in sync as the API evolves.
-
-That last point is the quiet superpower. MCP servers should not become a second integration estate with undocumented behavior. The more manually curated they become from scratch, the more they invite mismatch, drift, and fragile agent behavior.
-
-OpenAPI-first MCP keeps the center of gravity where it belongs: in the API contract.
-
-## What this prevents
-
-The alternative is a pile of handwritten glue. It might feel clean at first, especially for a small demo. But production systems punish duplication.
-
-Without the OpenAPI contract as the baseline, teams end up copying parameter names, rewriting schemas, re-documenting response fields, inventing new error handling, and manually tracking endpoint changes. A field becomes required in the API but optional in the MCP tool. A response changes shape but the tool description does not. An auth rule changes but the adapter still assumes the old behavior.
-
-That is not a philosophical problem. It is an operational one.
-
-Contract-first generation gives you a way to detect and manage those changes. If the OpenAPI document changes, the generated MCP surface can change with it. Diffs become visible. Reviews become concrete. Tool behavior remains tied to the service it represents.
 
 ## The default
 
 OpenAPI and MCP are not rivals. OpenAPI describes what the service can do. MCP gives agents a practical way to use it.
 
-Put them together and you get a maintainable bridge from existing APIs to agent-native workflows.
-
-That should be the default direction: contract first, generated where possible, curated where it matters, and synchronized by design.
-
-Start with the specification. Build the MCP server from it. Then apply judgment.
-
-That is not just a convenient path. For existing APIs, it is the path that respects the work already done, reduces drift, and gives teams a serious foundation for agent integrations.
+Put them together and you get a maintainable bridge from existing APIs to agent-native workflows: contract first, generated where precision matters, curated where experience and safety matter, and described with `mcpdesc` so the agent-facing contract can be reviewed before generated code becomes the only record of intent.
