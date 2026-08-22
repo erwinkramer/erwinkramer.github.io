@@ -182,17 +182,28 @@ const latestArticles = (await getArticles())
     padding: clamp(1rem, 3vw, 1.6rem);
     isolation: isolate;
     overflow: hidden;
-    border: 1px solid rgb(255 255 255 / 0.16);
     border-radius: 0.5rem;
+  }
+
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-right: 1px solid rgb(255 255 255 / 0.16);
+    border-bottom: 1px solid rgb(255 255 255 / 0.16);
+    border-left: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: inherit;
     background:
       radial-gradient(ellipse at 18% 22%, rgb(122 201 185 / 0.22), transparent 42%),
       radial-gradient(ellipse at 84% 16%, rgb(253 213 127 / 0.18), transparent 34%),
       linear-gradient(135deg, rgb(19 23 25 / 0.92), rgb(7 8 10 / 0.9) 58%, rgb(17 18 15 / 0.9));
-    mask-image: linear-gradient(180deg, transparent 0, rgb(0 0 0 / 0.38) 3rem, black clamp(6rem, 14vh, 10rem), black 100%);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, rgb(0 0 0 / 0.38) 3rem, black clamp(6rem, 14vh, 10rem), black 100%);
     box-shadow:
       0 26px 70px rgb(0 0 0 / 0.42),
       inset 0 1px 0 rgb(255 255 255 / 0.1);
+    mask-image: linear-gradient(180deg, transparent 0 0.75rem, rgb(0 0 0 / 0.26) 3.5rem, black clamp(6rem, 14vh, 10rem), black 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0 0.75rem, rgb(0 0 0 / 0.26) 3.5rem, black clamp(6rem, 14vh, 10rem), black 100%);
+    pointer-events: none;
   }
 
   .signal-copy {
