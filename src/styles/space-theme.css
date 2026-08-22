@@ -29,6 +29,8 @@
   --space-theme-header-control-gap: 0.75rem;
   --space-theme-header-control-border: var(--sl-color-gray-4);
   --space-theme-header-control-border-hover: var(--sl-color-gray-2);
+  --space-theme-title-gradient: linear-gradient(115deg, #fff7df 0%, #ffffff 32%, #69f0c7 58%, #ffd166 82%, #f6a55f 100%);
+  --space-theme-title-glow: 0 0 18px rgb(105 240 199 / 0.18), 0 0 28px rgb(255 209 102 / 0.12);
   --space-theme-menu-button-inset-inline-end: 0.5rem;
   --sl-menu-button-size: var(--space-theme-header-control-size);
   --space-theme-background:
@@ -180,15 +182,20 @@ starlight-menu-button[aria-expanded='true'] button {
   align-items: center;
   gap: 0.625rem;
   min-width: 0;
-  color: var(--sl-color-text-accent);
+  color: #fff7df;
   font-size: var(--sl-text-h4);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
+  transition:
+    color 160ms ease,
+    filter 160ms ease;
 }
 
-.site-title:hover {
-  color: var(--sl-color-text-accent);
+.site-title:hover,
+.site-title:focus-visible {
+  color: var(--sl-color-white);
+  filter: drop-shadow(var(--space-theme-title-glow));
 }
 
 .site-title img {
@@ -201,6 +208,20 @@ starlight-menu-button[aria-expanded='true'] button {
 
 .site-title span {
   overflow: hidden;
+  color: var(--sl-color-white);
+  font-weight: 500;
+  -webkit-text-fill-color: var(--sl-color-white);
+}
+
+.site-title:hover span,
+.site-title:focus-visible span {
+  background-image: var(--space-theme-title-gradient);
+  background-size: 150% 100%;
+  background-position: 100% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .sidebar-pane {
