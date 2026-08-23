@@ -35,12 +35,14 @@ const latestArticles = (await getArticles())
               <stop offset="1" stop-color="rgb(253 213 127)" stop-opacity="0.42" />
             </linearGradient>
           </defs>
-          <circle class="signal-loader-track signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
-          <circle class="signal-loader-track signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
-          <circle class="signal-loader-track signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
-          <circle class="signal-loader-progress signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
-          <circle class="signal-loader-progress signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
-          <circle class="signal-loader-progress signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
+          <g transform="rotate(-90 60 60)">
+            <circle class="signal-loader-track signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
+            <circle class="signal-loader-track signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
+            <circle class="signal-loader-track signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
+            <circle class="signal-loader-progress signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
+            <circle class="signal-loader-progress signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
+            <circle class="signal-loader-progress signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
+          </g>
         </svg>
         <span class="signal-rune rune-one"></span>
         <span class="signal-rune rune-two"></span>
@@ -144,7 +146,7 @@ const latestArticles = (await getArticles())
   if (intro instanceof HTMLElement && content instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const preludeDelay = 1650;
-    const scrollDuration = 1700;
+    const scrollDuration = 2600;
     const isAlreadyScrolled = () => window.scrollY > 12;
     const revealContent = (skipTransition = false) => {
       if (skipTransition) {
@@ -162,7 +164,7 @@ const latestArticles = (await getArticles())
       revealContent(true);
     } else {
       let userDirected = false;
-      let animationFrame = 0;
+      let scrollFrame = 0;
 
       const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
 
@@ -172,7 +174,8 @@ const latestArticles = (await getArticles())
 
       const stopPrelude = () => {
         userDirected = true;
-        window.cancelAnimationFrame(animationFrame);
+        window.cancelAnimationFrame(scrollFrame);
+        intro.classList.remove('is-auto-scrolling');
         revealContent(true);
         cleanup();
       };
@@ -191,6 +194,7 @@ const latestArticles = (await getArticles())
         }
 
         revealContent();
+        intro.classList.add('is-auto-scrolling');
 
         const header = document.querySelector('.page > header.header');
         const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().height : 0;
@@ -199,6 +203,7 @@ const latestArticles = (await getArticles())
         const distance = targetY - startY;
 
         if (distance <= 24) {
+          intro.classList.remove('is-auto-scrolling');
           cleanup();
           return;
         }
@@ -209,17 +214,21 @@ const latestArticles = (await getArticles())
           if (userDirected) return;
 
           const progress = Math.min((time - startedAt) / scrollDuration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
+          const eased = progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
           window.scrollTo(0, startY + distance * eased);
 
           if (progress < 1) {
-            animationFrame = window.requestAnimationFrame(step);
+            scrollFrame = window.requestAnimationFrame(step);
           } else {
+            intro.classList.remove('is-auto-scrolling');
             cleanup();
           }
         };
 
-        animationFrame = window.requestAnimationFrame(step);
+        scrollFrame = window.requestAnimationFrame(step);
       }, preludeDelay);
     }
   }
@@ -365,7 +374,6 @@ const latestArticles = (await getArticles())
     opacity: 0.18;
     overflow: visible;
     translate: -50% -50%;
-    transform: rotate(-90deg);
     transition: opacity 320ms ease;
   }
 
@@ -406,6 +414,15 @@ const latestArticles = (await getArticles())
 
   .home-intro.is-prelude .signal-loader-progress {
     animation: signalLoaderFill 1450ms cubic-bezier(0.64, 0, 0.18, 1) 180ms both;
+  }
+
+  .home-intro.is-auto-scrolling .signal-stage::before,
+  .home-intro.is-auto-scrolling .signal-stage::after,
+  .home-intro.is-auto-scrolling .signal-rune,
+  .home-intro.is-auto-scrolling .signal-thread,
+  .home-intro.is-auto-scrolling .signal-ring,
+  .home-intro.is-auto-scrolling .signal-core {
+    animation-play-state: paused;
   }
 
   .signal-rune {
