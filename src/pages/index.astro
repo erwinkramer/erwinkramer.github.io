@@ -146,7 +146,7 @@ const latestArticles = (await getArticles())
   if (intro instanceof HTMLElement && content instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const preludeDelay = 1650;
-    const scrollDuration = 2600;
+    const scrollDuration = 3000;
     const isAlreadyScrolled = () => window.scrollY > 12;
     const revealContent = (skipTransition = false) => {
       if (skipTransition) {
@@ -197,9 +197,10 @@ const latestArticles = (await getArticles())
         intro.classList.add('is-auto-scrolling');
 
         const header = document.querySelector('.page > header.header');
-        const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().height : 0;
+  const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
+        const contentGap = 24;
         const startY = window.scrollY;
-        const targetY = Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - 16);
+        const targetY = Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - contentGap);
         const distance = targetY - startY;
 
         if (distance <= 24) {
@@ -209,6 +210,7 @@ const latestArticles = (await getArticles())
         }
 
         const startedAt = performance.now();
+        const scrollingElement = document.scrollingElement ?? document.documentElement;
 
         const step = (time: number) => {
           if (userDirected) return;
@@ -218,11 +220,12 @@ const latestArticles = (await getArticles())
             ? 4 * progress * progress * progress
             : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
-          window.scrollTo(0, startY + distance * eased);
+          scrollingElement.scrollTop = startY + distance * eased;
 
           if (progress < 1) {
             scrollFrame = window.requestAnimationFrame(step);
           } else {
+            scrollingElement.scrollTop = targetY;
             intro.classList.remove('is-auto-scrolling');
             cleanup();
           }
