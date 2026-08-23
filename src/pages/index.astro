@@ -327,18 +327,22 @@ const latestArticles = (await getArticles())
   .signal-stage::after {
     content: '';
     position: absolute;
-    inset: 10% 8%;
+    top: 50%;
+    left: 50%;
+    width: min(52rem, calc(100% - 2rem));
+    height: min(22rem, calc(100% - 2rem));
     border: 1px solid rgb(255 255 255 / 0.22);
-    border-radius: 56% 44% 51% 49% / 43% 57% 44% 56%;
+    border-radius: 50%;
     opacity: 0.36;
+    translate: -50% -50%;
     animation: signalContourFlow 22s ease-in-out infinite alternate;
     will-change: opacity, transform;
   }
 
   .signal-stage::after {
-    inset: 19% 15%;
+    width: min(38rem, calc(100% - 4rem));
+    height: min(16rem, calc(100% - 4rem));
     border-color: rgb(122 201 185 / 0.48);
-    border-radius: 45% 55% 46% 54% / 55% 42% 58% 45%;
     opacity: 0.46;
     animation-name: signalContourFlowAlt;
     animation-duration: 28s;
