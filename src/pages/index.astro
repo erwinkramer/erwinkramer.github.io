@@ -24,7 +24,7 @@ const latestArticles = (await getArticles())
 ---
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
-  <section class="home-intro is-prelude" data-home-intro>
+  <section class="home-intro is-prelude is-content-hidden" data-home-intro>
     <section class="home-opening" aria-label="Guanchen signal field">
       <div class="signal-stage home-opening-stage" aria-hidden="true">
         <svg class="signal-loader" viewBox="0 0 120 120" focusable="false">
@@ -128,7 +128,7 @@ const latestArticles = (await getArticles())
 
 <noscript>
   <style>
-    .home-intro.is-prelude .home-content {
+    .home-intro.is-content-hidden .home-content {
       opacity: 1;
       pointer-events: auto;
       transform: none;
@@ -150,11 +150,14 @@ const latestArticles = (await getArticles())
         intro.classList.add('skip-prelude-transition');
       }
 
-      intro.classList.remove('is-prelude');
+      intro.classList.remove('is-content-hidden');
 
       if (skipTransition) {
         window.requestAnimationFrame(() => intro.classList.remove('skip-prelude-transition'));
       }
+    };
+    const finishPrelude = () => {
+      intro.classList.remove('is-prelude');
     };
     const startAutoScroll = () => {
       intro.classList.add('is-auto-scrolling');
@@ -165,6 +168,7 @@ const latestArticles = (await getArticles())
 
     if (reduceMotion || isAlreadyScrolled()) {
       revealContent(true);
+      finishPrelude();
     } else {
       let userDirected = false;
       let cleanupTimer = 0;
@@ -172,10 +176,11 @@ const latestArticles = (await getArticles())
       const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
 
       const cleanup = () => {
-        userEvents.forEach((eventName) => window.removeEventListener(eventName, stopPrelude));
+        userEvents.forEach((eventName) => window.removeEventListener(eventName, handleUserIntent));
+        window.removeEventListener('scroll', handleScroll);
       };
 
-      const stopPrelude = () => {
+      const handleUserIntent = () => {
         userDirected = true;
         window.clearTimeout(cleanupTimer);
         stopAutoScroll();
@@ -183,24 +188,32 @@ const latestArticles = (await getArticles())
         cleanup();
       };
 
-      userEvents.forEach((eventName) => window.addEventListener(eventName, stopPrelude, { once: true, passive: true }));
+      const handleScroll = () => {
+        if (isAlreadyScrolled()) handleUserIntent();
+      };
+
+      userEvents.forEach((eventName) => window.addEventListener(eventName, handleUserIntent, { once: true, passive: true }));
+      window.addEventListener('scroll', handleScroll, { passive: true });
 
       window.requestAnimationFrame(() => {
-        if (isAlreadyScrolled()) stopPrelude();
+        handleScroll();
       });
 
       window.setTimeout(() => {
         if (userDirected || isAlreadyScrolled()) {
           cleanup();
           revealContent(true);
+          finishPrelude();
           return;
         }
 
         revealContent();
+        finishPrelude();
+  cleanup();
         startAutoScroll();
 
         const header = document.querySelector('.page > header.header');
-    const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
+        const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
         const contentGap = 24;
         const startY = window.scrollY;
         const targetY = Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - contentGap);
@@ -208,14 +221,12 @@ const latestArticles = (await getArticles())
 
         if (distance <= 24) {
           stopAutoScroll();
-          cleanup();
           return;
         }
 
         window.scrollTo({ top: targetY, behavior: 'smooth' });
         cleanupTimer = window.setTimeout(() => {
           stopAutoScroll();
-          cleanup();
         }, nativeScrollCleanupDelay);
       }, preludeDelay);
     }
@@ -257,7 +268,7 @@ const latestArticles = (await getArticles())
       transform 1200ms ease;
   }
 
-  .home-intro.is-prelude .home-content {
+  .home-intro.is-content-hidden .home-content {
     opacity: 0;
     pointer-events: none;
     transform: translateY(1.25rem);
