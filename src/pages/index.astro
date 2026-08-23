@@ -145,7 +145,7 @@ const latestArticles = (await getArticles())
 
   if (intro instanceof HTMLElement && content instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const preludeDelay = 1650;
+    const preludeDelay = 2650;
     const nativeScrollCleanupDelay = 1800;
     const isAlreadyScrolled = () => window.scrollY > 12;
     const revealContent = (skipTransition = false) => {
@@ -203,7 +203,7 @@ const latestArticles = (await getArticles())
         startAutoScroll();
 
         const header = document.querySelector('.page > header.header');
-  const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
+    const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
         const contentGap = 24;
         const startY = window.scrollY;
         const targetY = Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - contentGap);
@@ -404,7 +404,7 @@ const latestArticles = (await getArticles())
   }
 
   .home-intro.is-prelude .signal-loader-progress {
-    animation: signalLoaderFill 1450ms cubic-bezier(0.64, 0, 0.18, 1) 180ms both;
+    animation: signalLoaderFill 1450ms cubic-bezier(0.64, 0, 0.18, 1) 1180ms both;
   }
 
   .home-intro.is-auto-scrolling .signal-stage::before,
