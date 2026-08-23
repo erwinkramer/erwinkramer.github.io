@@ -172,6 +172,7 @@ const latestArticles = (await getArticles())
     } else {
       let userDirected = false;
       let cleanupTimer = 0;
+      let preludeTimer = 0;
 
       const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
 
@@ -184,7 +185,7 @@ const latestArticles = (await getArticles())
         userDirected = true;
         window.clearTimeout(cleanupTimer);
         stopAutoScroll();
-        revealContent(true);
+        revealContent();
         cleanup();
       };
 
@@ -199,17 +200,17 @@ const latestArticles = (await getArticles())
         handleScroll();
       });
 
-      window.setTimeout(() => {
+      preludeTimer = window.setTimeout(() => {
         if (userDirected || isAlreadyScrolled()) {
           cleanup();
-          revealContent(true);
+          revealContent();
           finishPrelude();
           return;
         }
 
         revealContent();
         finishPrelude();
-  cleanup();
+        cleanup();
         startAutoScroll();
 
         const header = document.querySelector('.page > header.header');
@@ -354,8 +355,9 @@ const latestArticles = (await getArticles())
     border-color: rgb(122 201 185 / 0.48);
     border-radius: 45% 55% 46% 54% / 55% 42% 58% 45%;
     opacity: 0.46;
+    animation-name: signalContourFlowAlt;
     animation-duration: 28s;
-    animation-direction: alternate-reverse;
+    animation-direction: alternate;
   }
 
   .signal-thread,
@@ -479,13 +481,13 @@ const latestArticles = (await getArticles())
   .thread-two {
     top: 58%;
     transform: rotate(-17deg);
-    animation-delay: -2.4s;
+    animation-duration: 8.5s;
   }
 
   .thread-three {
     top: 74%;
     transform: rotate(4deg);
-    animation-delay: -4.6s;
+    animation-duration: 10.25s;
   }
 
   .signal-ring {
@@ -503,13 +505,13 @@ const latestArticles = (await getArticles())
     width: clamp(12rem, 30vw, 24rem);
     border-style: dashed;
     border-color: rgb(122 201 185 / 0.34);
-    animation-delay: -3s;
+    animation-duration: 11.5s;
   }
 
   .ring-three {
     width: clamp(16rem, 38vw, 31rem);
     border-color: rgb(253 213 127 / 0.22);
-    animation-delay: -6s;
+    animation-duration: 14s;
   }
 
   .signal-core {
@@ -547,9 +549,9 @@ const latestArticles = (await getArticles())
 
   @keyframes signalContourFlow {
     0% {
-      opacity: 0.28;
+      opacity: 0.36;
       border-radius: 56% 44% 51% 49% / 43% 57% 44% 56%;
-      transform: rotate(-3deg) scale(0.98);
+      transform: rotate(0deg) scale(1);
     }
 
     100% {
@@ -559,24 +561,38 @@ const latestArticles = (await getArticles())
     }
   }
 
+  @keyframes signalContourFlowAlt {
+    0% {
+      opacity: 0.54;
+      border-radius: 45% 55% 46% 54% / 55% 42% 58% 45%;
+      transform: rotate(0deg) scale(1);
+    }
+
+    100% {
+      opacity: 0.42;
+      border-radius: 52% 48% 43% 57% / 46% 54% 48% 52%;
+      transform: rotate(-4deg) scale(0.98);
+    }
+  }
+
   @keyframes threadPulse {
     0%,
     100% {
-      opacity: 0.22;
-      scale: 0.86 1;
+      opacity: 0.42;
+      scale: 1 1;
     }
 
     50% {
       opacity: 0.88;
-      scale: 1 1;
+      scale: 1.04 1;
     }
   }
 
   @keyframes ringBreathe {
     0%,
     100% {
-      opacity: 0.28;
-      scale: 0.96;
+      opacity: 0.5;
+      scale: 1;
     }
 
     50% {
@@ -603,7 +619,7 @@ const latestArticles = (await getArticles())
     }
 
     100% {
-      opacity: 0.54;
+      opacity: 0.18;
       transform: scale(1) rotate(0deg);
     }
   }
