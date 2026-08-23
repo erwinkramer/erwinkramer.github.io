@@ -35,14 +35,11 @@ const latestArticles = (await getArticles())
               <stop offset="1" stop-color="rgb(253 213 127)" stop-opacity="0.42" />
             </linearGradient>
           </defs>
-          <g transform="rotate(-90 60 60)">
-            <circle class="signal-loader-track signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
-            <circle class="signal-loader-track signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
-            <circle class="signal-loader-track signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
-            <circle class="signal-loader-progress signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
-            <circle class="signal-loader-progress signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
-            <circle class="signal-loader-progress signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
-          </g>
+          <circle class="signal-loader-track" cx="60" cy="60" r="42" />
+          <path class="signal-loader-progress" d="M 60 18 A 42 42 0 0 1 102 60" pathLength="1" />
+          <path class="signal-loader-progress" d="M 102 60 A 42 42 0 0 1 60 102" pathLength="1" />
+          <path class="signal-loader-progress" d="M 60 102 A 42 42 0 0 1 18 60" pathLength="1" />
+          <path class="signal-loader-progress" d="M 18 60 A 42 42 0 0 1 60 18" pathLength="1" />
         </svg>
         <span class="signal-thread thread-one"></span>
         <span class="signal-thread thread-two"></span>
@@ -291,6 +288,7 @@ const latestArticles = (await getArticles())
   }
 
   .signal-stage {
+    --signal-thread-gap: clamp(3.75rem, 16%, 6.5rem);
     position: relative;
     z-index: 1;
   }
@@ -378,21 +376,7 @@ const latestArticles = (await getArticles())
   .signal-loader-progress {
     fill: none;
     stroke-linecap: butt;
-    stroke-dasharray: 1 2;
-    stroke-dashoffset: var(--signal-loader-offset);
     vector-effect: non-scaling-stroke;
-  }
-
-  .signal-loader-one {
-    --signal-loader-offset: 0;
-  }
-
-  .signal-loader-two {
-    --signal-loader-offset: -1;
-  }
-
-  .signal-loader-three {
-    --signal-loader-offset: -2;
   }
 
   .signal-loader-track {
@@ -402,6 +386,8 @@ const latestArticles = (await getArticles())
 
   .signal-loader-progress {
     stroke: url(#signal-loader-gradient);
+    stroke-dasharray: 1 0;
+    stroke-dashoffset: 0;
     stroke-width: 1.1;
   }
 
@@ -421,21 +407,6 @@ const latestArticles = (await getArticles())
     animation: signalLoadThread var(--signal-prelude-duration) var(--signal-prelude-ease) both;
   }
 
-  .home-intro.is-prelude .thread-one {
-    --signal-thread-load-rotation: 11deg;
-    --signal-thread-load-y: -1.75rem;
-  }
-
-  .home-intro.is-prelude .thread-two {
-    --signal-thread-load-rotation: -17deg;
-    --signal-thread-load-y: 0.75rem;
-  }
-
-  .home-intro.is-prelude .thread-three {
-    --signal-thread-load-rotation: 4deg;
-    --signal-thread-load-y: 1.65rem;
-  }
-
   .home-intro.is-prelude .signal-ring {
     animation: signalLoadRing var(--signal-prelude-duration) var(--signal-prelude-ease) both;
   }
@@ -445,29 +416,32 @@ const latestArticles = (await getArticles())
   }
 
   .signal-thread {
+    --signal-thread-angle: 0deg;
+    --signal-thread-offset: 0rem;
     left: 12%;
     right: 12%;
+    top: calc(50% + var(--signal-thread-offset));
     height: 1px;
     background: linear-gradient(90deg, transparent, rgb(122 201 185 / 0.72), rgb(253 213 127 / 0.72), transparent);
     transform-origin: 50% 50%;
+    transform: rotate(var(--signal-thread-angle));
     animation: threadPulse 7s ease-in-out infinite;
     will-change: opacity, transform;
   }
 
   .thread-one {
-    top: 33%;
-    transform: rotate(11deg);
+    --signal-thread-angle: 11deg;
+    --signal-thread-offset: calc(-1 * var(--signal-thread-gap));
   }
 
   .thread-two {
-    top: 58%;
-    transform: rotate(-17deg);
+    --signal-thread-angle: -17deg;
     animation-duration: 8.5s;
   }
 
   .thread-three {
-    top: 74%;
-    transform: rotate(4deg);
+    --signal-thread-angle: 4deg;
+    --signal-thread-offset: var(--signal-thread-gap);
     animation-duration: 10.25s;
   }
 
@@ -484,8 +458,7 @@ const latestArticles = (await getArticles())
 
   .ring-two {
     width: clamp(12rem, 30vw, 24rem);
-    border-style: dashed;
-    border-color: rgb(122 201 185 / 0.34);
+    border-color: rgb(122 201 185 / 0.26);
     animation-duration: 11.5s;
   }
 
@@ -638,17 +611,17 @@ const latestArticles = (await getArticles())
   @keyframes signalLoadThread {
     0% {
       opacity: 0;
-      transform: translateY(var(--signal-thread-load-y, 0)) rotate(var(--signal-thread-load-rotation, 0deg)) scaleX(0.08);
+      transform: rotate(var(--signal-thread-angle)) scaleX(0.08);
     }
 
     54% {
       opacity: 0.9;
-      transform: translateY(0) rotate(var(--signal-thread-load-rotation, 0deg)) scaleX(1);
+      transform: rotate(var(--signal-thread-angle)) scaleX(1);
     }
 
     100% {
       opacity: 0.42;
-      transform: translateY(0) rotate(var(--signal-thread-load-rotation, 0deg)) scaleX(1);
+      transform: rotate(var(--signal-thread-angle)) scaleX(1);
     }
   }
 
@@ -688,11 +661,11 @@ const latestArticles = (await getArticles())
 
   @keyframes signalLoaderFill {
     from {
-      stroke-dasharray: 0 3;
+      stroke-dasharray: 0 1;
     }
 
     to {
-      stroke-dasharray: 1 2;
+      stroke-dasharray: 1 0;
     }
   }
 
