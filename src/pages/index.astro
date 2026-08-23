@@ -14,7 +14,7 @@ const frontmatter = {
 } as const;
 
 const latestArticles = (await getArticles())
-  .slice(0, 3)
+  .slice(0, 4)
   .map((entry) => ({
     href: `/${entry.id}/`,
     title: entry.data.title,
@@ -24,54 +24,54 @@ const latestArticles = (await getArticles())
 ---
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
-  <section class="home-intro">
-    <h2>Architecture for systems with a wider horizon</h2>
-    <p class="intro-copy">
-      Guanchen helps organizations read the signals around their platforms, find the gravity in complex
-      change, and build foundations that keep moving without losing integrity.
-    </p>
-
-    <section class="signal-cards" aria-labelledby="signal-heading">
-      <article class="signal-card">
-        <div class="signal-stage" aria-hidden="true">
-          <span class="signal-rune rune-one"></span>
-          <span class="signal-rune rune-two"></span>
-          <span class="signal-rune rune-three"></span>
-          <span class="signal-thread thread-one"></span>
-          <span class="signal-thread thread-two"></span>
-          <span class="signal-thread thread-three"></span>
-          <span class="signal-ring ring-one"></span>
-          <span class="signal-ring ring-two"></span>
-          <span class="signal-ring ring-three"></span>
-          <span class="signal-core"></span>
-        </div>
-        <div class="signal-copy">
-          <p class="signal-eyebrow">Systems work for a larger sky</p>
-          <h2 id="signal-heading">Turn fragmented signals into a navigable future</h2>
-          <p class="signal-description">
-            APIs, queues, cloud foundations, observability, and operations all leave traces. Guanchen helps
-            turn those traces into direction, so teams can move through uncertainty with clearer boundaries
-            and fewer blind spots.
-          </p>
-        </div>
-      </article>
+  <section class="home-intro is-prelude" data-home-intro>
+    <section class="home-opening" aria-label="Guanchen signal field">
+      <div class="signal-stage home-opening-stage" aria-hidden="true">
+        <svg class="signal-loader" viewBox="0 0 120 120" focusable="false">
+          <defs>
+            <linearGradient id="signal-loader-gradient" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="rgb(122 201 185)" stop-opacity="0.24" />
+              <stop offset="0.62" stop-color="rgb(250 250 250)" stop-opacity="0.66" />
+              <stop offset="1" stop-color="rgb(253 213 127)" stop-opacity="0.42" />
+            </linearGradient>
+          </defs>
+          <circle class="signal-loader-track signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
+          <circle class="signal-loader-track signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
+          <circle class="signal-loader-track signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
+          <circle class="signal-loader-progress signal-loader-one" cx="60" cy="60" r="42" pathLength="3" />
+          <circle class="signal-loader-progress signal-loader-two" cx="60" cy="60" r="42" pathLength="3" />
+          <circle class="signal-loader-progress signal-loader-three" cx="60" cy="60" r="42" pathLength="3" />
+        </svg>
+        <span class="signal-rune rune-one"></span>
+        <span class="signal-rune rune-two"></span>
+        <span class="signal-rune rune-three"></span>
+        <span class="signal-thread thread-one"></span>
+        <span class="signal-thread thread-two"></span>
+        <span class="signal-thread thread-three"></span>
+        <span class="signal-ring ring-one"></span>
+        <span class="signal-ring ring-two"></span>
+        <span class="signal-ring ring-three"></span>
+        <span class="signal-core"></span>
+      </div>
     </section>
 
-    <section class="engagement-panel" aria-labelledby="engagement-heading">
-      <p class="eyebrow">Visionary, but grounded in working systems</p>
-      <h2 id="engagement-heading">From signal, to trajectory, to operating rhythm</h2>
+    <div class="home-content" data-home-content>
+      <h2>Architecture for systems with a wider horizon</h2>
+      <p class="intro-copy">
+        Guanchen helps teams read platform signals, find direction in change, and build foundations that keep
+        moving without losing integrity.
+      </p>
+
+    <section class="engagement-panel" aria-label="Guanchen approach">
       <div class="engagement-grid">
         <article>
-          <h3>Read the field</h3>
-          <p>Map the pressure across teams, interfaces, runtime behavior, and delivery flow.</p>
+          <p><strong>Read.</strong> Pressure across teams, interfaces, and runtime behavior.</p>
         </article>
         <article>
-          <h3>Choose the trajectory</h3>
-          <p>Turn noisy architecture debates into clearer standards, tradeoffs, and next steps.</p>
+          <p><strong>Choose.</strong> Standards, tradeoffs, ownership choices, and next steps.</p>
         </article>
         <article>
-          <h3>Keep the orbit stable</h3>
-          <p>Design foundations that hold when ownership, traffic, dependencies, and incidents change.</p>
+          <p><strong>Stabilize.</strong> Foundations that hold as ownership, traffic, and dependencies change.</p>
         </article>
       </div>
     </section>
@@ -93,6 +93,7 @@ const latestArticles = (await getArticles())
         <LinkButton href="/articles/#all-articles" variant="secondary" icon="right-arrow">View all articles</LinkButton>
       </div>
     </section>
+    </div>
 
   </section>
 
@@ -126,6 +127,104 @@ const latestArticles = (await getArticles())
   </section>
 </StarlightPage>
 
+<noscript>
+  <style>
+    .home-intro.is-prelude .home-content {
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+    }
+  </style>
+</noscript>
+
+<script>
+  const intro = document.querySelector('[data-home-intro]');
+  const content = document.querySelector('[data-home-content]');
+
+  if (intro instanceof HTMLElement && content instanceof HTMLElement) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const preludeDelay = 1650;
+    const scrollDuration = 1700;
+    const isAlreadyScrolled = () => window.scrollY > 12;
+    const revealContent = (skipTransition = false) => {
+      if (skipTransition) {
+        intro.classList.add('skip-prelude-transition');
+      }
+
+      intro.classList.remove('is-prelude');
+
+      if (skipTransition) {
+        window.requestAnimationFrame(() => intro.classList.remove('skip-prelude-transition'));
+      }
+    };
+
+    if (reduceMotion || isAlreadyScrolled()) {
+      revealContent(true);
+    } else {
+      let userDirected = false;
+      let animationFrame = 0;
+
+      const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+
+      const cleanup = () => {
+        userEvents.forEach((eventName) => window.removeEventListener(eventName, stopPrelude));
+      };
+
+      const stopPrelude = () => {
+        userDirected = true;
+        window.cancelAnimationFrame(animationFrame);
+        revealContent(true);
+        cleanup();
+      };
+
+      userEvents.forEach((eventName) => window.addEventListener(eventName, stopPrelude, { once: true, passive: true }));
+
+      window.requestAnimationFrame(() => {
+        if (isAlreadyScrolled()) stopPrelude();
+      });
+
+      window.setTimeout(() => {
+        if (userDirected || isAlreadyScrolled()) {
+          cleanup();
+          revealContent(true);
+          return;
+        }
+
+        revealContent();
+
+        const header = document.querySelector('.page > header.header');
+        const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().height : 0;
+        const startY = window.scrollY;
+        const targetY = Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - 16);
+        const distance = targetY - startY;
+
+        if (distance <= 24) {
+          cleanup();
+          return;
+        }
+
+        const startedAt = performance.now();
+
+        const step = (time: number) => {
+          if (userDirected) return;
+
+          const progress = Math.min((time - startedAt) / scrollDuration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          window.scrollTo(0, startY + distance * eased);
+
+          if (progress < 1) {
+            animationFrame = window.requestAnimationFrame(step);
+          } else {
+            cleanup();
+          }
+        };
+
+        animationFrame = window.requestAnimationFrame(step);
+      }, preludeDelay);
+    }
+  }
+</script>
+
 <style>
   :global(html[data-has-sidebar]) {
     --sl-content-width: 74rem;
@@ -136,6 +235,38 @@ const latestArticles = (await getArticles())
     width: min(100%, var(--home-panel-width));
     margin-inline: auto;
     text-align: center;
+  }
+
+  .home-opening {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: calc(100vh - var(--sl-nav-height, 4rem) - 1rem);
+    padding-block: clamp(0.25rem, 2vh, 1.25rem) clamp(1.5rem, 5vh, 3rem);
+  }
+
+  @supports (height: 100svh) {
+    .home-opening {
+      min-height: calc(100svh - var(--sl-nav-height, 4rem) - 1rem);
+    }
+  }
+
+  .home-content {
+    width: 100%;
+    transition:
+      opacity 1200ms ease,
+      transform 1200ms ease;
+  }
+
+  .home-intro.is-prelude .home-content {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1.25rem);
+  }
+
+  .home-intro.skip-prelude-transition .home-content,
+  .home-intro.skip-prelude-transition .signal-loader {
+    transition: none;
   }
 
   .home-intro :is(h2, h3) {
@@ -152,83 +283,18 @@ const latestArticles = (await getArticles())
     margin-inline: auto;
   }
 
-  .home-intro > h2 {
-    max-width: 58rem;
+  .home-content > h2 {
+    max-width: 52rem;
     margin: 0 auto 1rem;
     -webkit-text-fill-color: var(--sl-color-white);
     background-image: none;
     color: var(--sl-color-white);
-    font-size: 3.2rem;
-    line-height: 0.98;
+    font-size: clamp(2.2rem, 5vw, 3rem);
+    line-height: 1.02;
     text-wrap: balance;
   }
 
-  .signal-cards {
-    width: 100%;
-    margin: clamp(1.75rem, 5vw, 3.5rem) auto 0;
-    text-align: left;
-  }
-
-  .signal-card {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1.18fr) minmax(17rem, 0.82fr);
-    gap: clamp(1.25rem, 4vw, 3.75rem);
-    align-items: center;
-    min-width: 0;
-    width: 100%;
-    padding: clamp(1rem, 3vw, 1.6rem);
-    isolation: isolate;
-    overflow: hidden;
-    border-radius: 0.5rem;
-  }
-
-  .signal-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    border-right: 1px solid rgb(255 255 255 / 0.16);
-    border-bottom: 1px solid rgb(255 255 255 / 0.16);
-    border-left: 1px solid rgb(255 255 255 / 0.16);
-    border-radius: inherit;
-    background:
-      radial-gradient(ellipse at 18% 22%, rgb(122 201 185 / 0.22), transparent 42%),
-      radial-gradient(ellipse at 84% 16%, rgb(253 213 127 / 0.18), transparent 34%),
-      linear-gradient(135deg, rgb(19 23 25 / 0.92), rgb(7 8 10 / 0.9) 58%, rgb(17 18 15 / 0.9));
-    box-shadow:
-      0 26px 70px rgb(0 0 0 / 0.42),
-      inset 0 1px 0 rgb(255 255 255 / 0.1);
-    mask-image: linear-gradient(180deg, transparent 0 0.75rem, rgb(0 0 0 / 0.26) 3.5rem, black clamp(6rem, 14vh, 10rem), black 100%);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0 0.75rem, rgb(0 0 0 / 0.26) 3.5rem, black clamp(6rem, 14vh, 10rem), black 100%);
-    pointer-events: none;
-  }
-
-  .signal-copy {
-    position: relative;
-    z-index: 2;
-    grid-column: 2;
-    min-width: 0;
-    max-width: 23rem;
-    isolation: isolate;
-    -webkit-text-fill-color: initial;
-  }
-
-  .signal-copy h2 {
-    margin-block: 0 0.85rem;
-    -webkit-background-clip: border-box;
-    -webkit-text-fill-color: var(--sl-color-white);
-    background-image: none;
-    background-clip: border-box;
-    color: var(--sl-color-white);
-    font-size: clamp(1.55rem, 3.2vw, 2.9rem);
-    line-height: 1.08;
-    overflow-wrap: break-word;
-    text-wrap: balance;
-  }
-
-  .signal-stage,
-  .signal-copy {
+  .signal-stage {
     position: relative;
     z-index: 1;
   }
@@ -246,6 +312,19 @@ const latestArticles = (await getArticles())
       repeating-radial-gradient(circle at center, transparent 0 2.35rem, rgb(255 255 255 / 0.055) 2.4rem 2.45rem),
       linear-gradient(180deg, rgb(255 255 255 / 0.035), transparent 42%);
     box-shadow: inset 0 0 48px rgb(0 0 0 / 0.45);
+  }
+
+  .home-opening .signal-stage {
+    grid-column: auto;
+    grid-row: auto;
+    width: min(100%, 70rem);
+    min-height: clamp(18rem, calc(100vh - var(--sl-nav-height, 4rem) - 6rem), 38rem);
+  }
+
+  @supports (height: 100svh) {
+    .home-opening .signal-stage {
+      min-height: clamp(18rem, calc(100svh - var(--sl-nav-height, 4rem) - 6rem), 38rem);
+    }
   }
 
   .signal-stage::before,
@@ -271,10 +350,62 @@ const latestArticles = (await getArticles())
   .signal-rune,
   .signal-thread,
   .signal-ring,
+  .signal-loader,
   .signal-core {
     position: absolute;
     display: block;
     pointer-events: none;
+  }
+
+  .signal-loader {
+    top: 50%;
+    left: 50%;
+    width: clamp(10rem, 25vw, 19rem);
+    aspect-ratio: 1;
+    opacity: 0.18;
+    overflow: visible;
+    translate: -50% -50%;
+    transform: rotate(-90deg);
+    transition: opacity 320ms ease;
+  }
+
+  .home-intro.is-prelude .signal-loader {
+    opacity: 0.62;
+  }
+
+  .signal-loader-track,
+  .signal-loader-progress {
+    fill: none;
+    stroke-linecap: butt;
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: var(--signal-loader-offset);
+    vector-effect: non-scaling-stroke;
+  }
+
+  .signal-loader-one {
+    --signal-loader-offset: 0;
+  }
+
+  .signal-loader-two {
+    --signal-loader-offset: -1;
+  }
+
+  .signal-loader-three {
+    --signal-loader-offset: -2;
+  }
+
+  .signal-loader-track {
+    stroke: rgb(250 250 250 / 0.13);
+    stroke-width: 0.7;
+  }
+
+  .signal-loader-progress {
+    stroke: url(#signal-loader-gradient);
+    stroke-width: 1.1;
+  }
+
+  .home-intro.is-prelude .signal-loader-progress {
+    animation: signalLoaderFill 1450ms cubic-bezier(0.64, 0, 0.18, 1) 180ms both;
   }
 
   .signal-rune {
@@ -405,30 +536,6 @@ const latestArticles = (await getArticles())
     transform: none;
   }
 
-  .signal-eyebrow {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: end;
-    margin: 0 0 0.65rem;
-    color: rgb(253 213 127 / 0.78);
-    -webkit-text-fill-color: currentColor;
-    font-size: var(--sl-text-xs);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-
-  .signal-description {
-    grid-column: 2;
-    grid-row: 3;
-    align-self: start;
-    margin: 0;
-    color: rgb(250 250 250 / 0.78);
-    -webkit-text-fill-color: currentColor;
-    font-size: var(--sl-text-base);
-    line-height: 1.55;
-  }
-
   @keyframes signalTurn {
     to {
       transform: rotate(1turn);
@@ -477,7 +584,18 @@ const latestArticles = (await getArticles())
     }
   }
 
+  @keyframes signalLoaderFill {
+    from {
+      stroke-dasharray: 0 3;
+    }
+
+    to {
+      stroke-dasharray: 1 2;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .home-intro.is-prelude .signal-loader-progress,
     .signal-stage::before,
     .signal-stage::after,
     .signal-rune,
@@ -489,42 +607,32 @@ const latestArticles = (await getArticles())
   }
 
   .engagement-panel {
-    width: 100%;
-    margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
+    width: min(100%, 62rem);
+    margin: clamp(2rem, 5vw, 3rem) auto 0;
+    padding-block-start: clamp(1rem, 3vw, 1.5rem);
+    border-top: 1px solid rgb(255 255 255 / 0.12);
     text-align: left;
-  }
-
-  .engagement-panel > .eyebrow {
-    margin-block-end: 0.35rem;
-    color: var(--sl-color-gray-2);
-    text-align: center;
-  }
-
-  .engagement-panel > h2 {
-    max-width: 39rem;
-    margin: 0 auto 1rem;
-    font-size: clamp(1.35rem, 2vw, 1.85rem);
-    text-align: center;
   }
 
   .engagement-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
+    gap: clamp(1.25rem, 3vw, 2rem);
   }
 
   .engagement-grid article {
-    min-height: 10.5rem;
+    min-height: 0;
     margin: 0;
-    padding: 1rem;
-    border: 1px solid rgb(255 255 255 / 0.13);
-    border-radius: 0.5rem;
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.025));
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
   }
 
-  .engagement-grid h3 {
-    margin-block: 0 0.45rem;
-    font-size: var(--sl-text-lg);
+  .engagement-grid strong {
+    color: rgb(250 250 250 / 0.9);
+    font-weight: 650;
+    -webkit-text-fill-color: currentColor;
   }
 
   .engagement-grid p {
@@ -597,7 +705,7 @@ const latestArticles = (await getArticles())
   }
 
   .latest-publications :global(.card-grid) {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     text-align: center;
   }
 
@@ -690,7 +798,6 @@ const latestArticles = (await getArticles())
     }
 
     .intro-copy,
-    .signal-cards,
     .latest-publications {
       width: 100%;
     }
@@ -699,43 +806,10 @@ const latestArticles = (await getArticles())
       font-size: 2.35rem;
     }
 
-    .signal-card {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 0.75rem;
-    }
-
     .signal-stage {
       grid-column: 1;
       grid-row: 1;
       min-height: clamp(16rem, 78vw, 24rem);
-    }
-
-    .signal-eyebrow {
-      grid-column: 1;
-      grid-row: 2;
-      align-self: auto;
-      margin: 0;
-      text-align: center;
-    }
-
-    .signal-copy {
-      grid-column: 1;
-      max-width: none;
-      padding: 0.25rem 0.25rem 0.35rem;
-      text-align: center;
-    }
-
-    .signal-copy h2 {
-      margin-block: 0;
-      font-size: clamp(1.45rem, 8vw, 2.15rem);
-      text-align: center;
-    }
-
-    .signal-description {
-      grid-column: 1;
-      grid-row: 4;
-      text-align: center;
     }
 
     .engagement-grid {
@@ -786,6 +860,12 @@ const latestArticles = (await getArticles())
 
     :global(html[data-has-sidebar] .sidebar-pane) {
       display: none;
+    }
+  }
+
+  @media (min-width: 72rem) {
+    .latest-publications :global(.card-grid) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
