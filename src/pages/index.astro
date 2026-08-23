@@ -146,7 +146,7 @@ const latestArticles = (await getArticles())
   if (intro instanceof HTMLElement && content instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const preludeDelay = 1650;
-    const scrollDuration = 3000;
+    const nativeScrollCleanupDelay = 1800;
     const isAlreadyScrolled = () => window.scrollY > 12;
     const revealContent = (skipTransition = false) => {
       if (skipTransition) {
@@ -159,12 +159,18 @@ const latestArticles = (await getArticles())
         window.requestAnimationFrame(() => intro.classList.remove('skip-prelude-transition'));
       }
     };
+    const startAutoScroll = () => {
+      intro.classList.add('is-auto-scrolling');
+    };
+    const stopAutoScroll = () => {
+      intro.classList.remove('is-auto-scrolling');
+    };
 
     if (reduceMotion || isAlreadyScrolled()) {
       revealContent(true);
     } else {
       let userDirected = false;
-      let scrollFrame = 0;
+      let cleanupTimer = 0;
 
       const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
 
@@ -174,8 +180,8 @@ const latestArticles = (await getArticles())
 
       const stopPrelude = () => {
         userDirected = true;
-        window.cancelAnimationFrame(scrollFrame);
-        intro.classList.remove('is-auto-scrolling');
+        window.clearTimeout(cleanupTimer);
+        stopAutoScroll();
         revealContent(true);
         cleanup();
       };
@@ -194,7 +200,7 @@ const latestArticles = (await getArticles())
         }
 
         revealContent();
-        intro.classList.add('is-auto-scrolling');
+        startAutoScroll();
 
         const header = document.querySelector('.page > header.header');
   const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
@@ -204,34 +210,16 @@ const latestArticles = (await getArticles())
         const distance = targetY - startY;
 
         if (distance <= 24) {
-          intro.classList.remove('is-auto-scrolling');
+          stopAutoScroll();
           cleanup();
           return;
         }
 
-        const startedAt = performance.now();
-        const scrollingElement = document.scrollingElement ?? document.documentElement;
-
-        const step = (time: number) => {
-          if (userDirected) return;
-
-          const progress = Math.min((time - startedAt) / scrollDuration, 1);
-          const eased = progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-          scrollingElement.scrollTop = startY + distance * eased;
-
-          if (progress < 1) {
-            scrollFrame = window.requestAnimationFrame(step);
-          } else {
-            scrollingElement.scrollTop = targetY;
-            intro.classList.remove('is-auto-scrolling');
-            cleanup();
-          }
-        };
-
-        scrollFrame = window.requestAnimationFrame(step);
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        cleanupTimer = window.setTimeout(() => {
+          stopAutoScroll();
+          cleanup();
+        }, nativeScrollCleanupDelay);
       }, preludeDelay);
     }
   }
