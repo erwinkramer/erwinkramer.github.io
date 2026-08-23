@@ -143,7 +143,6 @@ const latestArticles = (await getArticles())
   if (intro instanceof HTMLElement && content instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const preludeDelay = 4200;
-    const nativeScrollCleanupDelay = 1800;
     const isAlreadyScrolled = () => window.scrollY > 12;
     const revealContent = (skipTransition = false) => {
       if (skipTransition) {
@@ -159,19 +158,12 @@ const latestArticles = (await getArticles())
     const finishPrelude = () => {
       intro.classList.remove('is-prelude');
     };
-    const startAutoScroll = () => {
-      intro.classList.add('is-auto-scrolling');
-    };
-    const stopAutoScroll = () => {
-      intro.classList.remove('is-auto-scrolling');
-    };
 
     if (reduceMotion || isAlreadyScrolled()) {
       revealContent(true);
       finishPrelude();
     } else {
       let userDirected = false;
-      let cleanupTimer = 0;
       let preludeTimer = 0;
 
       const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
@@ -183,8 +175,6 @@ const latestArticles = (await getArticles())
 
       const handleUserIntent = () => {
         userDirected = true;
-        window.clearTimeout(cleanupTimer);
-        stopAutoScroll();
         revealContent();
         cleanup();
       };
@@ -211,24 +201,19 @@ const latestArticles = (await getArticles())
         revealContent();
         finishPrelude();
         cleanup();
-        startAutoScroll();
 
         const header = document.querySelector('.page > header.header');
         const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
         const contentGap = 24;
         const startY = window.scrollY;
-        const targetY = Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - contentGap);
+        const targetY = Math.round(Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - contentGap));
         const distance = targetY - startY;
 
         if (distance <= 24) {
-          stopAutoScroll();
           return;
         }
 
         window.scrollTo({ top: targetY, behavior: 'smooth' });
-        cleanupTimer = window.setTimeout(() => {
-          stopAutoScroll();
-        }, nativeScrollCleanupDelay);
       }, preludeDelay);
     }
   }
@@ -347,7 +332,7 @@ const latestArticles = (await getArticles())
     border-radius: 56% 44% 51% 49% / 43% 57% 44% 56%;
     opacity: 0.36;
     animation: signalContourFlow 22s ease-in-out infinite alternate;
-    will-change: opacity, transform, border-radius;
+    will-change: opacity, transform;
   }
 
   .signal-stage::after {
@@ -455,14 +440,6 @@ const latestArticles = (await getArticles())
     animation: signalLoadCore var(--signal-prelude-duration) var(--signal-prelude-ease) both;
   }
 
-  .home-intro.is-auto-scrolling .signal-stage::before,
-  .home-intro.is-auto-scrolling .signal-stage::after,
-  .home-intro.is-auto-scrolling .signal-thread,
-  .home-intro.is-auto-scrolling .signal-ring,
-  .home-intro.is-auto-scrolling .signal-core {
-    animation-play-state: paused;
-  }
-
   .signal-thread {
     left: 12%;
     right: 12%;
@@ -550,13 +527,11 @@ const latestArticles = (await getArticles())
   @keyframes signalContourFlow {
     0% {
       opacity: 0.36;
-      border-radius: 56% 44% 51% 49% / 43% 57% 44% 56%;
       transform: rotate(0deg) scale(1);
     }
 
     100% {
       opacity: 0.48;
-      border-radius: 44% 56% 48% 52% / 57% 43% 56% 44%;
       transform: rotate(4deg) scale(1.03);
     }
   }
@@ -564,13 +539,11 @@ const latestArticles = (await getArticles())
   @keyframes signalContourFlowAlt {
     0% {
       opacity: 0.54;
-      border-radius: 45% 55% 46% 54% / 55% 42% 58% 45%;
       transform: rotate(0deg) scale(1);
     }
 
     100% {
       opacity: 0.42;
-      border-radius: 52% 48% 43% 57% / 46% 54% 48% 52%;
       transform: rotate(-4deg) scale(0.98);
     }
   }
@@ -627,19 +600,16 @@ const latestArticles = (await getArticles())
   @keyframes signalLoadContour {
     0% {
       opacity: 0.05;
-      border-radius: 50% 50% 48% 52% / 48% 52% 50% 50%;
       transform: rotate(-18deg) scale(0.72);
     }
 
     70% {
       opacity: 0.5;
-      border-radius: 48% 52% 56% 44% / 58% 42% 48% 52%;
       transform: rotate(2deg) scale(1.04);
     }
 
     100% {
       opacity: 0.36;
-      border-radius: 56% 44% 51% 49% / 43% 57% 44% 56%;
       transform: rotate(0deg) scale(1);
     }
   }
@@ -647,19 +617,16 @@ const latestArticles = (await getArticles())
   @keyframes signalLoadContourAlt {
     0% {
       opacity: 0.06;
-      border-radius: 48% 52% 50% 50% / 50% 50% 52% 48%;
       transform: rotate(16deg) scale(0.68);
     }
 
     70% {
       opacity: 0.62;
-      border-radius: 42% 58% 48% 52% / 52% 48% 58% 42%;
       transform: rotate(-2deg) scale(1.04);
     }
 
     100% {
       opacity: 0.54;
-      border-radius: 45% 55% 46% 54% / 55% 42% 58% 45%;
       transform: rotate(0deg) scale(1);
     }
   }
@@ -701,19 +668,16 @@ const latestArticles = (await getArticles())
   @keyframes signalLoadCore {
     0% {
       opacity: 0.32;
-      filter: blur(1px);
       transform: rotate(-0.38turn) scale(0.72);
     }
 
     72% {
       opacity: 1;
-      filter: blur(0);
       transform: rotate(-0.04turn) scale(1.08);
     }
 
     100% {
       opacity: 1;
-      filter: blur(0);
       transform: rotate(0deg) scale(1);
     }
   }
