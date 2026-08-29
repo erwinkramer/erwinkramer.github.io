@@ -24,24 +24,21 @@ const latestArticles = (await getArticles())
 ---
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
-  <section class="home-intro is-prelude is-content-hidden" data-home-intro>
+  <section class="home-intro" data-home-intro>
     <section class="home-opening" aria-label="Guanchen signal field">
+      <div class="home-hero-copy">
+        <h2>Architecture for systems with a wider horizon</h2>
+        <p class="intro-copy">
+          Guanchen helps teams read platform signals, find direction in change, and build foundations that keep
+          moving without losing integrity.
+        </p>
+        <div class="hero-actions">
+          <LinkButton href="/articles/" variant="primary" icon="right-arrow">Read the articles</LinkButton>
+          <LinkButton href={`mailto:${siteInfo.author.email}`} variant="secondary">Get in touch</LinkButton>
+        </div>
+      </div>
       <div class="signal-stage home-opening-stage" aria-hidden="true">
         <span class="signal-starfield"></span>
-        <svg class="signal-loader" viewBox="0 0 120 120" focusable="false">
-          <defs>
-            <linearGradient id="signal-loader-gradient" x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0" stop-color="rgb(122 201 185)" stop-opacity="0.38" />
-              <stop offset="0.62" stop-color="rgb(250 250 250)" stop-opacity="0.80" />
-              <stop offset="1" stop-color="rgb(253 213 127)" stop-opacity="0.56" />
-            </linearGradient>
-          </defs>
-          <circle class="signal-loader-track" cx="60" cy="60" r="42" />
-          <path class="signal-loader-progress" d="M 60 18 A 42 42 0 0 1 102 60" pathLength="1" />
-          <path class="signal-loader-progress" d="M 102 60 A 42 42 0 0 1 60 102" pathLength="1" />
-          <path class="signal-loader-progress" d="M 60 102 A 42 42 0 0 1 18 60" pathLength="1" />
-          <path class="signal-loader-progress" d="M 18 60 A 42 42 0 0 1 60 18" pathLength="1" />
-        </svg>
         <span class="signal-thread thread-one"></span>
         <span class="signal-thread thread-two"></span>
         <span class="signal-thread thread-three"></span>
@@ -53,12 +50,6 @@ const latestArticles = (await getArticles())
     </section>
 
     <div class="home-content" data-home-content>
-      <h2>Architecture for systems with a wider horizon</h2>
-      <p class="intro-copy">
-        Guanchen helps teams read platform signals, find direction in change, and build foundations that keep
-        moving without losing integrity.
-      </p>
-
     <section class="engagement-panel" aria-label="Guanchen approach">
       <div class="engagement-grid">
         <article>
@@ -124,106 +115,6 @@ const latestArticles = (await getArticles())
   </section>
 </StarlightPage>
 
-<noscript>
-  <style>
-    .home-intro.is-content-hidden .home-content {
-      opacity: 1;
-      pointer-events: auto;
-      transform: none;
-    }
-  </style>
-</noscript>
-
-<script>
-  const intro = document.querySelector('[data-home-intro]');
-  const content = document.querySelector('[data-home-content]');
-
-  if (intro instanceof HTMLElement && content instanceof HTMLElement) {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const preludeDelay = 4200;
-    const isAlreadyScrolled = () => window.scrollY > 12;
-    const revealContent = (skipTransition = false) => {
-      if (skipTransition) {
-        intro.classList.add('skip-prelude-transition');
-      }
-
-      intro.classList.remove('is-content-hidden');
-
-      if (skipTransition) {
-        window.requestAnimationFrame(() => intro.classList.remove('skip-prelude-transition'));
-      }
-    };
-    const finishPrelude = () => {
-      intro.classList.remove('is-prelude');
-    };
-
-    if (reduceMotion || isAlreadyScrolled()) {
-      revealContent(true);
-      finishPrelude();
-    } else {
-      let userDirected = false;
-      let preludeTimer = 0;
-
-      const userEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
-
-      const cleanup = () => {
-        userEvents.forEach((eventName) => window.removeEventListener(eventName, handleUserIntent));
-        window.removeEventListener('scroll', handleScroll);
-      };
-
-      const handleUserIntent = () => {
-        userDirected = true;
-        revealContent();
-        cleanup();
-      };
-
-      const handleScroll = () => {
-        if (isAlreadyScrolled()) handleUserIntent();
-      };
-
-      userEvents.forEach((eventName) => window.addEventListener(eventName, handleUserIntent, { once: true, passive: true }));
-      window.addEventListener('scroll', handleScroll, { passive: true });
-
-      window.requestAnimationFrame(() => {
-        handleScroll();
-      });
-
-      preludeTimer = window.setTimeout(() => {
-        if (userDirected || isAlreadyScrolled()) {
-          cleanup();
-          revealContent();
-          finishPrelude();
-          return;
-        }
-
-        // Reveal content first so its opacity transition claims a compositor
-        // layer before any other state changes compete for GPU resources.
-        revealContent();
-
-        // Defer the remaining teardown to the next paint frame so the fade-in
-        // transition starts cleanly, avoiding a first-load stutter.
-        window.requestAnimationFrame(() => {
-          finishPrelude();
-          cleanup();
-
-          const header = document.querySelector('.page > header.header');
-          const headerOffset = header instanceof HTMLElement ? header.getBoundingClientRect().bottom : 0;
-          const contentGap = 24;
-          const startY = window.scrollY;
-          const targetY = Math.round(Math.max(0, startY + content.getBoundingClientRect().top - headerOffset - contentGap));
-          const distance = targetY - startY;
-
-          if (distance <= 24) {
-            return;
-          }
-
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        });
-      }, preludeDelay);
-    }
-  }
-</script>
-
 <style>
   :global(html[data-has-sidebar]) {
     --sl-content-width: 74rem;
@@ -231,19 +122,18 @@ const latestArticles = (await getArticles())
   }
 
   .home-intro {
-    --signal-prelude-duration: 4200ms;
-    --signal-prelude-ease: cubic-bezier(0.64, 0, 0.18, 1);
     width: min(100%, var(--home-panel-width));
     margin-inline: auto;
-    text-align: center;
   }
 
   .home-opening {
     position: relative;
     display: grid;
-    place-items: center;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
     min-height: calc(100vh - var(--sl-nav-height, 4rem) - 1rem);
-    padding-block: clamp(0.25rem, 2vh, 1.25rem) clamp(1.5rem, 5vh, 3rem);
+    padding-block: clamp(1rem, 4vh, 2.5rem);
   }
 
   @supports (height: 100svh) {
@@ -252,63 +142,44 @@ const latestArticles = (await getArticles())
     }
   }
 
-  .home-content {
-    width: 100%;
-    will-change: opacity, transform;
-    transition:
-      opacity 1200ms ease,
-      transform 1200ms ease;
+  .home-hero-copy {
+    display: grid;
+    align-content: center;
+    gap: 1.25rem;
+    text-align: left;
   }
 
-  .home-intro.is-content-hidden .home-content {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(1.25rem);
-  }
-
-  .home-intro.skip-prelude-transition .home-content,
-  .home-intro.skip-prelude-transition .signal-loader {
-    transition: none;
-  }
-
-  .home-intro :is(h2, h3) {
-    -webkit-background-clip: border-box;
+  .home-hero-copy h2 {
+    margin: 0;
     -webkit-text-fill-color: var(--sl-color-white);
     background-image: none;
-    background-clip: border-box;
     color: var(--sl-color-white);
-    line-height: 1.25;
+    font-size: clamp(2.2rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    text-wrap: balance;
   }
 
   .intro-copy {
-    max-width: 46rem;
-    margin-inline: auto;
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-lg);
+    line-height: 1.55;
   }
 
-  .home-content > h2 {
-    max-width: 52rem;
-    margin: 0 auto 1rem;
-    -webkit-text-fill-color: var(--sl-color-white);
-    background-image: none;
-    color: var(--sl-color-white);
-    font-size: clamp(2.2rem, 5vw, 3rem);
-    line-height: 1.02;
-    text-wrap: balance;
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-block-start: 0.5rem;
   }
 
   .signal-stage {
     --signal-thread-gap: clamp(3.75rem, 16%, 6.5rem);
     position: relative;
     z-index: 1;
-  }
-
-  .signal-stage {
-    grid-column: 1;
-    grid-row: 1 / span 3;
-    min-height: clamp(18rem, 40vw, 30rem);
     overflow: hidden;
     border: 1px solid rgb(255 255 255 / 0.16);
-    border-radius: 0.45rem;
+    border-radius: 0.75rem;
     contain: paint;
     background:
       /* Nebula washes */
@@ -324,16 +195,8 @@ const latestArticles = (await getArticles())
   }
 
   .home-opening .signal-stage {
-    grid-column: auto;
-    grid-row: auto;
-    width: min(100%, 70rem);
-    min-height: clamp(18rem, calc(100vh - var(--sl-nav-height, 4rem) - 6rem), 38rem);
-  }
-
-  @supports (height: 100svh) {
-    .home-opening .signal-stage {
-      min-height: clamp(18rem, calc(100svh - var(--sl-nav-height, 4rem) - 6rem), 38rem);
-    }
+    width: 100%;
+    height: clamp(20rem, 50vh, 32rem);
   }
 
   .signal-stage::before,
@@ -366,80 +229,10 @@ const latestArticles = (await getArticles())
 
   .signal-thread,
   .signal-ring,
-  .signal-loader,
   .signal-core {
     position: absolute;
     display: block;
     pointer-events: none;
-  }
-
-  .signal-loader {
-    top: 50%;
-    left: 50%;
-    width: clamp(10rem, 25vw, 19rem);
-    aspect-ratio: 1;
-    opacity: 0.22;
-    overflow: visible;
-    translate: -50% -50%;
-    will-change: opacity, transform;
-    transition: opacity 320ms ease;
-  }
-
-  .home-intro.is-prelude .signal-loader {
-    opacity: 0.62;
-    animation: signalLoaderSettle var(--signal-prelude-duration) var(--signal-prelude-ease) both;
-  }
-
-  .signal-loader-track,
-  .signal-loader-progress {
-    fill: none;
-    stroke-linecap: butt;
-  }
-
-  .signal-loader-track {
-    stroke: rgb(250 250 250 / 0.20);
-    stroke-width: 0.7;
-  }
-
-  .signal-loader-progress {
-    stroke: url(#signal-loader-gradient);
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    stroke-width: 1.3;
-  }
-
-  .home-intro.is-prelude .signal-loader-progress {
-    animation: signalLoaderFill 3500ms var(--signal-prelude-ease) 500ms both;
-  }
-
-  @keyframes signalLoaderFill {
-    from {
-      stroke-dashoffset: 1;
-    }
-
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  .home-intro.is-prelude .signal-stage::before {
-    animation: signalLoadContour var(--signal-prelude-duration) var(--signal-prelude-ease) both;
-  }
-
-  .home-intro.is-prelude .signal-stage::after {
-    animation: signalLoadContourAlt var(--signal-prelude-duration) var(--signal-prelude-ease) both;
-  }
-
-  .home-intro.is-prelude .signal-thread {
-    animation: signalLoadThread var(--signal-prelude-duration) var(--signal-prelude-ease) both;
-  }
-
-  .home-intro.is-prelude .signal-ring {
-    animation: signalLoadRing var(--signal-prelude-duration) var(--signal-prelude-ease) both;
-  }
-
-  .home-intro.is-prelude .signal-core {
-    animation: signalLoadCore var(--signal-prelude-duration) var(--signal-prelude-ease) both;
   }
 
   .signal-thread {
@@ -631,111 +424,7 @@ const latestArticles = (await getArticles())
     }
   }
 
-  @keyframes signalLoaderSettle {
-    0% {
-      opacity: 0.24;
-      transform: scale(0.74) rotate(-28deg);
-    }
-
-    72% {
-      opacity: 0.80;
-      transform: scale(1.03) rotate(-4deg);
-    }
-
-    100% {
-      opacity: 0.22;
-      transform: scale(1) rotate(0deg);
-    }
-  }
-
-  @keyframes signalLoadContour {
-    0% {
-      opacity: 0.05;
-      transform: rotate(-18deg) scale(0.72);
-    }
-
-    70% {
-      opacity: 0.58;
-      transform: rotate(2deg) scale(1.04);
-    }
-
-    100% {
-      opacity: 0.40;
-      transform: rotate(0deg) scale(1);
-    }
-  }
-
-  @keyframes signalLoadContourAlt {
-    0% {
-      opacity: 0.06;
-      transform: rotate(16deg) scale(0.68);
-    }
-
-    70% {
-      opacity: 0.68;
-      transform: rotate(-2deg) scale(1.04);
-    }
-
-    100% {
-      opacity: 0.52;
-      transform: rotate(0deg) scale(1);
-    }
-  }
-
-  @keyframes signalLoadThread {
-    0% {
-      opacity: 0;
-      transform: rotate(var(--signal-thread-angle)) scaleX(0.08);
-    }
-
-    54% {
-      opacity: 0.9;
-      transform: rotate(var(--signal-thread-angle)) scaleX(1);
-    }
-
-    100% {
-      opacity: 0.50;
-      transform: rotate(var(--signal-thread-angle)) scaleX(1);
-    }
-  }
-
-  @keyframes signalLoadRing {
-    0% {
-      opacity: 0.06;
-      transform: scale(0.58);
-    }
-
-    68% {
-      opacity: 0.86;
-      transform: scale(1.05);
-    }
-
-    100% {
-      opacity: 0.58;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes signalLoadCore {
-    0% {
-      opacity: 0.32;
-      transform: rotate(-0.38turn) scale(0.72);
-    }
-
-    72% {
-      opacity: 1;
-      transform: rotate(-0.04turn) scale(1.08);
-    }
-
-    100% {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .home-intro.is-prelude .signal-loader,
-    .home-intro.is-prelude .signal-loader-progress,
     .signal-stage::before,
     .signal-stage::after,
     .signal-thread,
@@ -943,14 +632,18 @@ const latestArticles = (await getArticles())
       width: 100%;
     }
 
-    .home-intro > h2 {
+    .home-opening {
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 1.75rem;
+    }
+
+    .home-hero-copy h2 {
       font-size: 2.35rem;
     }
 
-    .signal-stage {
-      grid-column: 1;
-      grid-row: 1;
-      min-height: clamp(16rem, 78vw, 24rem);
+    .home-opening .signal-stage {
+      height: clamp(16rem, 50vh, 24rem);
     }
 
     .engagement-grid {
