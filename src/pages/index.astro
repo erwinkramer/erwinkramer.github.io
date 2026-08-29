@@ -27,7 +27,7 @@ const latestArticles = (await getArticles())
   <section class="home-intro" data-home-intro>
     <section class="home-opening" aria-label="Guanchen signal field">
       <div class="home-hero-copy">
-        <h2>Architecture for systems with a wider horizon</h2>
+        <h1>Architecture for systems with a wider horizon</h1>
         <p class="intro-copy">
           Guanchen helps teams read platform signals, find direction in change, and build foundations that keep
           moving without losing integrity.
@@ -39,6 +39,7 @@ const latestArticles = (await getArticles())
       </div>
       <div class="signal-stage home-opening-stage" aria-hidden="true">
         <span class="signal-starfield"></span>
+        <span class="signal-starfield-near"></span>
         <span class="signal-thread thread-one"></span>
         <span class="signal-thread thread-two"></span>
         <span class="signal-thread thread-three"></span>
@@ -115,6 +116,33 @@ const latestArticles = (await getArticles())
   </section>
 </StarlightPage>
 
+<script>
+  const stage = document.querySelector('.home-opening-stage');
+
+  if (stage instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+
+    const updateParallax = () => {
+      const t = Math.min(window.scrollY, 600) / 600;
+      stage.style.setProperty('--signal-parallax', `${(t * 120).toFixed(2)}px`);
+      ticking = false;
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+
+    updateParallax();
+  }
+</script>
+
 <style>
   :global(html[data-has-sidebar]) {
     --sl-content-width: 74rem;
@@ -149,7 +177,7 @@ const latestArticles = (await getArticles())
     text-align: left;
   }
 
-  .home-hero-copy h2 {
+  .home-hero-copy h1 {
     margin: 0;
     -webkit-text-fill-color: var(--sl-color-white);
     background-image: none;
@@ -211,7 +239,7 @@ const latestArticles = (await getArticles())
     border-radius: 50%;
     background: radial-gradient(ellipse at center, rgb(180 210 255 / 0.05), transparent 68%);
     opacity: 0.40;
-    translate: -50% -50%;
+    translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.1);
     animation: signalContourFlow 22s ease-in-out infinite alternate;
     will-change: opacity, transform;
   }
@@ -246,7 +274,8 @@ const latestArticles = (await getArticles())
     transform-origin: 50% 50%;
     transform: rotate(var(--signal-thread-angle));
     animation: threadPulse 7s ease-in-out infinite;
-    will-change: opacity, transform;
+    will-change: opacity, transform, translate;
+    translate: 0 calc(var(--signal-parallax, 0px) * 0.2);
   }
 
   .thread-one {
@@ -271,9 +300,9 @@ const latestArticles = (await getArticles())
     aspect-ratio: 1;
     border: 1px solid rgb(255 255 255 / 0.32);
     border-radius: 50%;
-    translate: -50% -50%;
+    translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.15);
     animation: ringBreathe 9s ease-in-out infinite;
-    will-change: opacity, transform;
+    will-change: opacity, transform, translate;
   }
 
   .ring-two {
@@ -302,9 +331,9 @@ const latestArticles = (await getArticles())
       0 0 52px rgb(122 201 185 / 0.38),
       0 0 18px rgb(253 213 127 / 0.14),
       inset 0 0 28px rgb(255 255 255 / 0.18);
-    translate: -50% -50%;
+    translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.05);
     animation: coreTurn 10s linear infinite;
-    will-change: transform;
+    will-change: transform, translate;
   }
 
   .signal-core::before,
@@ -322,11 +351,13 @@ const latestArticles = (await getArticles())
     transform: none;
   }
 
-  /* Tiled CSS starfield: two overlapping layers with different tile sizes
-     and independent twinkling rhythms for organic variation. */
+  /* Tiled CSS starfield: two overlapping layers with different tile sizes,
+     independent twinkling rhythms, and independent parallax rates for depth.
+     Each layer extends above the stage so scroll parallax never exposes a
+     gap at the top edge. */
   .signal-starfield {
     position: absolute;
-    inset: 0;
+    inset: -65px 0 0 0;
     pointer-events: none;
     /* Dense small stars — 8 per 175×175 px tile */
     background:
@@ -341,14 +372,15 @@ const latestArticles = (await getArticles())
     background-size: 175px 175px;
     opacity: 0.54;
     animation: starTwinkle 7s ease-in-out infinite alternate;
-    will-change: opacity;
+    will-change: opacity, translate;
+    translate: 0 calc(var(--signal-parallax, 0px) * 0.5);
   }
 
   /* Sparser bright stars — 5 per 340×240 px tile */
-  .signal-starfield::before {
-    content: '';
+  .signal-starfield-near {
     position: absolute;
-    inset: 0;
+    inset: -40px 0 0 0;
+    pointer-events: none;
     background:
       radial-gradient(2px   2px   at 60px  40px,  rgb(255 255 255 / 0.92), transparent),
       radial-gradient(2.5px 2.5px at 185px 130px, rgb(122 201 185 / 0.82), transparent),
@@ -358,7 +390,8 @@ const latestArticles = (await getArticles())
     background-size: 340px 240px;
     opacity: 0.36;
     animation: starTwinkle 11s ease-in-out infinite alternate-reverse;
-    will-change: opacity;
+    will-change: opacity, translate;
+    translate: 0 calc(var(--signal-parallax, 0px) * 0.3);
   }
 
   @keyframes starTwinkle {
@@ -431,7 +464,7 @@ const latestArticles = (await getArticles())
     .signal-ring,
     .signal-core,
     .signal-starfield,
-    .signal-starfield::before {
+    .signal-starfield-near {
       animation: none;
     }
   }
@@ -638,7 +671,7 @@ const latestArticles = (await getArticles())
       gap: 1.75rem;
     }
 
-    .home-hero-copy h2 {
+    .home-hero-copy h1 {
       font-size: 2.35rem;
     }
 
