@@ -131,9 +131,6 @@ const latestArticles = (await getArticles())
         lastValue = value;
       }
       ticking = false;
-      if (window.scrollY >= 600) {
-        window.removeEventListener('scroll', onScroll);
-      }
     };
 
     const onScroll = () => {
