@@ -121,23 +121,29 @@ const latestArticles = (await getArticles())
 
   if (stage instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let ticking = false;
+    let lastValue = '';
 
     const updateParallax = () => {
       const t = Math.min(window.scrollY, 600) / 600;
-      stage.style.setProperty('--signal-parallax', `${(t * 120).toFixed(2)}px`);
+      const value = `${(t * 120).toFixed(2)}px`;
+      if (value !== lastValue) {
+        stage.style.setProperty('--signal-parallax', value);
+        lastValue = value;
+      }
       ticking = false;
+      if (window.scrollY >= 600) {
+        window.removeEventListener('scroll', onScroll);
+      }
     };
 
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateParallax);
-          ticking = true;
-        }
-      },
-      { passive: true },
-    );
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     updateParallax();
   }
@@ -241,7 +247,6 @@ const latestArticles = (await getArticles())
     opacity: 0.40;
     translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.1);
     animation: signalContourFlow 22s ease-in-out infinite alternate;
-    will-change: opacity, transform;
   }
 
   .signal-stage::after {
@@ -274,7 +279,6 @@ const latestArticles = (await getArticles())
     transform-origin: 50% 50%;
     transform: rotate(var(--signal-thread-angle));
     animation: threadPulse 7s ease-in-out infinite;
-    will-change: opacity, transform, translate;
     translate: 0 calc(var(--signal-parallax, 0px) * 0.2);
   }
 
@@ -302,7 +306,6 @@ const latestArticles = (await getArticles())
     border-radius: 50%;
     translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.15);
     animation: ringBreathe 9s ease-in-out infinite;
-    will-change: opacity, transform, translate;
   }
 
   .ring-two {
@@ -333,7 +336,6 @@ const latestArticles = (await getArticles())
       inset 0 0 28px rgb(255 255 255 / 0.18);
     translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.05);
     animation: coreTurn 10s linear infinite;
-    will-change: transform, translate;
   }
 
   .signal-core::before,
@@ -372,7 +374,6 @@ const latestArticles = (await getArticles())
     background-size: 175px 175px;
     opacity: 0.54;
     animation: starTwinkle 7s ease-in-out infinite alternate;
-    will-change: opacity, translate;
     translate: 0 calc(var(--signal-parallax, 0px) * 0.5);
   }
 
@@ -390,7 +391,6 @@ const latestArticles = (await getArticles())
     background-size: 340px 240px;
     opacity: 0.36;
     animation: starTwinkle 11s ease-in-out infinite alternate-reverse;
-    will-change: opacity, translate;
     translate: 0 calc(var(--signal-parallax, 0px) * 0.3);
   }
 
