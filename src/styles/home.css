@@ -122,11 +122,20 @@ html {
 
 /* Scroll-driven parallax: pans the image up through its 35% headroom
    over the first 800px of scroll. -16% of the image's own height keeps it
-   covering the frame at all times. */
+   covering the frame at all times.
+
+   Written with longhand properties, not the `animation` shorthand:
+   `animation-timeline` is not part of that shorthand, and the production
+   CSS minifier otherwise merges it in, producing an invalid declaration
+   that browsers discard (killing the parallax in deployed builds). */
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
     .hero-figure img {
-      animation: hero-parallax linear both;
+      animation-name: hero-parallax;
+      /* Duration is irrelevant: the scroll timeline drives the progress. */
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: scroll(root);
       animation-range: 0 800px;
     }
