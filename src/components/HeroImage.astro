@@ -1,15 +1,20 @@
 ---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/high-contrast-hero.jpg';
+
 // High-contrast hero photo — a purely visual, non-interactive element.
 // Framed by a white border with a tight white stripe field behind and around
 // the image. Styling lives in src/styles/home.css (`.hero-figure` rules).
 ---
 
 <figure class="hero-figure">
-  <img
-    src="/assets/high-contrast-hero.jpg"
+  <Image
+    src={heroImage}
     alt="Silhouettes of people walking across a bright plaza against a dark sky"
-    width="2000"
-    height="3000"
+    width={2000}
+    height={3000}
+    widths={[640, 1080, 1668, 2000]}
+    sizes="100vw"
     decoding="async"
   />
 </figure>
