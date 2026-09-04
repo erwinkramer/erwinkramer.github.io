@@ -143,36 +143,3 @@ const iconProps = {
     </div>
   </section>
 </StarlightPage>
-
-<script>
-  const frame = document.querySelector('.hero-figure');
-
-  if (frame instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let ticking = false;
-    let lastValue = '';
-
-    const updateParallax = () => {
-      const t = Math.min(window.scrollY, 800) / 800;
-      /* The image is 135% of the frame height; shifting it upward only
-         (0 to -16% of its own height, well within the extra headroom)
-         keeps it covering the frame at all times. */
-      const value = `${(-t * 16).toFixed(2)}%`;
-      if (value !== lastValue) {
-        frame.style.setProperty('--hero-parallax', value);
-        lastValue = value;
-      }
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    updateParallax();
-  }
-</script>

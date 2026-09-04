@@ -118,7 +118,25 @@ html {
      never the dead-black top of the frame. The parallax pan then reveals
      the plaza below as you scroll. */
   object-position: center 40%;
-  transform: translateY(var(--hero-parallax, 0%));
+}
+
+/* Scroll-driven parallax: pans the image up through its 35% headroom
+   over the first 800px of scroll. -16% of the image's own height keeps it
+   covering the frame at all times. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-figure img {
+      animation: hero-parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 800px;
+    }
+  }
+}
+
+@keyframes hero-parallax {
+  to {
+    transform: translateY(-16%);
+  }
 }
 
 .engagement-panel {
