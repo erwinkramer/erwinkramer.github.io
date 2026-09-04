@@ -72,9 +72,7 @@ The common exclusion is not visual design or commercial support by itself. The e
 
 ## The choosing test
 
-Start with the most specific honest mechanism. If the work is accepted now and done later, use a queue. If the process state belongs inside one domain model, use that model and a status table. If it is a scheduled data pipeline, use a data orchestrator. If it mostly launches and retries containers on Kubernetes, use a Kubernetes workflow tool. If it is employee-facing SaaS automation, use a self-service automation product deliberately.
-
-Reach for a workflow engine when a named process instance must survive time, failures, deployments, callbacks, timers, and partial completion.
+Start with the most specific honest mechanism from the smaller tools above: a queue, a status table, a data orchestrator, a Kubernetes workflow tool, or a self-service automation product. Reach for a workflow engine only when a named process instance must survive time, failures, deployments, callbacks, timers, and partial completion.
 
 For a .NET-centered organization, Durable Task Extensions is the most sympathetic starting point. Cadence is the serious open-source platform challenger when Go or Java workers are acceptable and the organization is willing to operate a broader runtime. For broader polyglot or adjacent open-source requirements, Elsa, Dapr Workflow, Wexflow, Infinitic, pg_durable, and TanStack Workflow may still be worth studying, but only with explicit maturity, fit, and operator-control tradeoffs.
 

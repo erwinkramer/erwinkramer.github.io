@@ -82,9 +82,7 @@ The best systems will not hide that complexity. They will make the flow understa
 
 ## The queue as a promise
 
-A queue is a promise that work has been received. It does not promise instant completion. It promises that the system knows the work exists and has a way to move it forward.
-
-That promise is powerful when it is honest. It lets technology handle the real world, where demand is uneven, dependencies fail, people move at different speeds, and not every decision can happen immediately.
+A queue is a promise that work has been received: not that it will finish instantly, but that the system knows it exists and has a way to move it forward. That promise is powerful when it is honest. It lets technology handle the real world, where demand is uneven, dependencies fail, people move at different speeds, and not every decision can happen immediately.
 
 Queues remind us that good systems are not always the ones that respond instantly. Sometimes the best system is the one that accepts pressure gracefully, makes waiting visible, and keeps moving without pretending everything is synchronous.
 

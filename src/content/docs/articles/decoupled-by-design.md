@@ -72,12 +72,6 @@ This is where technology becomes more than infrastructure. It becomes governance
 
 ## The future is independent movement
 
-Bank API is a technical project, but the larger message is not technical. It shows a way of thinking about technology where boundaries are explicit, responsibilities are separate, and change is expected rather than feared.
-
-That may be the future of API design, and maybe the future of technology design in general.
-
 The goal is not to make systems more complicated. The goal is to make them less trapped. Less trapped by vendors. Less trapped by old decisions. Less trapped by hidden assumptions. Less trapped by the fear that one change will break everything.
 
-Decoupling is how technology keeps its promises while still moving forward.
-
-The best systems of the next decade will not be the ones that connect everything as tightly as possible. They will be the ones that connect clearly, change carefully, and leave room for people to choose what comes next.
+Bank API is a technical project, but the larger message is not technical: boundaries explicit, responsibilities separate, and change expected rather than feared. The best systems of the next decade will not be the ones that connect everything as tightly as possible. They will be the ones that connect clearly, change carefully, and leave room for people to choose what comes next.

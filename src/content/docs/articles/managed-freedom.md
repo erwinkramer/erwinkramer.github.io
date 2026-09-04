@@ -35,13 +35,7 @@ Kubernetes portability is not just whether workloads can run on another cluster.
 
 ## The provider map
 
-The [European Alternatives cloud computing platforms list](https://european-alternatives.eu/category/cloud-computing-platforms) is a useful starting point because it separates general cloud providers from VPS-only hosts and PaaS products. From there, the useful question is not whether a provider can run serious systems, but what role it wants to play:
-
-1. General infrastructure clouds that can act as the main foundation.
-2. Restrained infrastructure clouds that keep the surface smaller.
-3. Integrated clouds and PaaS-shaped platforms that optimize for developer convenience.
-4. Enterprise ecosystems that bring governance and catalog breadth.
-5. Specialist providers for data, identity, and AI compute.
+The [European Alternatives cloud computing platforms list](https://european-alternatives.eu/category/cloud-computing-platforms) is a useful starting point because it separates general cloud providers from VPS-only hosts and PaaS products. From there, the useful question is not whether a provider can run serious systems, but what role it wants to play: main foundation, restrained infrastructure, integrated platform, enterprise ecosystem, or specialist. The sections below follow those roles.
 
 ## General foundations
 
