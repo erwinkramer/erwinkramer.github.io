@@ -47,7 +47,7 @@ The [European Alternatives cloud computing platforms list](https://european-alte
 
 Start with the providers that look most like general infrastructure clouds: managed Kubernetes, object storage, databases, networking, and enough API surface to build with standard tools. [Exoscale](https://www.exoscale.com/) and [OVHcloud](https://www.ovhcloud.com/) both fit, but they lean differently.
 
-**Exoscale** is the cleaner default foundation. It has the core primitives: managed Kubernetes, S3-compatible object storage, managed PostgreSQL, networking, DNS, and load balancing. Its PostgreSQL API lists PostgreSQL 17 and 18 as supported major versions for service creation and upgrade checks. Its Kubernetes service supports external OIDC providers, including setups based on Dex or Keycloak, so identity does not have to become an Exoscale account boundary.
+**Exoscale** is the cleaner default foundation. It has the core primitives: managed Kubernetes, S3-compatible object storage, managed PostgreSQL, networking, DNS, and load balancing. Its PostgreSQL API supports current major versions, including 17 and 18, for service creation and upgrade checks. Its Kubernetes service supports external OIDC providers, including setups based on Dex or Keycloak, so identity does not have to become an Exoscale account boundary.
 
 Its database service is powered by Aiven and supports Prometheus, Rsyslog, and OpenSearch integrations. Those are not native OTLP outputs, but they are neutral enough to bridge into an OpenTelemetry Collector-owned pipeline. Managed Kubernetes Pro can also send control-plane audit records to a webhook endpoint. That is the healthy version of managed dependency: the provider takes work away while the important boundaries stay visible.
 

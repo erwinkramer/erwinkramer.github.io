@@ -44,7 +44,7 @@ This is not just a technical integration detail. It is a clean separation of res
 
 The partner keeps its own identity provider. DNB keeps control over its API authorization. The access token is short-lived. Roles are explicit. Trust is exchanged through modern standards rather than informal shared secrets or one-off integration logic.
 
-The repository also points to OAuth 2.0 Token Exchange as one of the mechanisms. That matters because open standards give security architecture a common language. They make it easier for different organizations, platforms, and tooling ecosystems to participate without every API provider inventing a private authentication scheme.
+Its DNB API Identity Federation flow follows the OAuth 2.0 Token Exchange specification (RFC 8693). That matters because open standards give security architecture a common language. They make it easier for different organizations, platforms, and tooling ecosystems to participate without every API provider inventing a private authentication scheme.
 
 ## Short-lived access is healthier
 
