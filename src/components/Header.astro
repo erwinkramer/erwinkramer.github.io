@@ -101,54 +101,19 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     }
 
     .schedule-link {
-      position: relative;
       flex: 0 0 auto;
-      min-width: var(--space-theme-header-control-size);
       gap: 0.5rem;
       padding-inline-start: 0.75rem;
       padding-inline-end: 0.5rem;
-      overflow: hidden;
       background-color: var(--sl-color-black);
-      background-image: linear-gradient(90deg, rgb(5 5 9 / 0.1), rgb(5 5 9 / 0.34)), url('/assets/lets-talk-button-bg.svg');
-      background-position: center;
-      background-size: 120% 120%, 132% 132%;
-      color: var(--sl-color-white);
-      font: inherit;
+      color: var(--sl-color-gray-2);
       font-size: var(--sl-text-sm);
-      font-weight: var(--header-control-font-weight);
       line-height: 1;
-      text-decoration: none;
-      text-shadow: 0 1px 8px rgb(0 0 0 / 0.52);
       white-space: nowrap;
-      isolation: isolate;
-      animation: scheduleBackgroundDrift 14s ease-in-out infinite alternate;
-    }
-
-    .schedule-link::before {
-      content: '';
-      position: absolute;
-      z-index: 0;
-      inset: -40% -24%;
-      background: radial-gradient(circle at 50% 50%, rgb(255 255 255 / 0.22), transparent 36%);
-      opacity: 0.34;
-      transform: translateX(-38%) rotate(8deg);
-      animation: scheduleGlow 6.5s ease-in-out infinite;
-      pointer-events: none;
     }
 
     .schedule-link:hover {
-      background-position: 52% 50%;
       color: var(--sl-color-white);
-    }
-
-    .schedule-link :global(svg),
-    .schedule-link span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .schedule-link :global(.schedule-icon) {
-      flex: 0 0 auto;
     }
 
     .icon-link,
@@ -164,36 +129,6 @@ const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
     .social-icons :global(a:hover),
     .right-group :global(button[data-open-modal]:hover) {
       color: var(--sl-color-white);
-    }
-
-    @keyframes scheduleBackgroundDrift {
-      from {
-        background-position: 46% 50%, 44% 48%;
-      }
-
-      to {
-        background-position: 56% 50%, 58% 52%;
-      }
-    }
-
-    @keyframes scheduleGlow {
-      0%,
-      100% {
-        opacity: 0.22;
-        transform: translateX(-42%) rotate(8deg);
-      }
-
-      50% {
-        opacity: 0.4;
-        transform: translateX(32%) rotate(8deg);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .schedule-link,
-      .schedule-link::before {
-        animation: none;
-      }
     }
 
     @media (max-width: 49.999rem) {

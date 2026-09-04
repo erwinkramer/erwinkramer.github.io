@@ -6,8 +6,6 @@ sidebar:
   order: 30
 ---
 
-![Dark analog catalog map with diamonds, tags, circular index nodes, and discovery signals](/assets/api-portal-discovery-collage.svg)
-
 Portals used to be simple places to publish documentation. Put the reference pages online. Add a getting started guide. Give developers a key. Maybe include a few examples and a support link.
 
 That was useful, but it was never the whole job.

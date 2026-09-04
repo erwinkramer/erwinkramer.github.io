@@ -44,6 +44,26 @@ export default defineConfig({
         {
           tag: 'link',
           attrs: {
+            rel: 'preload',
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: 'anonymous',
+            href: '/fonts/instrument-sans-latin.woff2',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'preload',
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: 'anonymous',
+            href: '/fonts/instrument-sans-latin-ext.woff2',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
             rel: 'alternate',
             type: 'application/atom+xml',
             title: siteInfo.feed.title,
@@ -83,15 +103,6 @@ export default defineConfig({
             rel: 'apple-touch-icon',
             sizes: '256x256',
             href: '/assets/icon-256.png?v=source-icon-bordered',
-          },
-        },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'preload',
-            as: 'image',
-            href: '/assets/lets-talk-button-bg.svg',
-            type: 'image/svg+xml',
           },
         },
         {

@@ -6,8 +6,6 @@ sidebar:
   order: 150
 ---
 
-![Dark analog listening loop with a central signal lens, system panels, and soft feedback waves](/assets/systems-that-listen-collage.svg)
-
 Most software was built around a quiet assumption: the important thinking happens before the system runs. Requirements are gathered, processes are drawn, controls are set, code is deployed, and then the system executes.
 
 That model is not disappearing, but it is no longer enough. Future systems will be less like static machinery and more like listening loops. They will receive intent, test it against boundaries, act, read the feedback that comes back, and learn what should change next.

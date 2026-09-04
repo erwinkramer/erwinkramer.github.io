@@ -5,4 +5,4 @@ tests/
 *.DS_Store
 dist/
 .astro/
-.playwright-mcp/
+dev-server*

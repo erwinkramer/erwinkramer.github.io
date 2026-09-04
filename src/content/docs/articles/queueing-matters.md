@@ -6,8 +6,6 @@ sidebar:
   order: 90
 ---
 
-![Dark analog collage with waiting lines, message cards, clocks, and branching queue lanes](/assets/queueing-flow-collage.svg)
-
 Queues are one of the oldest ideas in technology, and one of the easiest to underestimate.
 
 They are everywhere. People wait in lines. Letters wait in sorting rooms. Jobs wait for machines. Payments wait for settlement. Messages wait for delivery. Events wait for someone to notice them. A queue is simple: something arrives, waits its turn, and moves when the system is ready.

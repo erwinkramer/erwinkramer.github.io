@@ -6,8 +6,6 @@ sidebar:
   order: 20
 ---
 
-![Dark analog collage with a portal frame, catalog cards, protected API definitions, and version rails](/assets/the-api-front-door-collage.svg)
-
 An API portal is not just a documentation website. It is the place where an organization shows how its APIs are meant to be discovered, trusted, governed, and reused. As argued in [Service Discovery](/articles/service-discovery/), a portal is really a front door to a relationship: it tells people what exists, what is stable, how to get access, and what kind of commitment the provider is making. When that portal is good, API knowledge becomes visible without becoming uncontrolled. Partners find the right product, teams understand ownership, and the organization keeps a clear boundary between public explanation and protected system detail.
 
 That makes the choice smaller than an API management procurement, but more important than choosing an OpenAPI renderer. The goal is a free, sovereign, self-hostable portal architecture that can publish a polished developer experience without buying a gateway, adopting a broad API management suite, or leaking definitions to audiences that should not see them.

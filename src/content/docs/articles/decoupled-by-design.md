@@ -6,8 +6,6 @@ sidebar:
   order: 110
 ---
 
-![Dark analog collage with bank columns, separated ledger cards, bridges, and signal lines](/assets/bank-api-decoupling-collage.svg)
-
 Technology keeps promising connection. Everything talks to everything else. Products integrate, platforms expand, data moves faster, and organizations are asked to become more digital every year.
 
 But connection is not the same as dependence.

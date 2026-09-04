@@ -6,8 +6,6 @@ sidebar:
   order: 80
 ---
 
-![Dark analog eventing map with CloudEvents envelope cards, routing lines, brokers, services, and schema fragments](/assets/cloudevents-eventing-collage.svg)
-
 Eventing is not hard because systems cannot send messages. Systems are very good at sending messages. The hard part is making those messages recognizable after they have crossed a boundary.
 
 An event says something happened. It may describe an order that was paid, a file that arrived, a device that changed state, a customer that was created, a build that finished, a payment that failed, or a policy that was updated. The event might travel through HTTP, Kafka, NATS, AMQP, MQTT, a webhook system, a serverless event bus, a gateway, a workflow engine, or a database outbox.

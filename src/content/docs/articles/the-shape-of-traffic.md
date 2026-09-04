@@ -6,8 +6,6 @@ sidebar:
   order: 100
 ---
 
-![Dark analog traffic map with radar rings, flow lanes, distributed nodes, and signal traces](/assets/traffic-flow-collage.svg)
-
 Every digital system has traffic. People sign in. Devices report state. APIs receive requests. Tools call services. Events arrive. Payments move. Search queries, messages, files, images, telemetry, and decisions all flow toward systems that are expected to understand what to do next.
 
 That flow is not just a technical detail. It is one of the clearest ways to see how an organization thinks.

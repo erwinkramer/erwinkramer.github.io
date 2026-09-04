@@ -6,8 +6,6 @@ sidebar:
   order: 60
 ---
 
-![Dark analog workflow map with durable state, code rails, timers, callbacks, and restart controls](/assets/workflows-that-remember-collage.svg)
-
 A workflow engine is useful when work has to survive time. It is not a diagram, an approval box, or a more serious name for a background job. It is for named work with identity, memory, waiting, retries, compensation, and inspectable history.
 
 That gives workflow engines a real place in integration architecture, and makes them easy to overuse. Once one exists, ordinary delays start looking like workflows: a queue, a status column, three HTTP calls, a nightly import. The better question is smaller: what needs a durable process brain, and what only needs durable work? That follows the restraint behind [Lightweight Queueing](/articles/lightweight-queueing/): a queue is enough when the system must accept work, retry it, and make pressure visible. A workflow engine is justified only when the process itself needs durable decisions and visible recovery.

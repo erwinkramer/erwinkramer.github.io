@@ -6,8 +6,6 @@ sidebar:
   order: 40
 ---
 
-![Dark analog collage with log strips, signal traces, metrics panels, and a collector lens](/assets/observability-signal-collage.svg)
-
 Logging used to be simple. A system wrote lines of text somewhere, and when something went wrong, a person searched those lines and tried to reconstruct what happened.
 
 That worked when systems were smaller. One server. One application. One database. One place where the truth might be hiding.

@@ -6,8 +6,6 @@ sidebar:
   order: 140
 ---
 
-![Dark analog ledger collage with columns and signal lines](/assets/contact-ledger-collage.svg)
-
 OpenAPI is not paperwork. It is one of the clearest machine-readable contracts most teams already have: operations, parameters, schemas, auth expectations, response shapes, and error boundaries in one place.
 
 That makes it an excellent foundation for MCP servers. The mistake is treating MCP as a reason to start over. If an API already has a good OpenAPI description, the responsible path is to translate that stable HTTP contract into tools an agent can discover, call, validate, and reason about.

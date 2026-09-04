@@ -5,50 +5,60 @@ html[data-has-sidebar] {
   --home-panel-width: 74rem;
 }
 
+/* Homepage type scale — used consistently: 1.125rem lead, 1rem cards,
+   body/support via the shared --gc-body-size (defined in space-theme.css),
+   0.75rem labels/meta. Defined on html so the contact strip (outside
+   .home-intro) can use it too. */
+html {
+  --home-size-lead: 1.125rem;
+  --home-size-body: var(--gc-body-size);
+  --home-size-label: 0.75rem;
+}
+
 .home-intro {
   width: min(100%, var(--home-panel-width));
   margin-inline: auto;
+  /* Always keep breathing room on the left (and right) edge of the viewport
+     for all homepage content, even on narrow screens. */
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
 }
 
 .home-opening {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
-  min-height: calc(100vh - var(--sl-nav-height, 4rem) - 1rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 0;
   padding-block: clamp(1rem, 4vh, 2.5rem);
-}
-
-@supports (height: 100svh) {
-  .home-opening {
-    min-height: calc(100svh - var(--sl-nav-height, 4rem) - 1rem);
-  }
 }
 
 .home-hero-copy {
   display: grid;
   align-content: center;
   gap: 1.25rem;
+  width: 100%;
+  max-width: min(100%, 34rem);
   text-align: left;
+  /* Container for the h1: its font size is a fixed share of this box, so the
+     single-line title always fits, at every viewport width. */
+  container-type: inline-size;
 }
 
-.home-hero-copy h1 {
+/* Sized in container units (title ≈ 16em wide → 6cqi ≈ 96% of the box), so
+   the headline can never wrap. */
+.home-opening .home-hero-copy h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 5vw, 3.25rem);
-  line-height: 1.05;
-  text-wrap: balance;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(to right bottom, rgb(255 255 255) 30%, rgb(255 255 255 / 0.38));
-  -webkit-background-clip: text;
-  background-clip: text;
+  font-size: clamp(0.95rem, 6cqi, 3rem);
+  line-height: 1.15;
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .intro-copy {
   margin: 0;
-  color: var(--sl-color-gray-2);
-  font-size: var(--sl-text-lg);
+  color: rgb(255 255 255 / 0.8);
+  font-size: var(--home-size-lead);
   line-height: 1.55;
 }
 
@@ -59,270 +69,47 @@ html[data-has-sidebar] {
   margin-block-start: 0.5rem;
 }
 
-.signal-stage {
-  --signal-thread-gap: clamp(3.75rem, 16%, 6.5rem);
-  position: relative;
-  z-index: 1;
+/* Square off and shrink the homepage buttons (Starlight defaults to a
+   fully rounded, larger button). */
+.hero-actions .sl-link-button,
+.articles-actions .sl-link-button {
+  border-radius: 0.25rem;
+  font-size: var(--sl-text-xs);
+  padding: 0.375rem 0.875rem;
+}
+
+/* Hero photo frame: a band below the intro copy, as wide as the content
+   column. On desktop the aspect ratio is fixed, so the crop of the 2:3 photo
+   stays identical at every viewport width. The image is rendered taller than
+   the frame (object-fit: cover) so the scroll parallax can pan through it
+   without exposing the edges. */
+.hero-figure {
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 0.16);
-  border-radius: 0.75rem;
-  contain: paint;
-  background:
-    /* Nebula washes */
-    radial-gradient(ellipse at 20% 76%, rgb(122 201 185 / 0.18), transparent 52%),
-    radial-gradient(ellipse at 82% 18%, rgb(253 213 127 / 0.13), transparent 44%),
-    radial-gradient(ellipse at 58% 50%, rgb(130 110 210 / 0.08), transparent 40%),
-    /* Central luminance */
-    radial-gradient(circle at center, rgb(255 255 255 / 0.12), transparent 32%),
-    /* Denser concentric rings */
-    repeating-radial-gradient(circle at center, transparent 0 1.55rem, rgb(255 255 255 / 0.046) 1.6rem 1.64rem),
-    linear-gradient(180deg, rgb(255 255 255 / 0.048), transparent 48%);
-  box-shadow: inset 0 0 52px rgb(0 0 0 / 0.30);
-}
-
-.home-opening .signal-stage {
   width: 100%;
-  height: clamp(20rem, 50vh, 32rem);
+  margin-inline: auto;
+  height: clamp(16rem, 48vh, 22rem);
 }
 
-.signal-stage::before,
-.signal-stage::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(52rem, calc(100% - 2rem));
-  height: min(22rem, calc(100% - 2rem));
-  border: 1px solid rgb(210 230 255 / 0.28);
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgb(180 210 255 / 0.05), transparent 68%);
-  opacity: 0.40;
-  translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.1);
-  animation: signalContourFlow 22s ease-in-out infinite alternate;
+@media (min-width: 50rem) {
+  .hero-figure {
+    aspect-ratio: 1.6;
+    height: auto;
+    max-height: 46rem;
+  }
 }
 
-.signal-stage::after {
-  width: min(38rem, calc(100% - 4rem));
-  height: min(16rem, calc(100% - 4rem));
-  border-color: rgb(122 201 185 / 0.56);
-  background: radial-gradient(ellipse at center, rgb(122 201 185 / 0.06), transparent 68%);
-  opacity: 0.52;
-  animation-name: signalContourFlowAlt;
-  animation-duration: 28s;
-  animation-direction: alternate;
-}
-
-.signal-thread,
-.signal-ring,
-.signal-core {
-  position: absolute;
+.hero-figure img {
   display: block;
-  pointer-events: none;
-}
-
-.signal-thread {
-  --signal-thread-angle: 0deg;
-  --signal-thread-offset: 0rem;
-  left: 12%;
-  right: 12%;
-  top: calc(50% + var(--signal-thread-offset));
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(122 201 185 / 0.84), rgb(253 213 127 / 0.84), transparent);
-  transform-origin: 50% 50%;
-  transform: rotate(var(--signal-thread-angle));
-  animation: threadPulse 7s ease-in-out infinite;
-  translate: 0 calc(var(--signal-parallax, 0px) * 0.2);
-}
-
-.thread-one {
-  --signal-thread-angle: 11deg;
-  --signal-thread-offset: calc(-1 * var(--signal-thread-gap));
-}
-
-.thread-two {
-  --signal-thread-angle: -17deg;
-  animation-duration: 8.5s;
-}
-
-.thread-three {
-  --signal-thread-angle: 4deg;
-  --signal-thread-offset: var(--signal-thread-gap);
-  animation-duration: 10.25s;
-}
-
-.signal-ring {
-  inset: 50% auto auto 50%;
-  width: clamp(8rem, 22vw, 18rem);
-  aspect-ratio: 1;
-  border: 1px solid rgb(255 255 255 / 0.32);
-  border-radius: 50%;
-  translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.15);
-  animation: ringBreathe 9s ease-in-out infinite;
-}
-
-.ring-two {
-  width: clamp(12rem, 30vw, 24rem);
-  border-color: rgb(122 201 185 / 0.38);
-  animation-duration: 11.5s;
-}
-
-.ring-three {
-  width: clamp(16rem, 38vw, 31rem);
-  border-color: rgb(253 213 127 / 0.28);
-  animation-duration: 14s;
-}
-
-.signal-core {
-  top: 50%;
-  left: 50%;
-  width: clamp(4.5rem, 11vw, 8rem);
-  aspect-ratio: 1;
-  border: 1px solid rgb(255 255 255 / 0.60);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, rgb(255 255 255 / 0.90) 0 2px, transparent 3px),
-    conic-gradient(from 0deg, rgb(122 201 185 / 0.14), rgb(253 213 127 / 0.38), rgb(255 255 255 / 0.14), rgb(122 201 185 / 0.14));
-  box-shadow:
-    0 0 52px rgb(122 201 185 / 0.38),
-    0 0 18px rgb(253 213 127 / 0.14),
-    inset 0 0 28px rgb(255 255 255 / 0.18);
-  translate: -50% calc(-50% + var(--signal-parallax, 0px) * 0.05);
-  animation: coreTurn 10s linear infinite;
-}
-
-.signal-core::before,
-.signal-core::after {
-  content: '';
-  position: absolute;
-  inset: 18%;
-  border: 1px solid rgb(255 255 255 / 0.44);
-  transform: rotate(45deg);
-}
-
-.signal-core::after {
-  inset: 36%;
-  border-radius: 50%;
-  transform: none;
-}
-
-/* Tiled CSS starfield: two overlapping layers with different tile sizes,
-   independent twinkling rhythms, and independent parallax rates for depth.
-   Each layer extends above the stage so scroll parallax never exposes a
-   gap at the top edge. */
-.signal-starfield {
-  position: absolute;
-  inset: -65px 0 0 0;
-  pointer-events: none;
-  /* Dense small stars — 8 per 175×175 px tile */
-  background:
-    radial-gradient(1.2px 1.2px at 22px 14px, rgb(255 255 255 / 0.80), transparent),
-    radial-gradient(1px   1px   at 58px 88px, rgb(255 255 255 / 0.56), transparent),
-    radial-gradient(1.5px 1.5px at 102px 32px, rgb(255 255 255 / 0.70), transparent),
-    radial-gradient(1px   1px   at 140px 120px, rgb(122 201 185 / 0.68), transparent),
-    radial-gradient(1.2px 1.2px at 8px  150px, rgb(255 255 255 / 0.48), transparent),
-    radial-gradient(1px   1px   at 165px 65px, rgb(253 213 127 / 0.60), transparent),
-    radial-gradient(1px   1px   at 80px 168px, rgb(255 255 255 / 0.42), transparent),
-    radial-gradient(1.5px 1.5px at 128px 8px,  rgb(255 255 255 / 0.64), transparent);
-  background-size: 175px 175px;
-  opacity: 0.54;
-  animation: starTwinkle 7s ease-in-out infinite alternate;
-  translate: 0 calc(var(--signal-parallax, 0px) * 0.5);
-}
-
-/* Sparser bright stars — 5 per 340×240 px tile */
-.signal-starfield-near {
-  position: absolute;
-  inset: -40px 0 0 0;
-  pointer-events: none;
-  background:
-    radial-gradient(2px   2px   at 60px  40px,  rgb(255 255 255 / 0.92), transparent),
-    radial-gradient(2.5px 2.5px at 185px 130px, rgb(122 201 185 / 0.82), transparent),
-    radial-gradient(2px   2px   at 285px 62px,  rgb(255 255 255 / 0.86), transparent),
-    radial-gradient(1.5px 1.5px at 105px 195px, rgb(253 213 127 / 0.72), transparent),
-    radial-gradient(2px   2px   at 315px 195px, rgb(255 255 255 / 0.78), transparent);
-  background-size: 340px 240px;
-  opacity: 0.36;
-  animation: starTwinkle 11s ease-in-out infinite alternate-reverse;
-  translate: 0 calc(var(--signal-parallax, 0px) * 0.3);
-}
-
-@keyframes starTwinkle {
-  0%   { opacity: 0.42; }
-  38%  { opacity: 0.62; }
-  72%  { opacity: 0.46; }
-  100% { opacity: 0.58; }
-}
-
-@keyframes signalContourFlow {
-  0% {
-    opacity: 0.40;
-    transform: rotate(0deg) scale(1);
-  }
-
-  100% {
-    opacity: 0.52;
-    transform: rotate(4deg) scale(1.03);
-  }
-}
-
-@keyframes signalContourFlowAlt {
-  0% {
-    opacity: 0.52;
-    transform: rotate(0deg) scale(1);
-  }
-
-  100% {
-    opacity: 0.40;
-    transform: rotate(-4deg) scale(0.98);
-  }
-}
-
-@keyframes threadPulse {
-  0%,
-  100% {
-    opacity: 0.50;
-    scale: 1 1;
-  }
-
-  50% {
-    opacity: 0.96;
-    scale: 1.04 1;
-  }
-}
-
-@keyframes ringBreathe {
-  0%,
-  100% {
-    opacity: 0.56;
-    scale: 1;
-  }
-
-  50% {
-    opacity: 0.78;
-    scale: 1.04;
-  }
-}
-
-@keyframes coreTurn {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .signal-stage::before,
-  .signal-stage::after,
-  .signal-thread,
-  .signal-ring,
-  .signal-core,
-  .signal-starfield,
-  .signal-starfield-near {
-    animation: none;
-  }
+  width: 100%;
+  height: 135%;
+  object-fit: cover;
+  object-position: center 44%;
+  transform: translateY(var(--hero-parallax, 0%));
 }
 
 .engagement-panel {
-  width: min(100%, 62rem);
+  /* As wide as the hero image above (both fill the .home-intro box). */
+  width: 100%;
   margin: clamp(2rem, 5vw, 3rem) auto 0;
   padding-block-start: clamp(1rem, 3vw, 1.5rem);
   border-top: 1px solid rgb(255 255 255 / 0.12);
@@ -345,64 +132,50 @@ html[data-has-sidebar] {
 }
 
 .engagement-grid strong {
-  color: rgb(250 250 250 / 0.9);
-  font-weight: 650;
+  color: rgb(255 255 255 / 0.95);
+  font-weight: 600;
   -webkit-text-fill-color: currentColor;
 }
 
 .engagement-grid p {
   margin: 0;
-  color: var(--sl-color-gray-2);
-  font-size: var(--sl-text-sm);
+  color: rgb(255 255 255 / 0.72);
+  font-size: var(--home-size-body);
   line-height: 1.55;
 }
 
 .latest-publications {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   width: 100%;
-  margin: clamp(2rem, 5vw, 3rem) 0 0;
-  padding: clamp(1rem, 3vw, 1.6rem);
-  border: 1px solid rgb(255 255 255 / 0.16);
-  border-radius: 0.5rem;
-  background:
-    radial-gradient(ellipse at 18% 18%, rgb(122 201 185 / 0.26), transparent 42%),
-    radial-gradient(ellipse at 88% 84%, rgb(253 213 127 / 0.18), transparent 38%),
-    linear-gradient(180deg, rgb(6 7 10 / 0.72), rgb(6 7 10 / 0.86)),
-    url('/assets/analog-article-collage.svg') center / cover no-repeat;
-  box-shadow:
-    0 18px 54px rgb(0 0 0 / 0.32),
-    inset 0 1px 0 rgb(255 255 255 / 0.1);
-  text-align: center;
+  margin: clamp(2rem, 5vw, 3rem) auto 0;
+  padding-block-start: clamp(1rem, 3vw, 1.5rem);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  text-align: left;
 }
 
 .latest-publications h2 {
-  margin: 0.35rem auto 0;
-  font-size: clamp(1.7rem, 3vw, 2.55rem);
-  line-height: 1.05;
-  text-align: center;
+  margin: 0.35rem 0 0;
+  font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+  line-height: 1.15;
 }
 
 .articles-kicker,
 .articles-summary {
   margin: 0;
-  text-align: center;
 }
 
 .articles-kicker {
-  color: rgb(253 213 127 / 0.86);
-  font-size: var(--sl-text-xs);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  color: rgb(255 255 255 / 0.62);
+  font-size: var(--home-size-label);
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .articles-summary {
-  max-width: 34rem;
-  margin: 0.7rem auto 1rem;
-  color: rgb(250 250 250 / 0.76);
-  font-size: var(--sl-text-sm);
+  max-width: 30rem;
+  margin: 0.5rem 0 1rem;
+  color: rgb(255 255 255 / 0.7);
+  font-size: var(--home-size-body);
   line-height: 1.45;
 }
 
@@ -421,33 +194,41 @@ html[data-has-sidebar] {
 
 .latest-publications .card-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  text-align: center;
 }
 
 .latest-publications .sl-link-card {
   min-height: 100%;
-  border-color: rgb(255 255 255 / 0.16);
-  background: rgb(9 9 11 / 0.72);
-  text-align: center;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+  text-align: left;
 }
 
 .latest-publications .sl-link-card .stack {
-  align-items: center;
+  align-items: start;
+}
+
+.latest-publications .sl-link-card .title {
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .latest-publications .sl-link-card .description {
   overflow-wrap: anywhere;
+  /* Match the article body exactly so the preview reads at the same
+     dimness as the article it links to. */
+  color: var(--sl-color-text);
+  font-size: var(--home-size-body);
 }
 
 .articles-actions {
   display: flex;
-  justify-content: center;
   margin-block-start: 1rem;
 }
 
 .eyebrow {
-  color: var(--sl-color-gray-2);
-  font-size: var(--sl-text-sm);
+  color: rgb(255 255 255 / 0.75);
+  font-size: var(--home-size-body);
 }
 
 .contact-strip .eyebrow {
@@ -455,13 +236,16 @@ html[data-has-sidebar] {
 }
 
 .contact-strip {
-  width: min(100%, 46rem);
+  /* Share the homepage box: same width and side padding as .home-intro, so
+     the footer's left edge lines up with the other text on the page. */
+  width: min(100%, var(--home-panel-width));
   margin-inline: auto;
   margin-block-start: 1.75rem;
   padding-block-start: 0.875rem;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
   border-top: 1px solid var(--sl-color-hairline);
-  color: var(--sl-color-gray-3);
-  opacity: 0.78;
+  color: rgb(255 255 255 / 0.7);
+  opacity: 0.88;
 }
 
 .contact-grid {
@@ -471,7 +255,7 @@ html[data-has-sidebar] {
   grid-template-rows: repeat(3, 1.45rem);
   gap: 0 3rem;
   align-items: center;
-  font-size: var(--sl-text-xs);
+  font-size: var(--home-size-body);
 }
 
 .contact-strip a,
@@ -486,7 +270,7 @@ html[data-has-sidebar] {
   align-items: center;
   height: 1.45rem;
   line-height: 1.2;
-  color: var(--sl-color-gray-3);
+  color: rgb(255 255 255 / 0.7);
 }
 
 .contact-icon {
@@ -504,8 +288,8 @@ html[data-has-sidebar] {
 }
 
 .contact-strip a {
-  color: var(--sl-color-gray-3);
-  text-decoration-color: rgb(255 255 255 / 0.28);
+  color: rgb(255 255 255 / 0.7);
+  text-decoration-color: rgb(255 255 255 / 0.35);
   text-underline-offset: 0.16em;
 }
 
@@ -516,27 +300,23 @@ html[data-has-sidebar] {
 }
 
 @media (max-width: 46rem) {
+  /* The Starlight content panel already insets content 1rem on narrow screens
+     (same as the footer); drop the extra padding so home content lines up
+     with the footer's left edge instead of doubling the inset. */
+  .home-intro {
+    padding-inline: 0;
+  }
+
   .contact-strip {
     margin-block-end: 4rem;
+    /* The Starlight panel inset (1rem) handles the left edge here, same as
+       for the home content above. */
+    padding-inline: 0;
   }
 
   .intro-copy,
   .latest-publications {
     width: 100%;
-  }
-
-  .home-opening {
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 1.75rem;
-  }
-
-  .home-hero-copy h1 {
-    font-size: 2.35rem;
-  }
-
-  .home-opening .signal-stage {
-    height: clamp(16rem, 50vh, 24rem);
   }
 
   .engagement-grid {
@@ -548,18 +328,24 @@ html[data-has-sidebar] {
   }
 
   .latest-publications {
-    padding: 0.875rem;
+    padding-block-start: 0.875rem;
   }
 
   .articles-kicker {
     font-size: 0.68rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
   }
 
   .articles-summary {
     max-width: 18rem;
-    font-size: 0.76rem;
+    font-size: 0.8rem;
     line-height: 1.35;
+  }
+
+  /* Footer scales down with the summary text above it. */
+  .contact-strip .eyebrow,
+  .contact-grid {
+    font-size: 0.8rem;
   }
 
   .latest-publications .card-grid {
@@ -587,6 +373,16 @@ html[data-has-sidebar] {
 
   html[data-has-sidebar] .sidebar-pane {
     display: none;
+  }
+
+  /* Let the one-line headline breathe on desktop; the paragraph keeps its
+     comfortable reading width. */
+  .home-hero-copy {
+    max-width: min(100%, 48rem);
+  }
+
+  .home-hero-copy .intro-copy {
+    max-width: 34rem;
   }
 }
 

@@ -6,8 +6,6 @@ sidebar:
   order: 70
 ---
 
-![Dark analog queueing map with Postgres records, message cards, worker lanes, and delayed handoff signals](/assets/lightweight-queueing-collage.svg)
-
 A queue does not have to be a platform before it becomes useful. Sometimes it is just a durable record that says: this work exists, it has been accepted, and it still needs to move forward.
 
 That is the philosophy behind [Queueing Matters](/articles/queueing-matters/). Queues give systems room to breathe. They separate acceptance from completion, make pressure visible, and let one part of a system keep moving while another part catches up.

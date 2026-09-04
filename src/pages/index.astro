@@ -1,7 +1,7 @@
 ---
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { CardGrid, LinkButton, LinkCard } from '@astrojs/starlight/components';
-import SignalStage from '../components/SignalStage.astro';
+import HeroImage from '../components/HeroImage.astro';
 import { articleDateFormatter, getArticles } from '../articles';
 import { siteInfo } from '../site';
 import '../styles/home.css';
@@ -34,9 +34,9 @@ const iconProps = {
 
 <StarlightPage frontmatter={frontmatter} hasSidebar={true} lang="en">
   <section class="home-intro" data-home-intro>
-    <section class="home-opening" aria-label="Guanchen signal field">
+    <section class="home-opening" aria-label="Guanchen introduction">
       <div class="home-hero-copy">
-        <h1>Architecture for systems with a wider horizon</h1>
+        <h1>A wider horizon, steadier terrain.</h1>
         <p class="intro-copy">
           Guanchen helps teams read platform signals, find direction in change, and build foundations that keep
           moving without losing integrity.
@@ -46,7 +46,7 @@ const iconProps = {
           <LinkButton href={`mailto:${siteInfo.author.email}`} variant="secondary">Get in touch</LinkButton>
         </div>
       </div>
-      <SignalStage />
+      <HeroImage />
     </section>
 
     <div class="home-content" data-home-content>
@@ -145,17 +145,20 @@ const iconProps = {
 </StarlightPage>
 
 <script>
-  const stage = document.querySelector('.home-opening-stage');
+  const frame = document.querySelector('.hero-figure');
 
-  if (stage instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (frame instanceof HTMLElement && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     let ticking = false;
     let lastValue = '';
 
     const updateParallax = () => {
-      const t = Math.min(window.scrollY, 600) / 600;
-      const value = `${(t * 120).toFixed(2)}px`;
+      const t = Math.min(window.scrollY, 800) / 800;
+      /* The image is 135% of the frame height; shifting it upward only
+         (0 to -16% of its own height, well within the extra headroom)
+         keeps it covering the frame at all times. */
+      const value = `${(-t * 16).toFixed(2)}%`;
       if (value !== lastValue) {
-        stage.style.setProperty('--signal-parallax', value);
+        frame.style.setProperty('--hero-parallax', value);
         lastValue = value;
       }
       ticking = false;

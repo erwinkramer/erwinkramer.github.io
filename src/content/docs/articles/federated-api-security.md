@@ -6,8 +6,6 @@ sidebar:
   order: 50
 ---
 
-![Dark analog collage with identity cards, shield, federation lines, and API gateway panels](/assets/federated-api-security-collage.svg)
-
 API security is often treated as something that sits in front of the real system. Add a gateway. Add a token. Add a policy. Add a log. The API is then considered secure because every request passes through a guarded entrance.
 
 That is a start, but it is not enough.

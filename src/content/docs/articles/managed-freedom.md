@@ -6,8 +6,6 @@ sidebar:
   order: 130
 ---
 
-![Open analog collage with loose European cloud paths, floating infrastructure modules, identity tokens, database ledgers, and portable telemetry routes](/assets/european-cloud-choice-collage.svg)
-
 Choosing a European cloud provider is not only a question of jurisdiction. It is a question about how much room the architecture will still have later.
 
 A good cloud should remove weight from the team: patched machines, healthy control planes, durable storage, backed-up databases, and dependable networks. But it should not become the hidden shape of the product. The architecture should still be readable outside the provider's console.

@@ -6,8 +6,6 @@ sidebar:
   order: 10
 ---
 
-![Dark analog gateway map with ingress lanes, policy rings, route cards, and distributed traffic signals](/assets/gateway-systems-collage.svg)
-
 A gateway is not only an API gateway. It is any deliberate boundary where traffic enters, leaves, crosses trust zones, changes protocol, receives policy, or becomes visible enough for the system to decide what should happen next.
 
 That makes gateways older and broader than API management. A load balancer is a gateway. A reverse proxy is a gateway. A Kubernetes ingress controller is a gateway. A service mesh edge, identity-aware proxy, webhook receiver, AI model router, protocol bridge, egress proxy, or managed file-transfer front door can also be a gateway in the useful sense of the word.
