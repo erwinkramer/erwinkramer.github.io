@@ -45,20 +45,17 @@
   --sl-color-bg-sidebar: var(--sl-color-bg);
   --sl-color-bg-inline-code: var(--sl-color-gray-6);
   --sl-color-bg-accent: var(--sl-color-white);
-  --sl-color-hairline-light: #ffffff29;
-  --sl-color-hairline: var(--sl-color-hairline-light);
+  --sl-color-hairline: #ffffff29;
   --sl-color-hairline-shade: var(--sl-color-gray-6);
-  --sl-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.36);
-  --sl-shadow-md: 0 8px 24px rgb(0 0 0 / 0.32);
-  --sl-shadow-lg: 0 20px 56px rgb(0 0 0 / 0.42);
   --space-theme-header-control-size: 2.5rem;
   --space-theme-header-control-radius: 0.5rem;
   --space-theme-header-control-gap: 0.75rem;
   --space-theme-header-control-border: var(--sl-color-gray-4);
   --space-theme-header-control-border-hover: var(--sl-color-gray-2);
   --space-theme-menu-button-inset-inline-end: 0.5rem;
-  --sl-menu-button-size: var(--space-theme-header-control-size);
-  --space-theme-background: var(--sl-color-bg);
+  --sl-menu-button-size: 2.5rem;
+  --space-theme-glass-bg: rgb(9 9 11 / 0.45);
+  --space-theme-glass-shadow: 0 10px 34px rgb(0 0 0 / 0.16);
   --space-theme-glass-blur: 12px;
 }
 
@@ -81,7 +78,7 @@ body::before {
   z-index: 0;
   inset: 0;
   pointer-events: none;
-  background: var(--space-theme-background);
+  background: var(--sl-color-bg);
   contain: paint;
   will-change: transform;
 }
@@ -103,12 +100,6 @@ body::before {
     box-shadow 160ms ease;
 }
 
-:root[data-scrolled] .page > header.header {
-  background-color: rgb(9 9 11 / 0.45);
-  backdrop-filter: blur(var(--space-theme-glass-blur));
-  box-shadow: 0 10px 34px rgb(0 0 0 / 0.16);
-}
-
 mobile-starlight-toc nav {
   background: transparent;
   border-top-color: transparent;
@@ -123,11 +114,16 @@ mobile-starlight-toc summary {
   transition: border-color 160ms ease;
 }
 
+/* Same glass treatment for the header and the mobile TOC nav. */
+:root[data-scrolled] .page > header.header,
 :root[data-scrolled] mobile-starlight-toc nav {
-  background-color: rgb(9 9 11 / 0.45);
-  border-top-color: var(--sl-color-hairline);
+  background-color: var(--space-theme-glass-bg);
   backdrop-filter: blur(var(--space-theme-glass-blur));
-  box-shadow: 0 10px 34px rgb(0 0 0 / 0.16);
+  box-shadow: var(--space-theme-glass-shadow);
+}
+
+:root[data-scrolled] mobile-starlight-toc nav {
+  border-top-color: var(--sl-color-hairline);
 }
 
 :root[data-scrolled] mobile-starlight-toc summary {
@@ -135,7 +131,7 @@ mobile-starlight-toc summary {
 }
 
 body[data-mobile-menu-expanded] .page > header.header {
-  background-color: rgb(9 9 11 / 0.88);
+  background-color: rgb(9 9 11 / 0.88); /* denser glass while the mobile menu is open */
   backdrop-filter: blur(var(--space-theme-glass-blur));
   box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
 }
@@ -192,6 +188,7 @@ starlight-menu-button button:hover {
 @media (max-width: 49.999rem) {
   :root {
     --space-theme-header-control-size: 2.25rem;
+    --sl-menu-button-size: 2.25rem;
     --space-theme-header-control-radius: 0.425rem;
     --space-theme-header-control-gap: 0.3rem;
     --space-theme-glass-blur: 10px;
@@ -242,7 +239,9 @@ main > .content-panel + .content-panel {
   }
 }
 
-:is(h1, h2, h3, h4, h5, h6) {
+/* Gradient fade on in-article headings. Scoped to .sl-markdown-content so
+   the page-title h1 (rendered outside it) stays plain white. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(45deg, rgb(255 255 255) 30%, rgb(255 255 255 / 0.38));
   background-clip: text;
@@ -253,21 +252,16 @@ main > .content-panel + .content-panel {
 /* Site-wide heading scale: weights lighten as the level drops so every
    page reads with the same hierarchy. The page-title h1 is rendered by
    Starlight outside .sl-markdown-content, so it gets the h1 scale from
-   the content-panel selector (plain white, cancelling the gradient text
-   fill applied to all headings). */
-main > .content-panel:first-of-type h1 {
-  letter-spacing: -0.015em;
-  font-weight: 400;
-  line-height: 1.15;
-  /* Plain white: cancel the gradient text-fill that :is(h1..h6) applies. */
-  -webkit-text-fill-color: var(--sl-color-white);
-  background-image: none;
-  color: var(--sl-color-white);
-}
-
+   the content-panel selector, in plain white. */
+main > .content-panel:first-of-type h1,
 .sl-markdown-content h2 {
   font-weight: 400;
   line-height: 1.15;
+}
+
+main > .content-panel:first-of-type h1 {
+  letter-spacing: -0.015em;
+  color: var(--sl-color-white);
 }
 
 .sl-markdown-content h3 {
