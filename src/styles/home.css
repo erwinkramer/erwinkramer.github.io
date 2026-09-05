@@ -24,7 +24,7 @@ html[data-has-sidebar] {
   flex-direction: column;
   min-height: 100vh;
   min-height: 100svh;
-  padding-block: clamp(1rem, 2rem, 2.5rem);
+  padding-block: 2rem;
 }
 
 /* Disable scroll anchoring inside the hero: on refresh the browser restores
@@ -55,11 +55,15 @@ html[data-has-sidebar] {
   letter-spacing: -0.015em;
 }
 
+.intro-copy,
+.engagement-grid p {
+  font-size: var(--gc-body-size);
+  line-height: 1.55;
+}
+
 .intro-copy {
   margin: 0;
   color: rgb(255 255 255 / 0.8);
-  font-size: var(--gc-body-size);
-  line-height: 1.55;
 }
 
 .hero-actions {
@@ -146,6 +150,13 @@ html[data-has-sidebar] {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: start;
+}
+
+/* A top margin lands on the `article` cells (offsetting the 2nd/3rd columns),
+   so reset it to keep all three entries top-aligned. */
+.engagement-grid article {
+  margin: 0;
 }
 
 .engagement-grid strong {
@@ -154,8 +165,6 @@ html[data-has-sidebar] {
 
 .engagement-grid p {
   color: rgb(255 255 255 / 0.72);
-  font-size: var(--gc-body-size);
-  line-height: 1.55;
 }
 
 .latest-publications h2 {
@@ -197,7 +206,6 @@ html[data-has-sidebar] {
   padding: 0;
   border-color: transparent;
   background: transparent;
-  text-align: left;
 }
 
 .latest-publications .sl-link-card .stack {
@@ -255,7 +263,6 @@ html[data-has-sidebar] {
   grid-template-columns: 1rem auto;
   gap: 0.35rem;
   align-items: center;
-  height: 1.45rem;
   line-height: 1.2;
 }
 
