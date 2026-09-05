@@ -57,6 +57,11 @@
   --space-theme-glass-bg: rgb(9 9 11 / 0.45);
   --space-theme-glass-shadow: 0 10px 34px rgb(0 0 0 / 0.16);
   --space-theme-glass-blur: 12px;
+  /* Denser glass variants for the mobile menu states. */
+  --space-theme-glass-bg-menu: rgb(9 9 11 / 0.88);
+  --space-theme-glass-bg-sidebar: rgb(9 9 11 / 0.94);
+  --space-theme-glass-shadow-strong: 0 10px 34px rgb(0 0 0 / 0.28);
+  --space-theme-selection: #6bc1fe;
 }
 
 html {
@@ -131,9 +136,9 @@ mobile-starlight-toc summary {
 }
 
 body[data-mobile-menu-expanded] .page > header.header {
-  background-color: rgb(9 9 11 / 0.88); /* denser glass while the mobile menu is open */
+  background-color: var(--space-theme-glass-bg-menu);
   backdrop-filter: blur(var(--space-theme-glass-blur));
-  box-shadow: 0 10px 34px rgb(0 0 0 / 0.28);
+  box-shadow: var(--space-theme-glass-shadow-strong);
 }
 
 starlight-menu-button button {
@@ -201,7 +206,7 @@ starlight-menu-button button:hover {
   }
 
   body[data-mobile-menu-expanded] .sidebar-pane {
-    background-color: rgb(9 9 11 / 0.94);
+    background-color: var(--space-theme-glass-bg-sidebar);
     backdrop-filter: blur(var(--space-theme-glass-blur));
   }
 }
@@ -253,15 +258,16 @@ main > .content-panel + .content-panel {
    page reads with the same hierarchy. The page-title h1 is rendered by
    Starlight outside .sl-markdown-content, so it gets the h1 scale from
    the content-panel selector, in plain white. */
-main > .content-panel:first-of-type h1,
+main > .content-panel:first-of-type h1 {
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--sl-color-white);
+}
+
 .sl-markdown-content h2 {
   font-weight: 400;
   line-height: 1.15;
-}
-
-main > .content-panel:first-of-type h1 {
-  letter-spacing: -0.015em;
-  color: var(--sl-color-white);
 }
 
 .sl-markdown-content h3 {
@@ -276,7 +282,7 @@ main > .content-panel:first-of-type h1 {
 }
 
 .publication-date {
-  color: rgb(250 250 250 / 0.68);
+  color: color-mix(in srgb, var(--sl-color-white) 68%, transparent);
   font-size: 0.78em;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -284,5 +290,5 @@ main > .content-panel:first-of-type h1 {
 }
 
 ::selection {
-  background-color: color-mix(in srgb, #6bc1fe, transparent 50%);
+  background-color: color-mix(in srgb, var(--space-theme-selection), transparent 50%);
 }
