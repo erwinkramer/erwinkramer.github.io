@@ -67,6 +67,7 @@
 html {
   background: var(--sl-color-bg);
   overscroll-behavior-y: none;
+  scrollbar-gutter: stable;
 }
 
 body {
