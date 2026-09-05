@@ -12,7 +12,7 @@ html[data-has-sidebar] {
 html {
   --home-size-body: var(--gc-body-size);
   --home-size-label: 0.75rem;
-  /* overflow-anchor: none; */
+  overflow-anchor: none;
   scrollbar-gutter: stable;
 }
 
