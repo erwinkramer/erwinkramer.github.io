@@ -12,15 +12,16 @@ html[data-has-sidebar] {
 html {
   --home-size-body: var(--gc-body-size);
   --home-size-label: 0.75rem;
-  overflow-anchor: none;
   scrollbar-gutter: stable;
+  /* overflow-anchor: none; */
 }
 
-.home-intro {
+/* Shared homepage box: the intro column and the contact strip use the same
+   width, centering, and edge breathing room (kept on narrow screens too). */
+.home-intro,
+.contact-strip {
   width: min(100%, var(--home-panel-width));
   margin-inline: auto;
-  /* Always keep breathing room on the left (and right) edge of the viewport
-     for all homepage content, even on narrow screens. */
   padding-inline: clamp(1rem, 4vw, 2.5rem);
 }
 
@@ -35,14 +36,12 @@ html {
   flex-direction: column;
   min-height: 100vh;
   min-height: 100svh;
-  gap: 0;
   padding-block: clamp(1rem, 2rem, 2.5rem);
 }
 
 .home-hero-copy {
   align-self: start;
   display: grid;
-  align-content: center;
   gap: 1.25rem;
   width: 100%;
   max-width: min(100%, 34rem);
@@ -83,14 +82,9 @@ html {
 }
 
 /* Hero photo frame: a band below the intro copy, as wide as the content
-   column. On desktop the aspect ratio is fixed, so the crop of the 2:3 photo
-   stays identical at every viewport width. The image is rendered taller than
-   the frame (object-fit: cover) so the scroll parallax can pan through it
-   without exposing the edges. */
-/* Fills the second grid row of .home-opening (the rest of the viewport
-   below the intro copy). The img is positioned absolutely so the frame's
-   height is set by the grid row, not the image; rendered 135% taller so
-   the scroll parallax can pan through it without exposing the edges. */
+   column. Fills the rest of the one-viewport opening (flex-grow). The img
+   is positioned absolutely and rendered 135% taller than the frame so the
+   scroll parallax can pan through it without exposing the edges. */
 .hero-figure {
   flex-grow: 1;
   position: relative;
@@ -113,8 +107,6 @@ html {
 
 .hero-figure img {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 135%;
   object-fit: cover;
@@ -268,13 +260,8 @@ html {
 }
 
 .contact-strip {
-  /* Share the homepage box: same width and side padding as .home-intro, so
-     the footer's left edge lines up with the other text on the page. */
-  width: min(100%, var(--home-panel-width));
-  margin-inline: auto;
   margin-block-start: 1.75rem;
   padding-block-start: 0.875rem;
-  padding-inline: clamp(1rem, 4vw, 2.5rem);
   border-top: 1px solid var(--sl-color-hairline);
   color: rgb(255 255 255 / 0.7);
   opacity: 0.88;
@@ -335,15 +322,15 @@ html {
   /* The Starlight content panel already insets content 1rem on narrow screens
      (same as the footer); drop the extra padding so home content lines up
      with the footer's left edge instead of doubling the inset. */
-  .home-intro {
+  .home-intro,
+  .contact-strip {
+    /* The Starlight panel inset (1rem) handles the left edge here, same as
+       for the home content above. */
     padding-inline: 0;
   }
 
   .contact-strip {
     margin-block-end: 4rem;
-    /* The Starlight panel inset (1rem) handles the left edge here, same as
-       for the home content above. */
-    padding-inline: 0;
   }
 
   /* .latest-publications already has width: 100% in its base rule. */
@@ -390,11 +377,6 @@ html {
     grid-template-columns: 1fr;
     grid-template-rows: none;
     gap: 0.35rem;
-  }
-
-  .contact-line {
-    grid-column: auto;
-    grid-row: auto;
   }
 }
 
