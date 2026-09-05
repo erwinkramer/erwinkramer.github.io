@@ -15,7 +15,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400 700;
-    src: url('/fonts/instrument-sans-latin-ext.woff2') format('woff2-variations');
+  src: url('/fonts/instrument-sans-latin-ext.woff2') format('woff2-variations');
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
@@ -25,29 +25,29 @@
      prose, so the two always read at the same scale. */
   --gc-body-size: 0.9375rem;
   --sl-color-white: #fafafa;
-  --sl-color-gray-1: #fafafa;
+  --sl-color-gray-1: var(--sl-color-white);
   --sl-color-gray-2: #a1a1aa;
   --sl-color-gray-3: #ffffff88;
   --sl-color-gray-4: #3f3f46;
   --sl-color-gray-5: #2c2c30;
   --sl-color-gray-6: #18181b;
   --sl-color-black: #09090b;
-  --sl-color-accent-low: #2c2c30;
-  --sl-color-accent: #fafafa;
-  --sl-color-accent-high: #fafafa;
-  --sl-color-text: #a1a1aa;
-  --sl-color-text-accent: #fafafa;
-  --sl-color-text-invert: #09090b;
+  --sl-color-accent-low: var(--sl-color-gray-5);
+  --sl-color-accent: var(--sl-color-white);
+  --sl-color-accent-high: var(--sl-color-white);
+  --sl-color-text: var(--sl-color-gray-2);
+  --sl-color-text-accent: var(--sl-color-white);
+  --sl-color-text-invert: var(--sl-color-black);
   /* Subtle black: barely lifted off #000 so the page still reads black,
      but not pure black — the hero photo fades into this tone. */
   --sl-color-bg: #090808;
-  --sl-color-bg-nav: #090808;
-  --sl-color-bg-sidebar: #090808;
-  --sl-color-bg-inline-code: #18181b;
-  --sl-color-bg-accent: #fafafa;
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+  --sl-color-bg-inline-code: var(--sl-color-gray-6);
+  --sl-color-bg-accent: var(--sl-color-white);
   --sl-color-hairline-light: #ffffff29;
-  --sl-color-hairline: #ffffff29;
-  --sl-color-hairline-shade: #18181b;
+  --sl-color-hairline: var(--sl-color-hairline-light);
+  --sl-color-hairline-shade: var(--sl-color-gray-6);
   --sl-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.36);
   --sl-shadow-md: 0 8px 24px rgb(0 0 0 / 0.32);
   --sl-shadow-lg: 0 20px 56px rgb(0 0 0 / 0.42);
@@ -59,8 +59,6 @@
   --space-theme-menu-button-inset-inline-end: 0.5rem;
   --sl-menu-button-size: var(--space-theme-header-control-size);
   --space-theme-background: var(--sl-color-bg);
-  --space-theme-fixed-background-height: 100vh;
-  --space-theme-fixed-background-height: 100lvh;
   --space-theme-glass-blur: 12px;
 }
 
@@ -74,8 +72,6 @@ body {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
-  background: transparent;
-  overscroll-behavior-y: none;
   font-family: var(--sl-font-family);
 }
 
@@ -160,7 +156,6 @@ starlight-menu-button button {
 
 starlight-menu-button button:hover {
   border-color: var(--space-theme-header-control-border-hover);
-  background-color: var(--sl-color-black);
   color: var(--sl-color-white);
 }
 
@@ -177,6 +172,9 @@ starlight-menu-button button:hover {
 .site-title img {
   flex: 0 0 auto;
   width: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+  /* Explicit height: `aspect-ratio` alone can't size this img — as a flex
+     item with intrinsic dimensions, the browser resolves its auto cross-size
+     to the intrinsic height instead of the specified ratio. */
   height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
   object-fit: cover;
   filter: drop-shadow(0 0 12px rgb(161 132 82 / 0.14));
