@@ -142,7 +142,7 @@ html {
 
 @keyframes hero-parallax {
   to {
-    transform: translateY(-4%);
+    transform: translateY(4%);
   }
 }
 
