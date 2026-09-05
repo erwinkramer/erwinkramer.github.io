@@ -288,7 +288,6 @@ html[data-has-sidebar] {
 .contact-strip a:hover {
   color: var(--sl-color-white);
   text-decoration-color: currentColor;
-  opacity: 1;
 }
 
 @media (max-width: 46rem) {
