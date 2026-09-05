@@ -38,9 +38,11 @@
   --sl-color-text: #a1a1aa;
   --sl-color-text-accent: #fafafa;
   --sl-color-text-invert: #09090b;
-  --sl-color-bg: #000;
-  --sl-color-bg-nav: #000;
-  --sl-color-bg-sidebar: #000;
+  /* Subtle black: barely lifted off #000 so the page still reads black,
+     but not pure black — the hero photo fades into this tone. */
+  --sl-color-bg: #090808;
+  --sl-color-bg-nav: #090808;
+  --sl-color-bg-sidebar: #090808;
   --sl-color-bg-inline-code: #18181b;
   --sl-color-bg-accent: #fafafa;
   --sl-color-hairline-light: #ffffff29;
@@ -56,7 +58,7 @@
   --space-theme-header-control-border-hover: var(--sl-color-gray-2);
   --space-theme-menu-button-inset-inline-end: 0.5rem;
   --sl-menu-button-size: var(--space-theme-header-control-size);
-  --space-theme-background: #000;
+  --space-theme-background: var(--sl-color-bg);
   --space-theme-fixed-background-height: 100vh;
   --space-theme-fixed-background-height: 100lvh;
   --space-theme-glass-blur: 12px;
