@@ -15,7 +15,7 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400 700;
-  src: url('/fonts/instrument-sans-latin-ext.woff2') format('woff2-variations');
+    src: url('/fonts/instrument-sans-latin-ext.woff2') format('woff2-variations');
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
 
@@ -169,7 +169,6 @@ starlight-menu-button button:hover {
   min-width: 0;
   color: #fff7df;
   font-size: var(--sl-text-h4);
-  font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -185,8 +184,6 @@ starlight-menu-button button:hover {
 .site-title span {
   overflow: hidden;
   color: var(--sl-color-white);
-  font-weight: 600;
-  -webkit-text-fill-color: var(--sl-color-white);
 }
 
 .sidebar-pane {
@@ -254,13 +251,36 @@ main > .content-panel + .content-panel {
   color: transparent;
 }
 
+/* Site-wide heading scale: weights lighten as the level drops so every
+   page reads with the same hierarchy. The page-title h1 is rendered by
+   Starlight outside .sl-markdown-content, so it gets the h1 scale from
+   the content-panel selector (plain white, cancelling the gradient text
+   fill applied to all headings). */
 main > .content-panel:first-of-type h1 {
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  line-height: 1.15;
+  /* Plain white: cancel the gradient text-fill that :is(h1..h6) applies. */
   -webkit-text-fill-color: var(--sl-color-white);
   background-image: none;
   color: var(--sl-color-white);
 }
 
+.sl-markdown-content h2 {
+  font-weight: 400;
+  line-height: 1.15;
+}
 
+.sl-markdown-content h3 {
+  font-size: 1.375rem;
+  font-weight: 400;
+}
+
+.sl-markdown-content h4 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
 
 .publication-date {
   color: rgb(250 250 250 / 0.68);

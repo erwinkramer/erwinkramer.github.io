@@ -10,7 +10,6 @@ html[data-has-sidebar] {
    0.75rem labels/meta. Defined on html so the contact strip (outside
    .home-intro) can use it too. */
 html {
-  --home-size-lead: 1.125rem;
   --home-size-body: var(--gc-body-size);
   --home-size-label: 0.75rem;
 }
@@ -47,19 +46,17 @@ html {
   width: 100%;
   max-width: min(100%, 34rem);
   text-align: left;
-  /* Container for the h1: its font size is a fixed share of this box, so the
-     single-line title always fits, at every viewport width. */
   container-type: inline-size;
+;  
 }
 
-/* Sized in container units (title ≈ 16em wide → 6cqi ≈ 96% of the box), so
-   the headline can never wrap. */
+/* The hero headline sits on the shared heading scale (Starlight's h1 size,
+   weight 400 like the article titles) and never wraps. */
 .home-opening .home-hero-copy h1 {
-  margin: 0;
   font-size: clamp(0.95rem, 6cqi, 3rem);
   line-height: 1.15;
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.015em;
 }
 
@@ -104,15 +101,13 @@ html {
      taller and the text below stays hidden on first load. */
   min-height: 10rem;
   margin-inline: auto;
-}
-
-/* The photo blends into the page background with `screen` compositing:
-   the photo's dark areas take on the subtle-black tone of the frame behind
-   them instead of reading as pure black against it, while the bright plaza
-   stays bright. The frame itself carries the background color because
-   mix-blend-mode only composites against content in the same stacking
-   context — the page background on body::before is outside .page. */
-.hero-figure {
+  /* The photo blends into the page background with `screen` compositing:
+     the photo's dark areas take on the subtle-black tone of the frame
+     behind them instead of reading as pure black against it, while the
+     bright plaza stays bright. The frame itself carries the background
+     color because mix-blend-mode only composites against content in the
+     same stacking context — the page background on body::before is
+     outside .page. */
   background: var(--sl-color-bg);
 }
 
@@ -175,22 +170,14 @@ html {
 }
 
 .engagement-grid article {
-  min-height: 0;
   margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
 }
 
 .engagement-grid strong {
   color: rgb(255 255 255 / 0.95);
-  font-weight: 600;
-  -webkit-text-fill-color: currentColor;
 }
 
 .engagement-grid p {
-  margin: 0;
   color: rgb(255 255 255 / 0.72);
   font-size: var(--home-size-body);
   line-height: 1.55;
@@ -206,19 +193,13 @@ html {
 
 .latest-publications h2 {
   margin: 0.35rem 0 0;
-  font-size: clamp(1.35rem, 2.5vw, 1.7rem);
-  line-height: 1.15;
-}
-
-.articles-kicker,
-.articles-summary {
-  margin: 0;
+  
+  
 }
 
 .articles-kicker {
   color: rgb(255 255 255 / 0.62);
   font-size: var(--home-size-label);
-  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -270,7 +251,6 @@ html {
   /* Match the article body exactly so the preview reads at the same
      dimness as the article it links to. */
   color: var(--sl-color-text);
-  font-size: var(--home-size-body);
 }
 
 .articles-actions {
@@ -366,8 +346,8 @@ html {
     padding-inline: 0;
   }
 
-  .intro-copy,
-  .latest-publications {
+  /* .latest-publications already has width: 100% in its base rule. */
+  .intro-copy {
     width: 100%;
   }
 
