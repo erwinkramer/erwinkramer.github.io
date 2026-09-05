@@ -13,7 +13,6 @@ html {
   --home-size-body: var(--gc-body-size);
   --home-size-label: 0.75rem;
   scrollbar-gutter: stable;
-  /* overflow-anchor: none; */
 }
 
 /* Shared homepage box: the intro column and the contact strip use the same
@@ -37,6 +36,16 @@ html {
   min-height: 100vh;
   min-height: 100svh;
   padding-block: clamp(1rem, 2rem, 2.5rem);
+}
+
+/* Disable scroll anchoring inside the hero. On a refresh the browser restores
+   the scroll position and then lets a tiny early layout settle nudge the page
+   a few px (its automatic "anchor" compensates). Pinning the one-viewport
+   opening out of anchoring removes that drift. Scoped to the hero only, so
+   article pages keep their refresh-position behavior. */
+.home-opening,
+.home-opening * {
+  overflow-anchor: none;
 }
 
 .home-hero-copy {
