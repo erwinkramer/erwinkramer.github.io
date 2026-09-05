@@ -29,9 +29,8 @@ html {
    the copy leaves. */
 .home-opening {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   min-height: 100svh;
   gap: 0;
@@ -93,6 +92,7 @@ html {
    height is set by the grid row, not the image; rendered 135% taller so
    the scroll parallax can pan through it without exposing the edges. */
 .hero-figure {
+  flex-grow: 1;
   position: relative;
   overflow: hidden;
   width: 100%;

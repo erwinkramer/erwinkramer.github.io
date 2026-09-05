@@ -7,3 +7,4 @@ dist/
 .astro/
 dev-server*
 .playwright-cli/*
+preview-server*
