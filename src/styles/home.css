@@ -150,7 +150,7 @@ html {
 
 @keyframes hero-parallax {
   to {
-    transform: translateY(-16%);
+    transform: translateY(-4%);
   }
 }
 
