@@ -109,6 +109,7 @@ html[data-has-sidebar] {
      crop high: just above the silhouettes, never the dead-black top of the
      frame. The parallax pan then reveals the plaza below as you scroll. */
   object-position: center 40%;
+  will-change: transform; /* Prevent freezing during scrolling */
 }
 
 /* Scroll parallax: pans the image up through its 35% headroom over the first
