@@ -104,12 +104,10 @@ html[data-has-sidebar] {
   width: 100%;
   height: 135%;
   object-fit: cover;
-  mix-blend-mode: lighten;
   /* Wide-but-short viewports crop the photo to a short band, so anchor the
      crop high: just above the silhouettes, never the dead-black top of the
      frame. The parallax pan then reveals the plaza below as you scroll. */
   object-position: center 40%;
-  will-change: transform; /* Prevent freezing during scrolling */
 }
 
 /* Scroll parallax: pans the image up through its 35% headroom over the first
