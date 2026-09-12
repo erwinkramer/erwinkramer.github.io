@@ -136,13 +136,17 @@ mobile-starlight-toc summary {
   border-bottom-color: var(--sl-color-hairline);
 }
 
-body[data-mobile-menu-expanded] .page > header.header {
+/* Starlight v0.42: the mobile menu is a Popover API — the toggle is a plain
+   `.sl-menu-button` button (no `starlight-menu-button` element, no
+   `data-mobile-menu-expanded` body attribute). The open state is styled via
+   `:popover-open` / `body:has(...)`. */
+body:has(#starlight__sidebar:popover-open) .page > header.header {
   background-color: var(--space-theme-glass-bg-menu);
   backdrop-filter: blur(var(--space-theme-glass-blur));
   box-shadow: var(--space-theme-glass-shadow-strong);
 }
 
-starlight-menu-button button {
+.sl-menu-button {
   inset-inline-end: var(--space-theme-menu-button-inset-inline-end);
   align-items: center;
   justify-content: center;
@@ -156,7 +160,7 @@ starlight-menu-button button {
   color: var(--sl-color-gray-2);
 }
 
-starlight-menu-button button:hover {
+.sl-menu-button:hover {
   border-color: var(--space-theme-header-control-border-hover);
   color: var(--sl-color-white);
 }
@@ -206,7 +210,7 @@ starlight-menu-button button:hover {
     );
   }
 
-  body[data-mobile-menu-expanded] .sidebar-pane {
+  body:has(#starlight__sidebar:popover-open) .sidebar-pane {
     background-color: var(--space-theme-glass-bg-sidebar);
     backdrop-filter: blur(var(--space-theme-glass-blur));
   }
