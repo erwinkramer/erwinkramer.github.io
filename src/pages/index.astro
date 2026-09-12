@@ -143,3 +143,27 @@ const iconProps = {
     </div>
   </section>
 </StarlightPage>
+
+<script>
+  // Hero parallax: pans the image up 4% over the first 800px of scroll.
+  // Driven in rAF because CSS scroll-driven animations stutter against
+  // Chrome's Windows-touchpad smooth scrolling at the page's scroll
+  // boundaries — the rAF transform does not.
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    const heroImg = document.querySelector('.hero-figure img');
+    let frame = null;
+    const applyParallax = () => {
+      frame = null;
+      const progress = Math.min(window.scrollY / 800, 1);
+      heroImg.style.transform = `translateY(${4 * progress}%)`;
+    };
+    addEventListener(
+      'scroll',
+      () => {
+        if (!frame) frame = requestAnimationFrame(applyParallax);
+      },
+      { passive: true },
+    );
+    applyParallax();
+  }
+</script>

@@ -110,29 +110,14 @@ html[data-has-sidebar] {
   object-position: center 40%;
 }
 
-/* Scroll parallax: pans the image up through its 35% headroom over the first
-   800px of scroll. Longhand, not the `animation` shorthand:
-   `animation-timeline` isn't part of that shorthand and the production
-   minifier would otherwise merge it in, producing an invalid declaration
-   that browsers discard (killing the parallax in deployed builds). */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-figure img {
-      animation-name: hero-parallax;
-      /* Duration is irrelevant: the scroll timeline drives the progress. */
-      animation-duration: 1s;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: scroll(root);
-      animation-range: 0 800px;
-    }
-  }
-}
-
-@keyframes hero-parallax {
-  to {
-    transform: translateY(4%);
-  }
+/* Scroll parallax: pans the image through its 35% headroom over the first
+   800px of scroll. Driven by a small rAF script in index.astro — CSS
+   scroll-driven animations (tested both `scroll()` and `view()` timelines)
+   stutter against Chrome's Windows-touchpad smooth scrolling at the page's
+   top/bottom edges, while the rAF transform does not. */
+.hero-figure img {
+  transform: translateY(0);
+  will-change: transform;
 }
 
 /* Shared section header: the two content sections share the same top border
