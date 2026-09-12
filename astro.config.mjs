@@ -54,16 +54,6 @@ export default defineConfig({
         {
           tag: 'link',
           attrs: {
-            rel: 'preload',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-            href: '/fonts/instrument-sans-latin-ext.woff2',
-          },
-        },
-        {
-          tag: 'link',
-          attrs: {
             rel: 'alternate',
             type: 'application/atom+xml',
             title: siteInfo.feed.title,

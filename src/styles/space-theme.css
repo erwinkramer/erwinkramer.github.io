@@ -1,6 +1,8 @@
 /* Self-hosted Instrument Sans (variable, latin + latin-ext subsets).
-   Preloaded in astro.config.mjs so text paints with the real font
-   from the first frame instead of flashing to the fallback. */
+   The latin subset is preloaded in astro.config.mjs so text paints with the
+   real font from the first frame instead of flashing to the fallback. The
+   latin-ext subset is NOT preloaded: its unicode-range above makes it load
+   lazily, only if text actually needs those characters. */
 @font-face {
   font-family: 'Instrument Sans Variable';
   font-style: normal;
