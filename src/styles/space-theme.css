@@ -315,4 +315,5 @@ main > .content-panel:first-of-type h1 {
    prefers-reduced-motion. */
 @view-transition {
   navigation: auto;
+  background: var(--sl-color-bg);
 }
