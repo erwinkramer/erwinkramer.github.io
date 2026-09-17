@@ -42,6 +42,10 @@ export default defineConfig({
       customCss: ['./src/styles/space-theme.css'],
       head: [
         {
+          tag: 'style',
+          content: ':root{color-scheme:dark;background-color:#090808}',
+        },
+        {
           tag: 'link',
           attrs: {
             rel: 'preload',
