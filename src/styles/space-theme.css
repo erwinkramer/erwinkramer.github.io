@@ -69,10 +69,6 @@
 html {
   background: var(--sl-color-bg);
   scrollbar-gutter: stable;
-  /* Native-CSS equivalent of view transitions for same-document anchor jumps
-     (sidebar/TOC → heading): the @view-transition at-rule only covers
-     cross-document navigations, so fragment jumps get a smooth scroll
-     instead, offset past the fixed header. */
   scroll-behavior: smooth;
 }
 
@@ -307,32 +303,4 @@ main > .content-panel:first-of-type h1 {
 
 ::selection {
   background-color: color-mix(in srgb, var(--space-theme-selection), transparent 50%);
-}
-
-/* Native View Transitions: let the browser animate cross-document navigations
-   automatically (no JS). Browsers without the feature ignore the rule and do
-   plain full-page navigations; the default animation respects
-   prefers-reduced-motion. */
-@view-transition {
-  navigation: auto;
-  background: var(--sl-color-bg);
-}
-
-/* 1. Prevent browsers from defaulting to a white render canvas. */
-html,
-:root {
-  color-scheme: dark;
-  background-color: var(--sl-color-bg, #000) !important;
-}
-
-/* 2. Paint the native transition root and snapshot layers. */
-::view-transition {
-  background-color: var(--sl-color-bg, #000);
-}
-
-::view-transition-group(root),
-::view-transition-old(root),
-::view-transition-new(root) {
-  /* Force dark background beneath cross-fading snapshots */
-  background-color: var(--sl-color-bg, #000);
 }
