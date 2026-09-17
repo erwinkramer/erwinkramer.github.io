@@ -317,3 +317,22 @@ main > .content-panel:first-of-type h1 {
   navigation: auto;
   background: var(--sl-color-bg);
 }
+
+/* 1. Prevent browsers from defaulting to a white render canvas. */
+html,
+:root {
+  color-scheme: dark;
+  background-color: var(--sl-color-bg, #000) !important;
+}
+
+/* 2. Paint the native transition root and snapshot layers. */
+::view-transition {
+  background-color: var(--sl-color-bg, #000);
+}
+
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  /* Force dark background beneath cross-fading snapshots */
+  background-color: var(--sl-color-bg, #000);
+}
