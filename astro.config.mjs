@@ -44,6 +44,13 @@ export default defineConfig({
         {
           tag: 'link',
           attrs: {
+            rel: 'describedby',
+            href: '/llms.txt',
+          },
+        },
+        {
+          tag: 'link',
+          attrs: {
             rel: 'preload',
             as: 'font',
             type: 'font/woff2',
@@ -103,6 +110,7 @@ export default defineConfig({
           content: JSON.stringify(siteStructuredData),
         },
       ],
+      routeMiddleware: './src/routeData.ts',
       plugins: [
         starlightGiscus({
           repo: 'erwinkramer/erwinkramer.github.io',
