@@ -1,7 +1,7 @@
 ---
 title: OpenAPI-first MCP
-description: A contract-first argument for generating MCP servers from OpenAPI instead of rebuilding integration logic by hand.
-date: 2026-08-07
+description: A contract-first argument for generating MCP servers from OpenAPI instead of rebuilding integration logic by hand, with code mode as the discovery layer.
+date: 2026-10-28
 sidebar:
   order: 140
 ---
@@ -35,40 +35,41 @@ OpenAPI-first does not mean every endpoint should blindly become a public MCP to
 
 Jeremiah Lowin makes that warning from an interesting position in [Stop Converting Your REST APIs to MCP](https://jlowin.dev/blog/stop-converting-rest-apis-to-mcp). Lowin built [FastMCP](https://gofastmcp.com/), whose OpenAPI integration includes `FastMCP.from_openapi()`. His point is not that generation is useless. It is that generation should be treated as a starting point, not shipped as an uncurated production interface.
 
-Some endpoints are too low-level. Some are dangerous without an explicit confirmation step. Some need pagination helpers. Some return shapes that are technically correct but awkward for agents. Some belong together as a higher-level workflow.
+Some endpoints are too low-level. Some are dangerous without an explicit confirmation step. Some need pagination helpers. Some belong together as a higher-level workflow — which is exactly what [Arazzo](https://spec.openapis.org/arazzo/latest.html) was built to describe.
 
 The right approach is to start from the contract, then curate.
 
-For example, [erwinkramer/bank-api](https://github.com/erwinkramer/bank-api) is exactly the kind of sample where this approach makes sense. A generator can scaffold tools from operations like `GET /banks`, `POST /banks`, `GET /banks/{id}`, `PUT /banks/{id}`, and `DELETE /banks/{id}`. A developer can then hide destructive operations, require confirmation, improve names, or compose lower-level endpoints into a safer workflow. The MCP layer becomes intentionally shaped, but still grounded in the contract.
+For example, [erwinkramer/bank-api](https://github.com/erwinkramer/bank-api) is exactly the kind of sample where this approach makes sense. A generator can scaffold tools from operations like `GET /banks`, `POST /banks`, and `GET /banks/{id}`. A developer can then hide destructive operations, require confirmation, improve names, or compose lower-level endpoints into a safer workflow. The MCP layer becomes intentionally shaped, but still grounded in the contract.
 
 That is the sweet spot: generated where precision matters, curated where experience matters.
 
-## The overlay-shaped middle
+## Discovery is the problem generation leaves
 
-There is a useful parallel in the [OpenAPI Overlay Specification](https://spec.openapis.org/overlay/latest.html). An overlay is a separate document that augments an OpenAPI description without forcing those changes into the original source. It can target parts of the description, update them, remove them, copy them, or attach metadata for another tool to consume.
+Here is the part most MCP discussions skip: once a server is live, how does an agent actually find and use the right tool? The naive answer is to declare every tool directly to the model, which works for five tools and falls apart at fifty: bloated context, diluted attention, and every new MCP server making the system prompt heavier and noisier.
 
-MCP generation needs a similar middle layer, with one important difference: the target should not just be another OpenAPI document. It should be an MCP projection that emits [MCP Description](https://mcpdesc.org/), or `mcpdesc`, a portable, machine-readable description of what an MCP server offers.
+Code mode is the emerging answer. Instead of declaring every tool definition directly to the model, it gives the model one small, stable interface — a sandboxed scripting environment — and lets it discover tools at runtime. The script can search the tool catalog by relevance, pull one tool's description and type declaration on demand, or enumerate everything it needs to browse. Only the script's output comes back to the model, so a script can fan out in parallel and discard everything irrelevant before the context ever sees it. [Pi's codemode](https://pi.dev/docs/latest/codemode) is a good concrete example: `searchTools("bank balance")` ranks callable tools by relevance, `describeTool(name)` loads one tool's declaration, and `ALL_TOOLS` lists the rest.
 
-OpenAPI says what the HTTP service can do. The MCP projection says what an agent should be allowed and helped to do with it. It can select operations, hide internal endpoints, rename tools, rewrite descriptions, attach confirmation requirements, mark scopes, define pagination helpers, normalize responses, and use [Arazzo](https://spec.openapis.org/arazzo/latest.html) to describe combinations of low-level operations as higher-level workflows.
+That is precisely what an OpenAPI-driven MCP server wants, and why the two fit together:
 
-That projection might be expressed as an OpenAPI overlay with MCP-specific metadata, or as a dedicated mapping file that reads OpenAPI with selectors and emits MCP artifacts. Either way, it should be versioned and reviewed. The same OpenAPI contract plus the same projection should produce the same MCP surface.
+- **Stable context.** A spec with 200 operations produces 200 tools. With Codemode, the model's system prompt stays the same size whether it is talking to one server or ten; tool schemas are fetched on demand.
+- **Search matches how specs are written.** OpenAPI operation summaries and descriptions are exactly the text a BM25-style `searchTools()` query matches well. The contract's own documentation becomes the index.
+- **Batching is free.** A codemode script can run the equivalent of `GET /banks` and `GET /banks/{id}` in one pass with `Promise.allSettled()`, then hand the model only the filtered result. Multi-step workflows that would take five turns of tool calls collapse into one script.
+- **Typed, verifiable calls.** Tool declarations carry TypeScript signatures, so generated calls are checkable rather than free-form.
 
-Then `mcpdesc` becomes the downstream contract for AI tooling. It describes tools, resources, prompts, transports, security, and server metadata in a static document that agents, clients, catalogs, linters, and conformance checks can consume.
+Discovery stops being a context-management problem and becomes a search problem — and the spec's summaries and descriptions are already the index.
 
-## The workflow I want
-
-The better workflow is straightforward:
+## The workflow
 
 1. Treat OpenAPI as the contract.
-2. Add an MCP projection layer, using OpenAPI overlays or a dedicated mapping file where that fits the toolchain.
-3. Generate candidate MCP tools from operations and schemas.
-4. Curate names, descriptions, exposed operations, policies, and response shapes.
-5. Emit `mcpdesc` for the curated MCP server.
-6. Use `mcpdesc` to help AI tooling discover the server, choose tools, form calls, and validate behavior.
-7. Keep the generated surface in sync as the API evolves.
+2. Generate candidate MCP tools from operations and schemas.
+3. Curate names, descriptions, exposed operations, policies, and response shapes.
+4. Let the agent discover and call tools through code mode: search the catalog to find them, load one tool's declaration on demand, batch and filter with scripts.
+5. Keep the generated surface in sync as the API evolves.
+
+[Enframe](https://github.com/erwinkramer/enframe) takes this further: it is a drop-in sidecar that wraps any OpenAPI spec into a live MCP server, so step 2 and step 5 collapse into "point it at the spec." No hand-rolled adapter, no repo of glue code, no drift between the spec and the tools — when the OpenAPI document changes, the MCP surface changes with it.
 
 ## The default
 
-OpenAPI and MCP are not rivals. OpenAPI describes what the service can do. MCP gives agents a practical way to use it.
+OpenAPI and MCP are not rivals. OpenAPI describes what the service can do. MCP gives agents a practical way to use it. Code mode gives agents a practical way to find it.
 
-Put them together and you get a maintainable bridge from existing APIs to agent-native workflows: contract first, generated where precision matters, curated where experience and safety matter, and described with `mcpdesc` so the agent-facing contract can be reviewed before generated code becomes the only record of intent.
+Put them together and you get a maintainable bridge from existing APIs to agent-native workflows: contract first, generated where precision matters, curated where experience and safety matter, and discovered at runtime so the agent-facing surface can grow without drowning the model's context.
