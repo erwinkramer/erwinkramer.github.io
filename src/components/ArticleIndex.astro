@@ -1,0 +1,30 @@
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { articleDateFormatter, getArticles } from '../articles';
+
+const articles = await getArticles();
+---
+
+<section class="article-index" aria-label="All articles">
+  <p class="article-index-summary">All Guanchen articles, sorted by date.</p>
+  <CardGrid>
+    {articles.map((article) => (
+      <LinkCard
+        href={`/${article.id}/`}
+        title={article.data.title}
+        description={`<small class="publication-date">Updated ${articleDateFormatter.format(article.data.date)}</small> - ${article.data.description ?? 'Read the Guanchen article.'}`}
+      />
+    ))}
+  </CardGrid>
+</section>
+
+<style>
+  .article-index {
+    margin-block-start: 1.75rem;
+  }
+
+  .article-index-summary {
+    margin-block: 0 1rem;
+    color: var(--sl-color-gray-2);
+  }
+</style>

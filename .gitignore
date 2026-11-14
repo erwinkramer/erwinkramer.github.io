@@ -1,0 +1,10 @@
+node_modules/
+tests/
+.nvmrc
+.prettierrc.js
+*.DS_Store
+dist/
+.astro/
+dev-server*
+.playwright-cli/*
+preview-server*

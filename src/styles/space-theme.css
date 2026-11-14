@@ -1,0 +1,313 @@
+/* Self-hosted Instrument Sans (variable, latin + latin-ext subsets).
+   The latin subset is preloaded in astro.config.mjs so text paints with the
+   real font from the first frame instead of flashing to the fallback. The
+   latin-ext subset is NOT preloaded: its unicode-range above makes it load
+   lazily, only if text actually needs those characters. */
+@font-face {
+  font-family: 'Instrument Sans Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url('/fonts/instrument-sans-latin.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: 'Instrument Sans Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url('/fonts/instrument-sans-latin-ext.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+:root {
+  --sl-font-family: 'Instrument Sans Variable', 'Instrument Sans', -apple-system, 'Segoe UI', sans-serif;
+  /* Shared body-text size (15px) for both the homepage body and the article
+     prose, so the two always read at the same scale. */
+  --gc-body-size: 0.9375rem;
+  --sl-color-white: #fafafa;
+  --sl-color-gray-1: var(--sl-color-white);
+  --sl-color-gray-2: #a1a1aa;
+  --sl-color-gray-3: #ffffff88;
+  --sl-color-gray-4: #3f3f46;
+  --sl-color-gray-5: #2c2c30;
+  --sl-color-gray-6: #18181b;
+  --sl-color-black: #09090b;
+  --sl-color-accent-low: var(--sl-color-gray-5);
+  --sl-color-accent: var(--sl-color-white);
+  --sl-color-accent-high: var(--sl-color-white);
+  --sl-color-text: var(--sl-color-gray-2);
+  --sl-color-text-accent: var(--sl-color-white);
+  --sl-color-text-invert: var(--sl-color-black);
+  /* Subtle black: barely lifted off #000 so the page still reads black,
+     but not pure black — the hero photo fades into this tone. */
+  --sl-color-bg: #090808;
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+  --sl-color-bg-inline-code: var(--sl-color-gray-6);
+  --sl-color-bg-accent: var(--sl-color-white);
+  --sl-color-hairline: #ffffff29;
+  --sl-color-hairline-shade: var(--sl-color-gray-6);
+  --space-theme-header-control-size: 2.5rem;
+  --space-theme-header-control-radius: 0.5rem;
+  --space-theme-header-control-gap: 0.75rem;
+  --space-theme-header-control-border: var(--sl-color-gray-4);
+  --space-theme-header-control-border-hover: var(--sl-color-gray-2);
+  --space-theme-menu-button-inset-inline-end: 0.5rem;
+  --sl-menu-button-size: 2.5rem;
+  --space-theme-glass-bg: rgb(9 9 11 / 0.45);
+  --space-theme-glass-shadow: 0 10px 34px rgb(0 0 0 / 0.16);
+  --space-theme-glass-blur: 12px;
+  /* Denser glass variants for the mobile menu states. */
+  --space-theme-glass-bg-menu: rgb(9 9 11 / 0.88);
+  --space-theme-glass-bg-sidebar: rgb(9 9 11 / 0.94);
+  --space-theme-glass-shadow-strong: 0 10px 34px rgb(0 0 0 / 0.28);
+  --space-theme-selection: #6bc1fe;
+}
+
+html {
+  background: var(--sl-color-bg);
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  font-family: var(--sl-font-family);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background: var(--sl-color-bg);
+  contain: paint;
+  will-change: transform;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+}
+
+.page > header.header,
+.sidebar-pane {
+  background: transparent;
+}
+
+.page > header.header {
+  border-bottom: 1px solid var(--sl-color-hairline);
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+mobile-starlight-toc nav {
+  background: transparent;
+  border-top-color: transparent;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+mobile-starlight-toc summary {
+  border-bottom-color: transparent;
+  transition: border-color 160ms ease;
+}
+
+/* Same glass treatment for the header and the mobile TOC nav. */
+:root[data-scrolled] .page > header.header,
+:root[data-scrolled] mobile-starlight-toc nav {
+  background-color: var(--space-theme-glass-bg);
+  backdrop-filter: blur(var(--space-theme-glass-blur));
+  box-shadow: var(--space-theme-glass-shadow);
+}
+
+:root[data-scrolled] mobile-starlight-toc nav {
+  border-top-color: var(--sl-color-hairline);
+}
+
+:root[data-scrolled] mobile-starlight-toc summary {
+  border-bottom-color: var(--sl-color-hairline);
+}
+
+/* Starlight v0.42: the mobile menu is a Popover API — the toggle is a plain
+   `.sl-menu-button` button (no `starlight-menu-button` element, no
+   `data-mobile-menu-expanded` body attribute). The open state is styled via
+   `:popover-open` / `body:has(...)`. */
+body:has(#starlight__sidebar:popover-open) .page > header.header {
+  background-color: var(--space-theme-glass-bg-menu);
+  backdrop-filter: blur(var(--space-theme-glass-blur));
+  box-shadow: var(--space-theme-glass-shadow-strong);
+}
+
+.sl-menu-button {
+  inset-inline-end: var(--space-theme-menu-button-inset-inline-end);
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--space-theme-header-control-border);
+  border-radius: var(--space-theme-header-control-radius);
+  padding: 0;
+  line-height: 1;
+  background-color: var(--sl-color-black);
+  box-shadow: none;
+  color: var(--sl-color-gray-2);
+}
+
+.sl-menu-button:hover {
+  border-color: var(--space-theme-header-control-border-hover);
+  color: var(--sl-color-white);
+}
+
+.site-title {
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  color: #fff7df;
+  font-size: var(--sl-text-h4);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-title img {
+  flex: 0 0 auto;
+  width: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+  /* Explicit height: `aspect-ratio` alone can't size this img — as a flex
+     item with intrinsic dimensions, the browser resolves its auto cross-size
+     to the intrinsic height instead of the specified ratio. */
+  height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+  object-fit: cover;
+  filter: drop-shadow(0 0 12px rgb(161 132 82 / 0.14));
+}
+
+.site-title span {
+  overflow: hidden;
+  color: var(--sl-color-white);
+}
+
+.sidebar-pane {
+  box-shadow: inset -1px 0 0 var(--sl-color-hairline);
+}
+
+@media (max-width: 49.999rem) {
+  :root {
+    --space-theme-header-control-size: 2.25rem;
+    --sl-menu-button-size: 2.25rem;
+    --space-theme-header-control-radius: 0.425rem;
+    --space-theme-header-control-gap: 0.3rem;
+    --space-theme-glass-blur: 10px;
+  }
+
+  [data-has-sidebar] .page > header.header {
+    padding-inline-end: calc(
+      var(--sl-menu-button-size) + var(--space-theme-menu-button-inset-inline-end) + var(--space-theme-header-control-gap)
+    );
+  }
+
+  body:has(#starlight__sidebar:popover-open) .sidebar-pane {
+    background-color: var(--space-theme-glass-bg-sidebar);
+    backdrop-filter: blur(var(--space-theme-glass-blur));
+  }
+}
+
+@media (max-width: 34rem) {
+  :root {
+    --space-theme-header-control-gap: 0.2rem;
+  }
+
+  .site-title {
+    gap: 0.55rem;
+  }
+}
+
+/* Article body shares the homepage body size (--gc-body-size) so the two
+   read at the same scale. Headings and code keep their own sizes. */
+.sl-markdown-content {
+  font-size: var(--gc-body-size);
+}
+
+main > .content-panel:first-of-type {
+  padding-block: 1rem 0.75rem;
+}
+
+main > .content-panel + .content-panel {
+  border-top: 0;
+}
+
+@media (min-width: 72rem) {
+  .right-sidebar {
+    top: var(--sl-nav-height);
+    height: calc(100vh - var(--sl-nav-height));
+    height: calc(100svh - var(--sl-nav-height));
+    padding-top: 0;
+  }
+}
+
+/* Gradient fade on in-article headings. Scoped to .sl-markdown-content so
+   the page-title h1 (rendered outside it) stays plain white. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(45deg, rgb(255 255 255) 30%, rgb(255 255 255 / 0.38));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Site-wide heading scale: weights lighten as the level drops so every
+   page reads with the same hierarchy. The page-title h1 is rendered by
+   Starlight outside .sl-markdown-content, so it gets the h1 scale from
+   the content-panel selector, in plain white. */
+main > .content-panel:first-of-type h1 {
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--sl-color-white);
+}
+
+.sl-markdown-content h2 {
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.sl-markdown-content h3 {
+  font-size: 1.375rem;
+  font-weight: 400;
+}
+
+.sl-markdown-content h4 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.publication-date {
+  color: color-mix(in srgb, var(--sl-color-white) 68%, transparent);
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--space-theme-selection), transparent 50%);
+}
+
+/* Cross-document view transitions: shorten the built-in navigation
+   animation (default is ~0.5s) so page changes feel snappy. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.2s;
+}

@@ -1,0 +1,200 @@
+---
+import config from 'virtual:starlight/user-config';
+
+import { Icon } from '@astrojs/starlight/components';
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
+---
+
+<div class="header">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle />
+  </div>
+  <div class="sl-flex print:hidden right-group">
+    <a class="control schedule-link" href={scheduleUrl} target="_blank" rel="noreferrer" aria-label="Book a Google Meet appointment">
+      <Icon name="notes" class="schedule-icon" />
+      <span>Let's Talk</span>
+    </a>
+    {shouldRenderSearch && <Search />}
+    <a class="control icon-link feed-link" href="/atom.xml" rel="alternate" type="application/atom+xml" aria-label="Atom feed">
+      <Icon name="rss" />
+    </a>
+    <div class="social-icons">
+      <SocialIcons />
+    </div>
+  </div>
+</div>
+
+<style>
+  @layer starlight.core {
+    .header {
+      display: flex;
+      gap: var(--sl-nav-gap);
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .title-wrapper {
+      overflow: clip;
+      padding: 0.25rem;
+      margin: -0.25rem;
+      min-width: 0;
+    }
+
+    .right-group,
+    .social-icons {
+      align-items: center;
+    }
+
+    .right-group {
+      --header-control-border: var(--space-theme-header-control-border);
+      --header-control-border-hover: var(--space-theme-header-control-border-hover);
+      --header-control-font-weight: 400;
+
+      gap: 0.75rem;
+      min-width: 0;
+      margin-inline-start: auto;
+    }
+
+    .right-group :global(button[data-open-modal]) {
+      border-color: var(--header-control-border);
+      font-weight: var(--header-control-font-weight);
+    }
+
+    .right-group :global(button[data-open-modal]:hover) {
+      border-color: var(--header-control-border-hover);
+    }
+
+    .social-icons {
+      display: inline-flex;
+      gap: 0;
+    }
+
+    .control,
+    .social-icons :global(a) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      text-decoration: none;
+    }
+
+    .control,
+    .social-icons :global(a),
+    .right-group :global(button[data-open-modal]) {
+      box-sizing: border-box;
+      height: var(--space-theme-header-control-size);
+      border: 1px solid var(--header-control-border);
+      border-radius: var(--space-theme-header-control-radius);
+    }
+
+    .control:hover,
+    .social-icons :global(a:hover),
+    .right-group :global(button[data-open-modal]:hover) {
+      border-color: var(--header-control-border-hover);
+    }
+
+    .schedule-link {
+      flex: 0 0 auto;
+      gap: 0.5rem;
+      padding-inline-start: 0.75rem;
+      padding-inline-end: 0.5rem;
+      background-color: var(--sl-color-black);
+      color: var(--sl-color-gray-2);
+      font-size: var(--sl-text-sm);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .schedule-link:hover {
+      color: var(--sl-color-white);
+    }
+
+    .icon-link,
+    .social-icons :global(a) {
+      flex: 0 0 var(--space-theme-header-control-size);
+      width: var(--space-theme-header-control-size);
+      padding: 0;
+      background-color: var(--sl-color-black);
+      color: var(--sl-color-gray-2);
+    }
+
+    .icon-link:hover,
+    .social-icons :global(a:hover),
+    .right-group :global(button[data-open-modal]:hover) {
+      color: var(--sl-color-white);
+    }
+
+    @media (max-width: 49.999rem) {
+      .right-group {
+        gap: var(--space-theme-header-control-gap);
+      }
+
+      .feed-link,
+      .social-icons {
+        display: none;
+      }
+
+      .schedule-link {
+        gap: 0.375rem;
+        padding-inline-start: 0.625rem;
+        padding-inline-end: 0.45rem;
+        font-size: var(--sl-text-xs);
+      }
+
+      .right-group :global(button[data-open-modal]) {
+        width: var(--space-theme-header-control-size);
+        justify-content: center;
+        padding: 0;
+        background-color: var(--sl-color-black);
+        color: var(--sl-color-gray-2);
+        font-size: var(--sl-text-base);
+      }
+    }
+
+    @media (max-width: 34rem) {
+      .header {
+        --sl-nav-gap: 0.25rem;
+      }
+
+      .title-wrapper {
+        max-width: 10.25rem;
+      }
+    }
+
+    @media (max-width: 22rem) {
+      .title-wrapper {
+        max-width: 2.5rem;
+      }
+
+      .title-wrapper :global(.site-title span) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+
+      .schedule-link {
+        width: var(--space-theme-header-control-size);
+        padding: 0;
+      }
+
+      .schedule-link span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+    }
+  }
+</style>
