@@ -326,7 +326,7 @@ html[data-has-sidebar] {
 }
 
 @media (min-width: 50rem) {
-  html[data-has-sidebar] {
+  :root[data-has-sidebar] {
     --sl-content-inline-start: 0rem;
   }
 
