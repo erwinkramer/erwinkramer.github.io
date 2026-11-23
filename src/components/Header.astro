@@ -7,7 +7,7 @@ import SiteTitle from 'virtual:starlight/components/SiteTitle';
 import SocialIcons from 'virtual:starlight/components/SocialIcons';
 
 const shouldRenderSearch =
-  config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+  config.pagefind || config.components?.Search !== '@astrojs/starlight/components/Search.astro';
 const scheduleUrl = 'https://calendar.app.google/F3jMVPhtYin2By8T9';
 ---
 

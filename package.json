@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/starlight": "0.43.1",
-    "astro": "7.4.12",
+    "astro": "7.4.13",
     "astro-mermaid": "2.2.0",
     "astrojs-atom": "4.0.123",
     "mermaid": "12.3.0",
@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
-    "typescript": "^6.0.3"
+    "typescript": "6.0.3"
   }
 }
